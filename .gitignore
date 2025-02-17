@@ -1,0 +1,87 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Java / Spring Boot files
+target/
+*.jar
+*.war
+*.iml
+*.class
+
+# IDE / Editor-specific files
+.idea/
+*.vscode/
+*.DS_Store
+*.log
+
+# Dependency directories
+/node_modules/
+dist/
+out/
+
+# Maven and Gradle build files
+.mvn/
+.gradle/
+build/
+
+# Environment and Config Files (Sensitive Data)
+.env
+*.env
+config/*.env
+application.properties
+application.yml
+application-dev.properties
+application-prod.properties
+
+# Database Credentials and Local Data
+*.db
+*.sqlite
+*.pgpass  # PostgreSQL password file
+dump.sql  # Avoid committing database dumps
+
+# OS-specific files
+Thumbs.db
+.DS_Store
+
+# Logs and Temp files
+logs/
+*.log
+*.swp
+*.swo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Frontend Build Files
+/public/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto App</title>
+</head>
+<body>
+<h1>Enter Your Name</h1>
+<input type="text" id="nameInput" placeholder="Enter name">
+<button onclick="submitName()">Submit</button>
+
+<h2>Name stored in database:</h2>
+<p id="storedName">No name found</p>
+
+<script>
+        async function submitName() {
+           let name = document.getElementById("nameInput").value;
+
+           const response = await fetch("http://localhost:8080/api/user", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name })
+           });
+
+
+            if (response.ok) {
+                const storedName = await response.json();
+                document.getElementById("storedName").innerText = storedName.name;
+                document.getElementById("nameInput").value = "";
+            }
+        }
+
+        async function fetchName() {
+            const response = await fetch("http://localhost:8080/api/user");
+            let data = await response.json();
+            document.getElementById("storedName").innerText = data.name;
+        }
+
+        fetchName();
+    </script>
+</body>
+</html>

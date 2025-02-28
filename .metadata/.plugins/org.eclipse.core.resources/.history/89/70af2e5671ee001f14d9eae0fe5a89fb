@@ -1,0 +1,5 @@
+spring.application.name=crypto_maximization_app
+spring.datasource.url=jdbc:postgre://localhost:5432/testdb
+spring.datasource.username=postgres
+spring.datasource.password=83matt74
+spring.jpa.hibernate.ddl-auto=update

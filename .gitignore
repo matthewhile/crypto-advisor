@@ -86,3 +86,9 @@ build/
 ### VS Code ###
 .vscode/
 /bin/
+
+### Eclipse ###
+.metadata/
+.classpath
+.project
+.settings/

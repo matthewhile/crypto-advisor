@@ -1,13 +1,9 @@
 package com.cryptomaximizer.crypto_maximization_app.Controller;
 
-import com.cryptomaximizer.crypto_maximization_app.Model.UserDTO;
 import com.cryptomaximizer.crypto_maximization_app.Model.UserEntity;
 import com.cryptomaximizer.crypto_maximization_app.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,15 +24,5 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
-
-    // Login user and authenticate
-//    @PostMapping("/login")
-//    public String login(@RequestBody UserDTO credentials) {
-//        Authentication authentication = authenticationProvider.authenticate(
-//                new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword())
-//        );
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        return "Login successful";
-//    }
 
 }

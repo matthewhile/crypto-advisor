@@ -1,8 +1,8 @@
 // Javascript register.html
 
-document.getElementById("submit").addEventListener('click', (event) => {
-    event.preventDefault(); // Prevent default form submission
+document.getElementById("submit").addEventListener('click', () => {
 
+    debugger;
         const username = document.getElementById('username').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;

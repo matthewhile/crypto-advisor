@@ -22,13 +22,13 @@
   text-align: center;
 }
 
-#loginForm h1 {
-  margin-bottom: 20px;
+#login-form h1 {
+  margin-bottom: 60px;
 }
 
 #login-page .input-box {
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 #login-page .input-box input {
@@ -53,8 +53,8 @@
   cursor: pointer;
 }
 
-#register-link {
-  margin-top: 10px;
+#login-form .register-link {
+  margin-top: 40px;
   text-align: center;
 }
 
@@ -69,7 +69,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 80vh;
   background-color: #f8f8f8;
 }
 
@@ -106,6 +106,7 @@
 #register-form .inputbox ion-icon {
   margin-right: 10px; 
   color: #888;
+  margin-bottom: 8px;
 }
 
 #register-form .inputbox label {
@@ -114,6 +115,12 @@
   font-weight: bold;
   margin-bottom: 5px;
   color: #333;
+}
+
+#register-form .label-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px; /
 }
 
 #register-form #submit {

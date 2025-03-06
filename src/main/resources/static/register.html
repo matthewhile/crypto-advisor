@@ -1,51 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Form</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Signup Form</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    </head>
 
-<body id="register-page">
-    <section>
-        <form id="register-form" action="/api/register" method="post">
-            <h1>Sign Up</h1>
-            
-            <div class="inputbox">
-                <label for="username">Name</label>
-                <ion-icon name="person-outline"></ion-icon>
-                <input type="text" id="username" name="username" required>
-            </div>
-            
-            <div class="inputbox">
-                <label for="email">Email</label>
-                <ion-icon name="mail-outline"></ion-icon>
-                <input type="email" id="email" name="email" required>
-            </div>
-            
-            <div class="inputbox">
-                <label for="password">Password</label>
-                <ion-icon name="lock-closed-outline"></ion-icon>
-                <input type="password" id="password" name="password" required>
-            </div>  
-            
-            <div class="inputbox">
-                <label for="passwordcon">Confirm Password</label>
-                <ion-icon name="lock-closed-outline"></ion-icon>
-                <input type="password" id="passwordcon" name="passwordcon" required>
-            </div>  
-            
-            <button id="submit" type="submit">Sign Up</button>
+    <body id="register-page">
+        <section>
+            <form id="register-form" action="/api/register" method="post">
+                <h1>Sign Up</h1>
 
-            <div class="register">
-                <p>Already have an account? <a href="/login.html">Log In</a></p>
-            </div>
-        </form>
-    </section>
-</body>
+                <div class="inputbox">
+                    <div class="label-icon">
+                        <label>Name</label>
+                        <ion-icon name="person-outline"></ion-icon>
+                    </div>
+                    <input type="text" id="username" name="username" required>
+                </div>
 
+                <div class="inputbox">
+                    <div class="label-icon">
+                        <label for="email">Email</label>
+                        <ion-icon name="mail-outline"></ion-icon></span>
+                    </div>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="inputbox">
+                    <div class="label-icon">
+                        <label for="password">Password</label>
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                    </div>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="inputbox">
+                    <div class="label-icon">
+                        <label for="passwordcon">Confirm Password</label>
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                    </div>
+                    <input type="password" id="passwordcon" name="passwordcon" required>
+                </div>
+
+                <button id="submit" type="button">Sign Up</button>
+
+                <div class="register">
+                    <p>Already have an account? <a href="/login.html">Log In</a></p>
+                </div>
+            </form>
+            <script src="js/register.js"></script>
+        </section>
+    </body>
 </html>

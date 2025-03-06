@@ -1,6 +1,6 @@
 // Javascript for login.html
 
- document.getElementById("loginForm").addEventListener("submit", function(event) {
+ document.getElementById("login-form").addEventListener("submit", function(event) {
             event.preventDefault();
             debugger;
 

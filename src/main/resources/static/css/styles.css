@@ -65,65 +65,65 @@ body {
 /*      Expense Form / Table     */
 /* ============================= */
 
-#user-expenses {
+#userExpenses {
   max-width: 600px;
-  margin-left: auto;
+  margin-right: auto;
   /* margin: 20px auto;
   padding: 20px; */
 }
 
-#expense-form {
+#expenseForm {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 40px;
 }
 
-#expense-form div {
+#expenseForm div {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-#expense-form input {
+#expenseForm input {
   flex: 1;
   padding: 5px;
   margin-left: 10px;
 }
 
-#expense-table {
+#expenseTable {
   width: 100%;
   margin-top: 15px;
   border-collapse: collapse;
 }
 
-#expense-table th, 
-#expense-table td {
+#expenseTable th, 
+#expenseTable td {
   padding: 10px;
   border: 1px solid #ccc;
   text-align: left;
 }
 
-#expense-table thead {
+#expenseTable thead {
   font-weight: bold;
   background-color: #f8f9fa;
 }
 
-#expense-table tbody tr:hover {
+#expenseTable tbody tr:hover {
   background-color: #f1f1f1;
 }
 
-#user-expenses div:last-child {
+#userExpenses div:last-child {
   font-size: 18px;
   font-weight: bold;
   margin-top: 10px;
 }
 
-#add-expense-btn {
+#addExpenseBtn {
   margin-left: auto
 }
 
-#expense-table .edit-btn, .delete-btn {
+#expenseTable .edit-btn, .delete-btn {
   border: none;
   background: none;
   cursor: pointer;
@@ -131,11 +131,11 @@ body {
   margin-right: 5px;
 }
 
-#expense-table .edit-btn i {
+#expenseTable .edit-btn i {
   color: blue; 
 }
 
-#expense-table .delete-btn i {
+#expenseTable .delete-btn i {
   color: red; 
 }
 
@@ -143,20 +143,39 @@ body {
 /*      NET INCOME FORM          */
 /* ============================= */
 
-/* #net-income {
-  margin-right: 40px;
-} */
+#netIncome {
+  margin-left: 40px;
+}
 
-#net-income-form {
+#netIncomeForm {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 40px;
 }
 
-#net-income label {
+#netIncomeForm .form-group {
+  margin-bottom: 20px;
+}
+
+
+#netIncome label {
   margin-bottom: 10px;
 }
+
+#netIncomeForm select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+}
+
+#netIncomeBtn {
+  margin-left: auto;
+}
+
 
 
 /* ============================= */

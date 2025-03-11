@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <title>Net Income</title>
         <script src="js/navbar.js" defer></script>
+        <script src="js/income.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="css/styles.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -16,33 +18,21 @@
         </div>
         <div class="container">
             <div class="row">
-                <div id="net-income" class="col-md-6">
-                    <h4>Net Income:</h4>
-                    <form id="net-income-form">
-                        <div class="form-group">
-                            <label>Annual Income:</label>
-                            <input type="number" class="form-control" id="gross-income" placeholder="Enter Income">
-                          </div>
-                    </form>
-                </div>
-
-<!-- ------------------------------------------------------------------------------------ -->
-
-                <div id="user-expenses" class="col-md-6">
+                <div id="userExpenses" class="col-md-6">
                     <h4>Monthly Expense Categories:</h4>
-                    <form id="expense-form" class="mb-3">
+                    <form id="expenseForm" class="mb-3">
                         <div class="input-group mb-2">
                             <span class="input-group-text">Category:</span>
-                            <input id="category-name" type="text" class="form-control">
+                            <input id="categoryName" type="text" class="form-control">
                         </div>
                         <div class="input-group mb-2">
                             <span class="input-group-text">Amount:</span>
-                            <input id="expense-amount" type="number" class="form-control">
+                            <input id="expenseAmount" type="number" class="form-control">
                         </div>
-                        <button id="add-expense-btn" type="button" class="btn btn-primary">Add</button>
+                        <button id="addExpenseBtn" type="button" class="btn btn-primary">Add</button>
                     </form>
                     <div class="h5">Total: $890</div>
-                    <table id="expense-table" class="table table-bordered">
+                    <table id="expenseTable" class="table table-bordered">
                         <thead class="table-light">
                             <tr>
                                 <th>Expense Category</th>
@@ -55,10 +45,10 @@
                                 <td>Food</td>
                                 <td>$250</td>
                                 <td>
-                                    <button id="edit-expense-btn" class="btn edit-btn">
+                                    <button id="editExpenseBtn" class="btn edit-btn">
                                         <i class="fa-solid fa-pencil"></i>
                                     </button>
-                                    <button id="delete-expense-btn" class="btn delete-btn">
+                                    <button id="deleteExpenseBtn" class="btn delete-btn">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </td>
@@ -68,10 +58,10 @@
                                 <td>Bills</td>
                                 <td>$500</td>
                                 <td>
-                                    <button id="edit-expense-btn" class="btn edit-btn">
+                                    <button id="editExpenseBtn" class="btn edit-btn">
                                         <i class="fa-solid fa-pencil"></i>
                                     </button>
-                                    <button id="delete-expense-btn" class="btn delete-btn">
+                                    <button id="deleteExpenseBtn" class="btn delete-btn">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </td>
@@ -80,10 +70,10 @@
                                 <td>Subscriptions</td>
                                 <td>$140</td>
                                 <td>
-                                    <button id="edit-expense-btn" class="btn edit-btn">
+                                    <button id="editExpenseBtn" class="btn edit-btn">
                                         <i class="fa-solid fa-pencil"></i>
                                     </button>
-                                    <button id="delete-expense-btn" class="btn delete-btn">
+                                    <button id="deleteExpenseBtn" class="btn delete-btn">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
                                 </td>
@@ -91,7 +81,66 @@
                         </tbody>
                     </table>
                 </div>
+                
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+                
+                <div id="netIncome" class="col-md-6">
+                    <h4>Net Income:</h4>
+                    <form id="netIncomeForm">
+                        <div class="form-group">
+                            <label for="grossIncome">Annual Income:</label>
+                            <input type="number" class="form-control" id="grossIncome" placeholder="Enter Income">
+                        </div>  
+                        <div class="form-group">
+                            <label for="states">State:</label>
+                            <select id="states">
+                                <option value="">-- Select a State --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="filing-status">Filing Status:</label>
+                            <select id="filingStatus">
+                                <option value="">-- Select a Status --</option>
+                                <option value="">Single</option>
+                                <option value="">Married Filing Jointly</option>
+                                <option value="">Married Filing Separately</option>
+                                <option value="">Head of Household</option>
+                                <option value="">Qualifying Widow(er)</option>
+                            </select>
+                        </div> 
+                        <button id="netIncomeBtn" type="button" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             </div>
-        </div>          
+        </div>
+
+        <!-- Button trigger modal -->                 
+            <!-- <button id="editExpenseBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#expenseModal">
+                Edit
+            </button> -->
+
+        <!-- Edit Expense Modal -->
+         
+        <!-- <div class="modal fade" id="expenseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Expense</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>           -->
     </body>
 </html>

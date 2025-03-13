@@ -146,6 +146,8 @@ body {
 
 #netIncome {
   margin-left: 40px;
+  /* border: 2px solid #000000;
+  border-radius: 5px; */
 }
 
 #netIncomeForm {
@@ -177,7 +179,93 @@ body {
   margin-left: auto;
 }
 
+/* ============================= */
+/*      PREFERENCES STYLES       */
+/* ============================= */
 
+.form-container {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* flex-direction: column; */
+  margin: auto;
+  gap: 10px;
+  margin-top: 40px;
+  width: 400px;
+  padding: 20px;
+  border: 2px solid #000000;
+  border-radius: 5px;
+
+  /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); */
+  /* text-align: center; */
+}
+
+#preferencesForm .form-group {
+  margin-bottom: 20px;
+}
+
+
+#preferencesForm label {
+  margin-bottom: 10px;
+}
+
+#preferencesForm select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+}
+
+#preferenceFormBtn {
+  margin-left: auto;
+}
+
+/* #preferences .content{
+	font-family: "Times New Roman", Times, serif;
+}
+
+#Time {
+	text-align: center;
+	padding: 10px;
+	font-family: "Times New Roman", Times, serif;
+}
+
+
+#Tolerance {
+	text-align: center;
+	padding: 10px;
+	font-family: "Times New Roman", Times, serif;
+}
+
+
+#preferences #Amount {
+	text-align: center;
+	padding: 10px;
+	font-family: "Times New Roman", Times, serif;
+} */
+
+
+/* ============================= */
+/*      RECOMMENDATIONS STYLES   */
+/* ============================= */
+
+.card {
+  width: 50rem;
+  margin: auto;
+  margin-top: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.card a {
+  text-decoration: none;
+}
 
 /* ============================= */
 /*        LOGIN PAGE STYLES      */
@@ -335,33 +423,7 @@ body {
   
 }
 
-/* ============================= */
-/*      PREFERENCES STYLES       */
-/* ============================= */
 
-#preferences .content{
-	font-family: "Times New Roman", Times, serif;
-}
-
-#Time {
-	text-align: center;
-	padding: 10px;
-	font-family: "Times New Roman", Times, serif;
-}
-
-
-#Tolerance {
-	text-align: center;
-	padding: 10px;
-	font-family: "Times New Roman", Times, serif;
-}
-
-
-#preferences #Amount {
-	text-align: center;
-	padding: 10px;
-	font-family: "Times New Roman", Times, serif;
-}
 
 
 

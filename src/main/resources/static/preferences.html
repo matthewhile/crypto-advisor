@@ -11,39 +11,47 @@
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     	
     </head>
-    <body id = "preferences">
+    <body id="preferences">
     
         <div id="navbar"></div>
         
         <div class="content">
-            <h1 class= "text-center"> User Preferences Page</h1>
+            <h1 class="text-center"> User Preferences Page</h1>
         </div>
-        
 
-        <label id="Risk" for="Risk Tolerance">Risk Tolerance:</label>
-
-		<select name="Risk Tolerance" id="Tolerance">
-  			<option value="High">High</option>
-  			<option value="Medium">Medium</option>
-  			<option value="Low">Low</option>
-		</select>
-		
-		
-		
-		<label id ="Invest" for ="Time to Invest">Time to Invest:</label>
-		<select name="Time to Invest" id="Time">
-  			<option value="0-1 Days">0-1 Days</option>
-  			<option value="2-4 Days">2-4 Days</option>
-  			<option value="5-7 Days">5-7 Days</option>
-  			<option value="1-2 Weeks">1-2 Weeks</option>
-  			<option value="2-4 Weeks">2-4 Weeks</option>
-  			
-		</select>
-		
-		
-		<div class="input-box" id="Amount">
-                    <input id="Amount" type="number" placeholder="Money to Invest" required>
-                 </div>
+		<div class="form-container">			
+			
+			<form id="preferencesForm">			
+				<div class="form-group">
+					<label for="riskTolerance">Risk Tolerance:</label>
+					<select id="riskTolerance">
+						<option value="0">-- Select a Risk Level --</option>
+						<option value="High">High</option>
+						<option value="Medium">Medium</option>
+						<option value="Low">Low</option>
+					</select>
+				</div>						
+				<div class="form-group">
+					<label for ="timeHeld">Time to Invest:</label>
+					<select id="timeHeld">
+						<!-- value attributes are set 1 - 5 for now, will be changed for scoring algorithm -->
+						<option value="0">-- Select a Time Frame --</option>
+						<option value="">Less than 1 week</option>
+						<option value="">1 week to 1 month</option>
+						<option value="">1 to 6 months</option>
+						<option value="">6 months to 1 year</option>
+						<option value="">1 to 5 years</option>
+						<option value="">5+ years</option>					
+					</select>
+				</div>	
+				<div class="form-group">
+					<label for="investmentAmount">Amount to Invest:</label>
+					<input id="investmentAmount" type="number" class="form-control" placeholder="Enter amount">				
+				</div>
+	
+				<button id="preferenceFormBtn" type="button" class="btn btn-primary">Submit</button>			
+			</form>
+		</div>
                 
     </body>
 </html>

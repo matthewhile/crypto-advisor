@@ -451,12 +451,83 @@ body {
 
 
 
+/* ================================ */
+/*       CryptoRecommendation Styles  */
+/* ================================ */
+
+       .crypto-card {
+           margin-bottom: 20px;
+       }
+       .crypto-chart {
+           height: 250px;
+       }
+	   h1.text-center {
+	       margin-top: 10px;
+	   }
+	   
+/* ============================= */
+/*       Index Styles            */
+/* ============================= */
 
 
 
-
-
-
+        
+        .dashboard-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            align-items: flex-start;
+        }
+        .left-section, .middle-section, .right-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 30%;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            margin: 10px;
+        }
+        .middle-section {
+            width: 35%;
+            text-align: center;
+        }
+        .section-header {
+            text-align: center;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .crypto-box {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .crypto-box canvas {
+            width: 100% !important;
+            height: 200px !important;
+        }
+        .preferences-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-top: 20px;
+        }
+        .preferences-box a {
+            display: block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
 
 
 

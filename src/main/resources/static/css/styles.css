@@ -73,23 +73,34 @@ body {
   padding: 20px; */
 }
 
-#expenseForm {
+#addExpenseForm {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 40px;
 }
 
-#expenseForm div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+#addExpenseForm .form-group {
+  margin-bottom: 20px;
 }
 
-#expenseForm input {
-  flex: 1;
-  padding: 5px;
-  margin-left: 10px;
+#addExpenseForm label {
+  margin-bottom: 10px;
+}
+
+#editExpenseForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+#editExpenseForm .form-group {
+  margin-bottom: 20px;
+}
+
+#editExpenseForm label {
+  margin-bottom: 10px;
 }
 
 #expenseTable {
@@ -140,6 +151,16 @@ body {
   color: red; 
 }
 
+#expenseModalCloseBtn {
+  color: red;
+  border-color: red;
+  background-color: white;
+}
+
+#saveEditExpenseBtn {
+  margin-left: auto;
+}
+
 /* ============================= */
 /*      NET INCOME FORM          */
 /* ============================= */
@@ -160,7 +181,6 @@ body {
 #netIncomeForm .form-group {
   margin-bottom: 20px;
 }
-
 
 #netIncome label {
   margin-bottom: 10px;
@@ -195,9 +215,11 @@ body {
   padding: 20px;
   border: 2px solid #000000;
   border-radius: 5px;
+}
 
-  /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); */
-  /* text-align: center; */
+.form-container h4{
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 #preferencesForm .form-group {
@@ -271,7 +293,7 @@ body {
 /*        LOGIN PAGE STYLES      */
 /* ============================= */
 
-#login-page {
+#loginPage {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -282,7 +304,7 @@ body {
   height: 70vh;
 }
 
-#login-form {
+#loginForm {
   width: 300px;
   padding: 20px;
   border: 1px solid #ccc;
@@ -291,30 +313,30 @@ body {
   text-align: center;
 }
 
-#login-form h1 {
+#loginForm h1 {
   margin-bottom: 60px;
 }
 
-#login-page .input-box {
+#loginPage .input-box {
   position: relative;
   margin-bottom: 25px;
 }
 
-#login-page .input-box input {
+#loginForm .input-box input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-#login-page .input-box i {
+#loginPage .input-box i {
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
 }
 
-#login-page .btn {
+#loginPage .btn {
   width: 100%;
   padding: 10px;
   border: none;
@@ -322,7 +344,7 @@ body {
   cursor: pointer;
 }
 
-#login-form .register-link {
+#loginForm .register-link {
   margin-top: 40px;
   text-align: center;
 }
@@ -331,7 +353,7 @@ body {
 /*       REGISTER PAGE STYLES    */
 /* ============================= */
 
-#register-page {
+#registerPage {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -342,7 +364,7 @@ body {
   background-color: #f8f8f8;
 }
 
-#register-form {
+#registerForm {
   width: 350px;
   padding: 30px;
   border-radius: 10px;
@@ -351,19 +373,19 @@ body {
   text-align: center;
 }
 
-#register-form h1 {
+#registerForm h1 {
   margin-bottom: 20px;
   font-size: 24px;
 }
 
-#register-form .inputbox {
+#registerForm .inputbox {
   position: relative;
   width: 100%;
   text-align: left;
   margin-bottom: 20px;
 }
 
-#register-form .inputbox input {
+#registerForm .inputbox input {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -372,13 +394,13 @@ body {
   font-size: 14px;
 }
 
-#register-form .inputbox ion-icon {
+#registerForm .inputbox ion-icon {
   margin-right: 10px; 
   color: #888;
   margin-bottom: 8px;
 }
 
-#register-form .inputbox label {
+#registerForm .inputbox label {
   display: block;
   font-size: 14px;
   font-weight: bold;
@@ -386,13 +408,13 @@ body {
   color: #333;
 }
 
-#register-form .label-icon {
+#registerForm .label-icon {
   display: flex;
   align-items: center;
   gap: 8px; /
 }
 
-#register-form #submit {
+#signUpBtn {
   width: 100%;
   padding: 12px;
   background-color: #4CAF50;
@@ -404,7 +426,7 @@ body {
   transition: 0.3s;
 }
 
-#register-form #submit:hover {
+#registerForm #submit:hover {
   background-color: #45a049;
 }
 

@@ -19,12 +19,12 @@
             <h1 class="text-center"> User Preferences Page</h1>
         </div>
 
-		<div class="form-container">			
-			
+		<div class="form-container">
+			<h4>My Preferences</h4>			
 			<form id="preferencesForm">			
 				<div class="form-group">
 					<label for="riskTolerance">Risk Tolerance:</label>
-					<select id="riskTolerance">
+					<select id="riskTolerance" required>
 						<option value="0">-- Select a Risk Level --</option>
 						<option value="High">High</option>
 						<option value="Medium">Medium</option>
@@ -33,8 +33,7 @@
 				</div>						
 				<div class="form-group">
 					<label for ="timeHeld">Time to Invest:</label>
-					<select id="timeHeld">
-						<!-- value attributes are set 1 - 5 for now, will be changed for scoring algorithm -->
+					<select id="timeHeld" required>
 						<option value="0">-- Select a Time Frame --</option>
 						<option value="">Less than 1 week</option>
 						<option value="">1 week to 1 month</option>
@@ -46,10 +45,10 @@
 				</div>	
 				<div class="form-group">
 					<label for="investmentAmount">Amount to Invest:</label>
-					<input id="investmentAmount" type="number" class="form-control" placeholder="Enter amount">				
+					<input id="investmentAmount" type="number" class="form-control" placeholder="Enter amount" required>				
 				</div>
 	
-				<button id="preferenceFormBtn" type="button" class="btn btn-primary">Submit</button>			
+				<button id="preferenceFormBtn" type="submit" class="btn btn-primary">Submit</button>			
 			</form>
 		</div>
                 

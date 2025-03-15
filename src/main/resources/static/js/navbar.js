@@ -1,4 +1,4 @@
-// Javascript for navbar.html
+// Javascript for loading navbar.html
 
 document.addEventListener("DOMContentLoaded", function () {
     fetch("navbar.html")

@@ -1,13 +1,12 @@
 // Javascript for login.html
 
- document.getElementById("login-form").addEventListener("submit", function(event) {
+ document.getElementById("loginForm").addEventListener("submit", function(event) {
             event.preventDefault();
-            debugger;
 
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            fetch("/login", {  // Spring Security's default URL for login
+            fetch("/login", {  
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: new URLSearchParams({

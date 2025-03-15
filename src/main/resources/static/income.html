@@ -20,16 +20,16 @@
             <div class="row">
                 <div id="userExpenses" class="col-md-6">
                     <h4>Monthly Expense Categories:</h4>
-                    <form id="expenseForm" class="mb-3">
-                        <div class="input-group mb-2">
-                            <span class="input-group-text">Category:</span>
-                            <input id="categoryName" type="text" class="form-control">
+                    <form id="addExpenseForm" class="mb-3">
+                        <div class="form-group">
+                            <label for="categoryName">Category Name:</label>
+                            <input id="categoryName" type="text" class="form-control" placeholder="Enter Name" required>
                         </div>
-                        <div class="input-group mb-2">
-                            <span class="input-group-text">Amount:</span>
-                            <input id="expenseAmount" type="number" class="form-control">
+                        <div class="form-group">
+                            <label for="expenseAmount">Amount:</label>
+                            <input id="expenseAmount" type="number" class="form-control" placeholder="Enter Amount" required>
                         </div>
-                        <button id="addExpenseBtn" type="button" class="btn btn-primary">Add</button>
+                        <button id="addExpenseBtn" type="submit" class="btn btn-primary">Add</button>
                     </form>
                     <div class="h5">Total: $890</div>
                     <table id="expenseTable" class="table table-bordered">
@@ -45,14 +45,13 @@
                                 <td>Food</td>
                                 <td>$250</td>
                                 <td>
-                                    <button id="editExpenseBtn" class="btn edit-btn">
+                                    <button id="editExpenseBtn" type="button" class="btn edit-btn">
                                         <i class="fa-solid fa-pencil"></i>
                                     </button>
                                     <button id="deleteExpenseBtn" class="btn delete-btn">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
-                                </td>
-                                
+                                </td>                              
                             </tr>
                             <tr>
                                 <td>Bills</td>
@@ -91,18 +90,18 @@
                     <form id="netIncomeForm">
                         <div class="form-group">
                             <label for="grossIncome">Annual Income:</label>
-                            <input type="number" class="form-control" id="grossIncome" placeholder="Enter Income">
+                            <input type="number" class="form-control" id="grossIncome" placeholder="Enter Income" required>
                         </div>  
                         <div class="form-group">
-                            <label for="states">State:</label>
-                            <select id="states">
+                            <label for="state">State:</label>
+                            <select id="state" required>
                                 <option value="">-- Select a State --</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="filing-status">Filing Status:</label>
-                            <select id="filingStatus">
-                                <option value="">-- Select a Status --</option>
+                            <select id="filingStatus" required>
+                                <option value="0">-- Select a Status --</option>
                                 <option value="">Single</option>
                                 <option value="">Married Filing Jointly</option>
                                 <option value="">Married Filing Separately</option>
@@ -110,37 +109,38 @@
                                 <option value="">Qualifying Widow(er)</option>
                             </select>
                         </div> 
-                        <button id="netIncomeBtn" type="button" class="btn btn-primary">Submit</button>
+                        <button id="netIncomeBtn" type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
 
-        <!-- Button trigger modal -->                 
-            <!-- <button id="editExpenseBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#expenseModal">
-                Edit
-            </button> -->
-
-        <!-- Edit Expense Modal -->
          
-        <!-- <div class="modal fade" id="expenseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade" id="editExpenseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Edit Expense</h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <button id="expenseModalCloseBtn" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                    ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <form id="editExpenseForm" class="mb-3">
+                            <div class="form-group">
+                                <label for="editCategoryName">Category:</label>
+                                <input id="editCategoryName" type="text" class="form-control" placeholder="Enter Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editExpenseAmount">Amount:</label>
+                                <input id="editExpenseAmount" type="number" class="form-control" placeholder="Enter Amount" required>
+                            </div>
+
+                            <button id="saveEditExpenseBtn" type="submit" class="btn btn-primary">Save changes</button>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>           -->
+        </div>           
     </body>
 </html>

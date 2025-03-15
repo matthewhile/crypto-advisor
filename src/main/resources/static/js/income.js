@@ -1,4 +1,35 @@
 
+// Add new expense 
+document.getElementById('addExpenseForm').addEventListener('submit', function() {
+    const expenseCategory = document.getElementById('categoryName').value;
+    const expenseAmount = document.getElementById('expenseAmount').value;
+});
+
+
+// Open the edit expense modal when edit button is clicked
+document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        let expenseModal = new bootstrap.Modal(document.getElementById('editExpenseModal'));
+        expenseModal.show();
+    });
+});
+
+// Edit an expense
+document.getElementById('editExpenseForm').addEventListener('submit', function() {
+    const editExpenseCategory = document.getElementById('editCategoryName').value;
+    const editExpenseAmount = document.getElementById('editExpenseAmount').value;
+});
+
+// Submit net income form
+document.getElementById('netIncomeForm').addEventListener('submit', function() {
+    const grossIncome = document.getElementById('grossIncome').value;
+    const state = document.getElementById('state').value;
+    const filingStatus = document.getElementById('filingStatus').value;
+})
+
+
+
+// States dropdown list code
 
 const states = [
     { code: "AL", name: "Alabama" },
@@ -53,7 +84,7 @@ const states = [
     { code: "WY", name: "Wyoming" }
 ];
 
-const stateDropdown = document.getElementById("states");
+const stateDropdown = document.getElementById("state");
 
 states.forEach(state => {
     let option = document.createElement("option");

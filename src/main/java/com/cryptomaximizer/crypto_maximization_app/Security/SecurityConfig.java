@@ -51,7 +51,7 @@ public class SecurityConfig {
                     httpForm.defaultSuccessUrl("/index.html", true);
                 })
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/register.html", "/login.html", "/css/**", "/js/**", "/images/**").permitAll();
+                    registry.requestMatchers("/register.html", "/login.html", "/passwordrecovery.html", "usernamerecovery.html", "/css/**", "/js/**", "/images/**").permitAll();
                     registry.requestMatchers("/api/register", "/login").permitAll();
                     registry.anyRequest().authenticated();
                 })

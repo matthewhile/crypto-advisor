@@ -9,6 +9,9 @@
     </head>
 
     <body id="loginPage">
+        <div id="loginPageBanner">
+            <div class="logo">Crypto Advisor</div>
+        </div>
         <div class="wrapper">
             <form id="loginForm" method="post">
                 <h1>Login</h1>
@@ -20,26 +23,21 @@
                     <input id="password" type="password" placeholder="Password" required>
                     <i class='bx bxs-lock-alt' ></i>
                 </div>
-<!--                <div class="remember-forgot">-->
-<!--                    <label><input type="checkbox" placeholder="Remember Me">-->
-<!--                    </label>-->
-<!--                    <a href="#">Forgot Password</a>-->
-<!--                </div>-->
+                <div>
+                    <p id="loginError">Incorrect username or password!</p>
+                </div>
                 <button id="loginBtn" type="submit" class="btn">Login</button>
- 				<div class="register-link">
-                    <p> Forgot Password? <a href="/passwordrecovery.html">Forgot Password</a></p>
-                </div>
-                <div class="register-link">
-                    <p> Forgot Username? <a href="/usernamerecovery.html">Forgot Username</a></p>
-                </div>
-            </div>
-                <button type="submit" class="btn">Login</button>
 
                 <div class="register-link">
                     <p> Don't have an account? <a href="/register.html">Register</a></p>
                 </div>
-               
 
-                <script src="js/login.js"></script>
-     </body>
+                <div class="register-link">
+                    <p> Forgot <a href="/usernamerecovery.html">Username</a> or <a href="/passwordrecovery.html"> Password?</a></p>
+                </div>       
+            </form>
+        </div>
+
+        <script src="js/login.js"></script>
+    </body>
 </html>

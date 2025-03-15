@@ -2,9 +2,14 @@
 
  document.getElementById("loginForm").addEventListener("submit", function(event) {
             event.preventDefault();
+            debugger;
 
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
+            const loginError = document.getElementById("loginError");
+
+            //loginError.style.display = "none";
+            console.log(loginError); // Should log the <p> element
 
             fetch("/login", {  
                 method: "POST",
@@ -16,14 +21,14 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error("Login failed");
+                    throw new Error();
                 }
                 return response.text();
             })
             .then(() => {
                 window.location.href = "/index.html";
             })
-            .catch(error => {
-                alert(error.message);
+            .catch(() => {
+                loginError.style.display = "block";
             });
         });

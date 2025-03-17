@@ -5,8 +5,7 @@
         <title>User Preferences</title>
         
         <link rel="stylesheet" href="css/styles.css">
-    	<script src="js/navbar.js" defer></script>
-        
+    	<script src="js/navbar.js" defer></script>      
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     	
@@ -19,38 +18,35 @@
             <h1 class="text-center"> User Preferences Page</h1>
         </div>
 
-		<div class="form-container">
+		<div class="preference-form-container">
 			<h4>My Preferences</h4>			
-			<form id="preferencesForm">			
+			<form id="preferencesForm">		
+				<div class="form-group">
+					<label for="investmentAmount">Amount to Invest:</label>
+					<input id="investmentAmount" type="number" class="form-control" placeholder="Enter amount" required>				
+				</div>	
+				<div class="form-group">
+					<label for ="timeFrame">Investment Time Frame:</label>
+					<select id="timeFrame" required>
+						<option value="0">-- Select a Time Frame --</option>
+					</select>
+				</div>	
+				<div class="form-group">
+					<label for="frequency">Investment Frequency:</label>
+					<select id="frequency" required>
+						<option value="">-- Select a Frequency --</option>
+					</select>
+				</div>	
 				<div class="form-group">
 					<label for="riskTolerance">Risk Tolerance:</label>
 					<select id="riskTolerance" required>
 						<option value="0">-- Select a Risk Level --</option>
-						<option value="High">High</option>
-						<option value="Medium">Medium</option>
-						<option value="Low">Low</option>
 					</select>
 				</div>						
-				<div class="form-group">
-					<label for ="timeHeld">Time to Invest:</label>
-					<select id="timeHeld" required>
-						<option value="0">-- Select a Time Frame --</option>
-						<option value="">Less than 1 week</option>
-						<option value="">1 week to 1 month</option>
-						<option value="">1 to 6 months</option>
-						<option value="">6 months to 1 year</option>
-						<option value="">1 to 5 years</option>
-						<option value="">5+ years</option>					
-					</select>
-				</div>	
-				<div class="form-group">
-					<label for="investmentAmount">Amount to Invest:</label>
-					<input id="investmentAmount" type="number" class="form-control" placeholder="Enter amount" required>				
-				</div>
 	
 				<button id="preferenceFormBtn" type="submit" class="btn btn-primary">Submit</button>			
 			</form>
 		</div>
-                
+		<script src="js/preferences.js" defer></script>        
     </body>
 </html>

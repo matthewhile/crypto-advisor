@@ -1,4 +1,4 @@
-const recommendedCryptos = ["bitcoin", "ethereum", "dogecoin", "tether", "usd-coin"];
+const recommendedCryptos = ["bitcoin", "ethereum"];
 const charts = {};
 
 async function fetchCurrentMarketData(symbol) {

@@ -62,6 +62,10 @@ body {
   padding: 80px 20px;
 }
 
+.form-control {
+  border-color: #ccc;
+}
+
 
 /* ============================= */
 /*      Expense Form / Table     */
@@ -70,8 +74,14 @@ body {
 #userExpenses {
   max-width: 600px;
   margin-right: auto;
-  /* margin: 20px auto;
-  padding: 20px; */
+  /* border: 2px solid #000000;
+  border-radius: 5px; */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#userExpenses h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 #addExpenseForm {
@@ -110,7 +120,12 @@ body {
   border-collapse: collapse;
 }
 
-#expenseTable th, 
+#expenseTable th {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
 #expenseTable td {
   padding: 10px;
   border: 1px solid #ccc;
@@ -125,6 +140,18 @@ body {
 #expenseTable tbody tr:hover {
   background-color: #f1f1f1;
 }
+
+#expenseTable .expense-amount {
+  text-align: center;
+}
+
+.edit-delete-expense {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  gap: 5px; 
+}
+
 
 #userExpenses div:last-child {
   font-size: 18px;
@@ -168,8 +195,14 @@ body {
 
 #netIncome {
   margin-left: 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   /* border: 2px solid #000000;
   border-radius: 5px; */
+}
+
+#netIncome h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 #netIncomeForm {
@@ -204,7 +237,7 @@ body {
 /*      PREFERENCES STYLES       */
 /* ============================= */
 
-.form-container {
+.preference-form-container {
   /* display: flex;
   justify-content: center;
   align-items: center; */
@@ -218,7 +251,7 @@ body {
   border-radius: 5px;
 }
 
-.form-container h4{
+.preference-form-container h4{
   text-align: center;
   margin-bottom: 30px;
 }
@@ -245,41 +278,29 @@ body {
   margin-left: auto;
 }
 
-/* #preferences .content{
-	font-family: "Times New Roman", Times, serif;
-}
-
-#Time {
-	text-align: center;
-	padding: 10px;
-	font-family: "Times New Roman", Times, serif;
-}
-
-
-#Tolerance {
-	text-align: center;
-	padding: 10px;
-	font-family: "Times New Roman", Times, serif;
-}
-
-
-#preferences #Amount {
-	text-align: center;
-	padding: 10px;
-	font-family: "Times New Roman", Times, serif;
-} */
-
 
 /* ============================= */
 /*      RECOMMENDATIONS STYLES   */
 /* ============================= */
 
 .card {
-  width: 50rem;
-  margin: auto;
   margin-top: 20px;
   background-color: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#cryptoContainer .card {
+  width: 50rem;
+  margin-right: auto;
+}
+
+#cryptoExplanation .card {
+  width: 27rem;
+  margin-left: auto;
+}
+
+#cryptoExplanation .explanation-title {
+  font-weight: bold;
 }
 
 .card-title {

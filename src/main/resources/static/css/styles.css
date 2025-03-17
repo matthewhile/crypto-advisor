@@ -71,6 +71,10 @@ body {
   padding: 80px 20px;
 }
 
+.form-control {
+  border-color: #ccc;
+}
+
 
 /* ============================= */
 /*      Expense Form / Table     */
@@ -79,8 +83,14 @@ body {
 #userExpenses {
   max-width: 600px;
   margin-right: auto;
-  /* margin: 20px auto;
-  padding: 20px; */
+  /* border: 2px solid #000000;
+  border-radius: 5px; */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#userExpenses h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 #addExpenseForm {
@@ -119,7 +129,12 @@ body {
   border-collapse: collapse;
 }
 
-#expenseTable th, 
+#expenseTable th {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
 #expenseTable td {
   padding: 10px;
   border: 1px solid #ccc;
@@ -134,6 +149,18 @@ body {
 #expenseTable tbody tr:hover {
   background-color: #f1f1f1;
 }
+
+#expenseTable .expense-amount {
+  text-align: center;
+}
+
+.edit-delete-expense {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  gap: 5px; 
+}
+
 
 #userExpenses div:last-child {
   font-size: 18px;
@@ -177,8 +204,14 @@ body {
 
 #netIncome {
   margin-left: 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   /* border: 2px solid #000000;
   border-radius: 5px; */
+}
+
+#netIncome h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 #netIncomeForm {
@@ -213,7 +246,7 @@ body {
 /*      PREFERENCES STYLES       */
 /* ============================= */
 
-.form-container {
+.preference-form-container {
   /* display: flex;
   justify-content: center;
   align-items: center; */
@@ -227,7 +260,7 @@ body {
   border-radius: 5px;
 }
 
-.form-container h4{
+.preference-form-container h4{
   text-align: center;
   margin-bottom: 30px;
 }
@@ -254,41 +287,29 @@ body {
   margin-left: auto;
 }
 
-/* #preferences .content{
-	font-family: "Times New Roman", Times, serif;
-}
-
-#Time {
-	text-align: center;
-	padding: 10px;
-	font-family: "Times New Roman", Times, serif;
-}
-
-
-#Tolerance {
-	text-align: center;
-	padding: 10px;
-	font-family: "Times New Roman", Times, serif;
-}
-
-
-#preferences #Amount {
-	text-align: center;
-	padding: 10px;
-	font-family: "Times New Roman", Times, serif;
-} */
-
 
 /* ============================= */
 /*      RECOMMENDATIONS STYLES   */
 /* ============================= */
 
 .card {
-  width: 50rem;
-  margin: auto;
   margin-top: 20px;
   background-color: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#cryptoContainer .card {
+  width: 50rem;
+  margin-right: auto;
+}
+
+#cryptoExplanation .card {
+  width: 27rem;
+  margin-left: auto;
+}
+
+#cryptoExplanation .explanation-title {
+  font-weight: bold;
 }
 
 .card-title {
@@ -499,9 +520,7 @@ body {
 /*       Index Styles            */
 /* ============================= */
 
-
-
-        
+ 
         .dashboard-container {
             display: flex;
             justify-content: space-between;
@@ -536,30 +555,52 @@ body {
         .crypto-box {
             width: 100%;
             margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        .userCryptoBox {
+            width: 100%;
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .userCryptoBox canvas {
+			width: 100% !important;
+			height: 300px !important;
+			max-width: 100%;
+}
         .crypto-box canvas {
             width: 100% !important;
-            height: 200px !important;
+            height: 300px !important;
+            max-width: 100%;
         }
-        .preferences-box {
-            background: white;
+        .preferences-container {
+            background: #fff;
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px;
+            width: 100%;
         }
-        .preferences-box a {
-            display: block;
+        .button {
             background-color: #007bff;
             color: white;
-            padding: 10px;
-            text-decoration: none;
-            border-radius: 5px;
+            border: none;
+            padding: 10px 15px;
             margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
         }
-
-
+        .button:hover {
+            background-color: #0056b3;
+        }
 
 
 

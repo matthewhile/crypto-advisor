@@ -21,7 +21,16 @@
 .logo {
   font-size: 1.5em;
   font-weight: bold;
+  position: fixed;
+  animation-name: logoName;
+  animation-duration: 3s;
 }
+
+@keyframes logoName {
+	0% {color: rgb(255, 77, 77); top: 75px;}
+	100% {color: black; top: 15px;}
+}
+
 #navbar .links {
   display: flex;
   height: 100%;

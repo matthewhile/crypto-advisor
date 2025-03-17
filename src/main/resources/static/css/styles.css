@@ -490,9 +490,7 @@ body {
 /*       Index Styles            */
 /* ============================= */
 
-
-
-        
+ 
         .dashboard-container {
             display: flex;
             justify-content: space-between;
@@ -527,30 +525,52 @@ body {
         .crypto-box {
             width: 100%;
             margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        .userCryptoBox {
+            width: 100%;
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .userCryptoBox canvas {
+			width: 100% !important;
+			height: 300px !important;
+			max-width: 100%;
+}
         .crypto-box canvas {
             width: 100% !important;
-            height: 200px !important;
+            height: 300px !important;
+            max-width: 100%;
         }
-        .preferences-box {
-            background: white;
+        .preferences-container {
+            background: #fff;
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px;
+            width: 100%;
         }
-        .preferences-box a {
-            display: block;
+        .button {
             background-color: #007bff;
             color: white;
-            padding: 10px;
-            text-decoration: none;
-            border-radius: 5px;
+            border: none;
+            padding: 10px 15px;
             margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
         }
-
-
+        .button:hover {
+            background-color: #0056b3;
+        }
 
 
 

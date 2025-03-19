@@ -1,4 +1,9 @@
-const topCryptos = ["bitcoin", "ethereum", "litecoin", "avalanche", "usdc"];
+/* The JavaScript in this file was written with the help of ChatGPT, for the sole purpose of fetching and displaying the crypto data 
+   for demonstration purposes during the frontend presentation. API calls will be handled in the backend going forward. */
+
+// const topCryptos = ["bitcoin", "ethereum", "litecoin", "avalanche", "usdc"];
+const topCryptos = ["bitcoin", "litecoin"];
+
         const userCrypto = "solana, ripple"; //WILL BE VARIABLE DEPENDENT ON USER INPUT
         const charts = {}; 
 
@@ -14,26 +19,26 @@ const topCryptos = ["bitcoin", "ethereum", "litecoin", "avalanche", "usdc"];
             }
         }
 
-        function handlePreferences() {
-            let userPrefs = localStorage.getItem("cryptoPreferences");
-            if (!userPrefs) {
-                window.location.href = "preferences.html";
-            } else {
-                alert("Your preferences are already saved!");
-            }
-        }
+        // function handlePreferences() {
+        //     let userPrefs = localStorage.getItem("cryptoPreferences");
+        //     if (!userPrefs) {
+        //         window.location.href = "preferences.html";
+        //     } else {
+        //         alert("Your preferences are already saved!");
+        //     }
+        // }
 
-        function handleBudgetCalculator() {
-            window.location.href = "income.html"
-        }
+        // function handleBudgetCalculator() {
+        //     window.location.href = "income.html"
+        // }
 
-        function handleRecommendations() {
-            window.location.href = "recommendations.html"
-        }
+        // function handleRecommendations() {
+        //     window.location.href = "recommendations.html"
+        // }
 
-        function handleProfile() {
-            window.location.href = "profile.html"
-        }
+        // function handleProfile() {
+        //     window.location.href = "profile.html"
+        // }
 
         function renderChart(container, data, symbol) {
     let canvas = document.createElement('canvas');

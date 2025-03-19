@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Advisor</title>
-    <script src="js/navbar.js" defer></script>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/index.js" defer></script>
-</head>
-<body>
-    <div id="navbar"></div>
-    <div class="content">
-        <h1 class="text-center">Dashboard</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Crypto Advisor</title>
+        <!-- <script src="js/navbar.js" defer></script> -->
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="js/index.js" defer></script>
+    </head>
+    <body>
+        <div id="navbar">
+            <div class="logo">Crypto Advisor</div>
+            <div class="links">
+                <a href="/index.html">Dashboard</a>
+                <a href="/income.html">Expenses & Net Income</a>
+                <a href="/preferences.html">Investment Preferences</a>
+                <a href="/recommendations.html">Crypto Recommendations</a>
+                <!--<a href="/cryptoadvertisment.html">Crypto Advertisment</a>-->
+                <a href="/profile.html">Profile</a>
+            </div>
+        </div>
+        <div class="content">
+            <h1 class="dashboard-title">Dashboard</h1>
+        </div>
         <div class="dashboard-container">
             <div class="left-section" id="topCryptos">
                 <div class="section-header">Top 10 Cryptocurrencies</div>
@@ -23,23 +34,27 @@
                 <div id="bestPerformerBox" class="crypto-box"></div>
                 <div class="preferences-container">
                     <h3>Set Your Preferences</h3>
-                    <p>Customize your cryptocurrency dashboard based on your interests.</p>
-                    <button class="button" onclick="handlePreferences()">Go to Preferences</button>
+                    <p>Specify your investment preferences to generate crypto recommenations made for you.</p>
+                    <a href="preferences.html" class="button">Go to Investment Preferences</a>
+                    <!-- <button class="button" onclick="handlePreferences()">Go to Preferences</button> -->
                 </div>
                 <div class="income-container">
-                    <h3>Budget Calculator</h3>
-                    <p>Enter your income and expenses to get personalized crypto recommendations.</p>
-                    <button class="button" onclick="handleBudgetCalculator()">Go to Budget Calculator</button>
+                    <h3>Expenses & Net Income</h3>
+                    <p>Enter your income and expenses to recieve a recommended amount to invest in crypto.</p>
+                    <a href="income.html" class="button">Go to Expenses & Net Income</a>
+                    <!-- <button class="button" onclick="handleBudgetCalculator()">Go to Budget Calculator</button> -->
                 </div>
                 <div class="recommendation-container">
                     <h3>Recommendation</h3>
                     <p>View your personalized crypto recommendations.</p>
-                    <button class="button" onclick="handleRecommendations()">Go to Recommendations</button>
+                    <a href="recommendations.html" class="button">Go to Recommendations</a>
+                    <!-- <button class="button" onclick="handleRecommendations()">Go to Recommendations</button> -->
                 </div>
                 <div class="profile-container">
                     <h3>Profile</h3>
                     <p>View your profile and account information.</p>
-                    <button class="button" onclick="handleProfile()">Go to Profile</button>
+                    <a href="profile.html" class="button">Go to Profile</a>
+                    <!-- <button class="button" onclick="handleProfile()">Go to Profile</button> -->
                 </div>
             </div>
             <div class="right-section" id="userCrypto">
@@ -47,6 +62,5 @@
                 <div id="userCryptoBox"></div>
             </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

@@ -1,15 +1,30 @@
 package com.cryptomaximizer.crypto_maximization_app.Model;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ExpenseEntity> expenses;
+    public UserEntity() {}
+
+    public UserEntity(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
     public Long getId() {
         return id;
     }
@@ -34,4 +49,12 @@ public class UserEntity {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public List<ExpenseEntity> getExpenses() {
+        return expenses;
+    }
+    public void setExpenses(List<ExpenseEntity> expenses) {
+        this.expenses = expenses;
+    }
+
 }

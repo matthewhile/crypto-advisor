@@ -1,5 +1,5 @@
 package com.cryptomaximizer.crypto_maximization_app.Service;
-
+import org.springframework.security.core.Authentication;
 import com.cryptomaximizer.crypto_maximization_app.Model.UserEntity;
 import com.cryptomaximizer.crypto_maximization_app.Repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -15,12 +15,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<UserEntity> user = repository.findByUsername(username);
+        Optional<UserEntity> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             var userObj = user.get();
             return User.builder()
@@ -30,5 +30,12 @@ public class UserService implements UserDetailsService {
         } else {
             throw new UsernameNotFoundException(username);
         }
+    }
+
+    // Retrieve the currently authenticated user
+    public UserEntity getAuthenticatedUser(Authentication authentication) {
+        String username = authentication.getName();
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

@@ -1,23 +1,140 @@
-
-// Add new expense 
-document.getElementById('addExpenseForm').addEventListener('submit', function() {
-    const expenseCategory = document.getElementById('categoryName').value;
-    const expenseAmount = document.getElementById('expenseAmount').value;
+document.addEventListener("DOMContentLoaded", function () {
+    loadExpenses();
 });
 
+// Load user's expenses
+function loadExpenses() {
+    fetch("http://localhost:8080/api/expenses")
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById("expenseTableBody");
 
-// Open the edit expense modal when edit button is clicked
-document.querySelectorAll('.edit-btn').forEach(button => {
-    button.addEventListener('click', function () {
-        let expenseModal = new bootstrap.Modal(document.getElementById('editExpenseModal'));
-        expenseModal.show();
+            data.forEach(expense => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${expense.category}</td>
+                    <td class="expense-amount">$${expense.amount.toFixed(2)}</td>
+                    <td class="edit-delete-expense">
+                        <button id="editExpenseBtn" type="button" class="btn edit-btn" data-id="${expense.id}"
+                        data-category="${expense.category}" data-amount="${expense.amount}">
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
+                        <button id="deleteExpenseBtn" class="btn delete-btn" data-id="${expense.id}">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </td>   
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Delete button event listener
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", deleteExpense);
+            });
+
+            // Edit button event listener
+            document.querySelectorAll(".edit-btn").forEach(button => {
+                button.addEventListener("click", openEditModal);
+            });
+        })
+        .catch(error => console.error("Error fetching expenses:", error));
+}
+
+
+// Add new expense 
+document.getElementById('addExpenseForm').addEventListener('submit', function(event) {
+    // event.preventDefault();
+    const category = document.getElementById('categoryName').value;
+    const amount = document.getElementById('expenseAmount').value;
+
+    const data = { category, amount };
+
+    fetch('/api/expenses/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Optionally reset the form or update the UI with the new expense
+        document.getElementById('addExpenseForm').reset(); // resets the form
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error adding expense');
     });
 });
 
-// Edit an expense
-document.getElementById('editExpenseForm').addEventListener('submit', function() {
-    const editExpenseCategory = document.getElementById('editCategoryName').value;
-    const editExpenseAmount = document.getElementById('editExpenseAmount').value;
+// Delete an expense 
+function deleteExpense() {
+    const expenseId = this.getAttribute("data-id");  
+
+    fetch(`/api/expenses/delete/${expenseId}`, {
+        method: 'DELETE',
+    })
+    .then(response => {
+        if (response.ok) {
+            this.closest('tr').remove();
+        } 
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("There was an error deleting the expense");
+    });
+};
+
+// Open edit expense modal
+function openEditModal() {
+    const expenseId = this.getAttribute("data-id");
+    const category = this.getAttribute("data-category");
+    const amount = this.getAttribute("data-amount");
+
+    document.getElementById("editCategoryName").value = category;
+    document.getElementById("editExpenseAmount").value = amount;
+
+     document.getElementById("editExpenseForm").setAttribute("data-id", expenseId);
+
+     // Open the modal
+     let expenseModal = new bootstrap.Modal(document.getElementById("editExpenseModal"));
+     expenseModal.show();
+
+}
+
+// Save edit for an expense
+document.getElementById('editExpenseForm').addEventListener('submit', function(event) {
+    //event.preventDefault();
+    const category = document.getElementById('editCategoryName').value;
+    const amount = parseFloat(document.getElementById('editExpenseAmount').value).toFixed(2);
+
+    const expenseId = this.getAttribute("data-id");  
+    const data = { category, amount };
+
+    fetch(`/api/expenses/update/${expenseId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    // Prevent updated row from being moved to bottom of table
+    .then(data => {
+        
+        // Row stays in place if event.preventDefault() is enabled, but modal won't close
+        const row = document.querySelector(`button[data-id="${expenseId}"]`).closest("tr");
+
+        if (row) {
+            row.cells[0].textContent = data.category; // Update category cell
+            row.cells[1].textContent = `$${data.amount}`; // Update amount cell
+        }
+
+        // Close the modal after saving
+        // const editModal = new bootstrap.Modal(document.getElementById('editExpenseModal'));
+        // editModal.hide();
+
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error updating expense');
+    });
 });
 
 // Submit net income form

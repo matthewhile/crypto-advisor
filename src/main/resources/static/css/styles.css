@@ -95,21 +95,21 @@ body {
 #userExpenses {
   max-width: 600px;
   margin-right: auto;
-  /* border: 2px solid #000000;
-  border-radius: 5px; */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-#userExpenses h4 {
-  margin-top: 20px;
-  margin-bottom: 10px;
+#addExpenseForm h4 {
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 #addExpenseForm {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 40px;
+  margin-top: 10px;
+  margin-bottom: 100px;
+  padding: 5%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 #addExpenseForm .form-group {
@@ -139,6 +139,7 @@ body {
   width: 100%;
   margin-top: 15px;
   border-collapse: collapse;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 #expenseTable th {
@@ -216,21 +217,22 @@ body {
 
 #netIncome {
   margin-left: 40px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   /* border: 2px solid #000000;
   border-radius: 5px; */
 }
 
-#netIncome h4 {
-  margin-top: 20px;
-  margin-bottom: 10px;
+#netIncomeForm h4 {
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 #netIncomeForm {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 40px;
+  margin-top: 10px;
+  padding: 5%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 #netIncomeForm .form-group {
@@ -336,6 +338,10 @@ body {
   margin: auto;
   margin-bottom: 20px;
 }
+
+/* #profileContainer .card-header {
+  background-color: #438ddb;
+} */
 
 .profile-title {
   text-align-last: center;

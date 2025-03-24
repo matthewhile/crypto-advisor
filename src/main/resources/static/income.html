@@ -18,8 +18,8 @@
         <div class="container">
             <div class="row">
                 <div id="userExpenses" class="col-md-6">
-                    <h4 class="text-center">Monthly Expense Categories</h4>
                     <form id="addExpenseForm" class="mb-3">
+                        <h4 class="text-center">Add Monthly Expense Categories</h4>
                         <div class="form-group">
                             <label for="categoryName">Expense Category Name:</label>
                             <input id="categoryName" type="text" class="form-control" placeholder="Enter Category Name" required>
@@ -30,8 +30,8 @@
                         </div>
                         <button id="addExpenseBtn" type="submit" class="crypto-btn">Add</button>
                     </form>
-                    <div class="h5">Total: $890</div>
                     <table id="expenseTable" class="table table-bordered">
+                        <div class="h5">Total: *TODO add logic for total*</div>
                         <thead class="table-light">
                             <tr>
                                 <th>Expense Category</th>
@@ -39,44 +39,7 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Food</td>
-                                <td class="expense-amount">$250</td>
-                                <td class="edit-delete-expense">
-                                    <button id="editExpenseBtn" type="button" class="btn edit-btn">
-                                        <i class="fa-solid fa-pencil"></i>
-                                    </button>
-                                    <button id="deleteExpenseBtn" class="btn delete-btn">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </td>                              
-                            </tr>
-                            <tr>
-                                <td>Bills</td>
-                                <td class="expense-amount">$500</td>
-                                <td class="edit-delete-expense">
-                                    <button id="editExpenseBtn" class="btn edit-btn">
-                                        <i class="fa-solid fa-pencil"></i>
-                                    </button>
-                                    <button id="deleteExpenseBtn" class="btn delete-btn">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Subscriptions</td>
-                                <td class="expense-amount">$140</td>
-                                <td class="edit-delete-expense">
-                                    <button id="editExpenseBtn" class="btn edit-btn">
-                                        <i class="fa-solid fa-pencil"></i>
-                                    </button>
-                                    <button id="deleteExpenseBtn" class="btn delete-btn">
-                                        <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody id="expenseTableBody"></tbody>
                     </table>
                 </div>
                 
@@ -85,8 +48,8 @@
 
                 
                 <div id="netIncome" class="col-md-6">
-                    <h4 class="text-center">Net Income</h4>
                     <form id="netIncomeForm">
+                        <h4 class="text-center">Calculate Net Income</h4>
                         <div class="form-group">
                             <label for="grossIncome">Annual Income:</label>
                             <input type="number" class="form-control" id="grossIncome" placeholder="Enter Income" required>

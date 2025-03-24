@@ -25,10 +25,12 @@ public class SecurityConfig {
     }
 
     @Bean
+    // Allows Spring Security to retrieve user credentials
     public UserDetailsService userDetailsService() {
         return userService;
     }
 
+    // Fetches user details and checks passwords with passwordEncoder() to authenticate the user
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -37,6 +39,7 @@ public class SecurityConfig {
         return provider;
     }
 
+    // Encode the user's password
     @Bean public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -52,7 +55,7 @@ public class SecurityConfig {
                 })
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/register.html", "/login.html", "/passwordrecovery.html", "usernamerecovery.html", "/css/**", "/js/**", "/images/**").permitAll();
-                    registry.requestMatchers("/api/register", "/login").permitAll();
+                    registry.requestMatchers("/api/register", "/login", "/api/user", "/api/expenses", "/api/expenses/add", "/api/expenses/delete/{id}").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .build();

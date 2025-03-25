@@ -8,42 +8,21 @@ function loadExpenses() {
         .then(response => response.json())
         .then(data => {
             const tableBody = document.getElementById("expenseTableBody");
+            tableBody.innerHTML = ""; // Clear existing rows before reloading
 
             data.forEach(expense => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${expense.category}</td>
-                    <td class="expense-amount">$${expense.amount.toFixed(2)}</td>
-                    <td class="edit-delete-expense">
-                        <button id="editExpenseBtn" type="button" class="btn edit-btn" data-id="${expense.id}"
-                        data-category="${expense.category}" data-amount="${expense.amount}">
-                            <i class="fa-solid fa-pencil"></i>
-                        </button>
-                        <button id="deleteExpenseBtn" class="btn delete-btn" data-id="${expense.id}">
-                            <i class="fa-regular fa-trash-can"></i>
-                        </button>
-                    </td>   
-                `;
-                tableBody.appendChild(row);
+                addExpenseRow(expense, tableBody, false);
             });
 
-            // Delete button event listener
-            document.querySelectorAll(".delete-btn").forEach(button => {
-                button.addEventListener("click", deleteExpense);
-            });
-
-            // Edit button event listener
-            document.querySelectorAll(".edit-btn").forEach(button => {
-                button.addEventListener("click", openEditModal);
-            });
+            attachEventListeners();
         })
         .catch(error => console.error("Error fetching expenses:", error));
 }
 
-
-// Add new expense 
+// Add new expense
 document.getElementById('addExpenseForm').addEventListener('submit', function(event) {
-    // event.preventDefault();
+    event.preventDefault();
+
     const category = document.getElementById('categoryName').value;
     const amount = document.getElementById('expenseAmount').value;
 
@@ -55,15 +34,49 @@ document.getElementById('addExpenseForm').addEventListener('submit', function(ev
         body: JSON.stringify(data)
     })
     .then(response => response.json())
-    .then(data => {
-        // Optionally reset the form or update the UI with the new expense
-        document.getElementById('addExpenseForm').reset(); // resets the form
+    .then(expense => {
+        const tableBody = document.getElementById("expenseTableBody");
+        addExpenseRow(expense, tableBody, true); 
+        document.getElementById('addExpenseForm').reset(); 
+        attachEventListeners(); 
     })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error adding expense');
-    });
+    .catch(error => console.error('Error:', error));
 });
+
+// Add a new expense row to the table
+function addExpenseRow(expense, tableBody, isNew = true) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${expense.category}</td>
+        <td class="expense-amount">$${parseFloat(expense.amount).toFixed(2)}</td>
+        <td class="edit-delete-expense">
+            <button type="button" class="btn edit-btn" data-id="${expense.id}"
+                data-category="${expense.category}" data-amount="${expense.amount}">
+                <i class="fa-solid fa-pencil"></i>
+            </button>
+            <button class="btn delete-btn" data-id="${expense.id}">
+                <i class="fa-regular fa-trash-can"></i>
+            </button>
+        </td>   
+    `;
+
+    if (isNew) {
+        tableBody.prepend(row);
+    } else {
+        tableBody.appendChild(row);
+    }
+}
+
+// Edit and delete button click event listeners
+function attachEventListeners() {
+    document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", deleteExpense);
+    });
+
+    document.querySelectorAll(".edit-btn").forEach(button => {
+        button.addEventListener("click", openEditModal);
+    });
+}
 
 // Delete an expense 
 function deleteExpense() {
@@ -83,7 +96,7 @@ function deleteExpense() {
     });
 };
 
-// Open edit expense modal
+// Open and set edit expense modal
 function openEditModal() {
     const expenseId = this.getAttribute("data-id");
     const category = this.getAttribute("data-category");
@@ -91,22 +104,21 @@ function openEditModal() {
 
     document.getElementById("editCategoryName").value = category;
     document.getElementById("editExpenseAmount").value = amount;
+    document.getElementById("editExpenseForm").setAttribute("data-id", expenseId);
 
-     document.getElementById("editExpenseForm").setAttribute("data-id", expenseId);
-
-     // Open the modal
-     let expenseModal = new bootstrap.Modal(document.getElementById("editExpenseModal"));
-     expenseModal.show();
-
+    // Open the modal
+    let expenseModal = new bootstrap.Modal(document.getElementById("editExpenseModal"));
+    expenseModal.show();
 }
 
 // Save edit for an expense
 document.getElementById('editExpenseForm').addEventListener('submit', function(event) {
-    //event.preventDefault();
+    event.preventDefault(); 
+
+    const expenseId = this.getAttribute("data-id");
     const category = document.getElementById('editCategoryName').value;
     const amount = parseFloat(document.getElementById('editExpenseAmount').value).toFixed(2);
-
-    const expenseId = this.getAttribute("data-id");  
+    
     const data = { category, amount };
 
     fetch(`/api/expenses/update/${expenseId}`, {
@@ -115,27 +127,21 @@ document.getElementById('editExpenseForm').addEventListener('submit', function(e
         body: JSON.stringify(data)
     })
     .then(response => response.json())
-    // Prevent updated row from being moved to bottom of table
-    .then(data => {
-        
-        // Row stays in place if event.preventDefault() is enabled, but modal won't close
-        const row = document.querySelector(`button[data-id="${expenseId}"]`).closest("tr");
-
+    .then(updatedExpense => {
+        // Find the row in the table and update it
+        const row = document.querySelector(`button[data-id='${expenseId}']`).closest("tr");
         if (row) {
-            row.cells[0].textContent = data.category; // Update category cell
-            row.cells[1].textContent = `$${data.amount}`; // Update amount cell
+            row.children[0].textContent = updatedExpense.category; 
+            row.children[1].textContent = `$${parseFloat(updatedExpense.amount).toFixed(2)}`; 
         }
 
-        // Close the modal after saving
-        // const editModal = new bootstrap.Modal(document.getElementById('editExpenseModal'));
-        // editModal.hide();
-
+        // Close the modal
+        let expenseModal = bootstrap.Modal.getInstance(document.getElementById("editExpenseModal"));
+        expenseModal.hide();
     })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error updating expense');
-    });
+    .catch(error => console.error('Error updating expense:', error));
 });
+
 
 // Submit net income form
 document.getElementById('netIncomeForm').addEventListener('submit', function() {

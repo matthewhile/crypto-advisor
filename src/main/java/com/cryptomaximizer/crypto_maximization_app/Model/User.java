@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -17,10 +17,14 @@ public class UserEntity {
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ExpenseEntity> expenses;
-    public UserEntity() {}
+    private List<Expense> expenses;
 
-    public UserEntity(String username, String email, String password) {
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Preference preference;
+
+    public User() {}
+
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -50,11 +54,18 @@ public class UserEntity {
         this.password = password;
     }
 
-    public List<ExpenseEntity> getExpenses() {
+    public List<Expense> getExpenses() {
         return expenses;
     }
-    public void setExpenses(List<ExpenseEntity> expenses) {
+    public void setExpenses(List<Expense> expenses) {
         this.expenses = expenses;
+    }
+
+    public Preference getPreferences() {
+        return preference;
+    }
+    public void setPreferences(Preference preference) {
+        this.preference = preference;
     }
 
 }

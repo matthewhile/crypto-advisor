@@ -28,22 +28,36 @@
 				<div class="form-group">
 					<label for ="timeFrame">Investment Time Frame:</label>
 					<select id="timeFrame" required>
-						<option value="0">-- Select a Time Frame --</option>
+						<option value="">-- Select a Time Frame --</option>
+ 						<option value="Less than 1 week">Less than 1 week</option>
+ 						<option value="1 to 6 months">1 to 6 months</option>
+ 						<option value="6 months to 1 year">6 months to 1 year</option>
+ 						<option value="1 to 5 years">1 to 5 years</option>
+ 						<option value="5+ years">5+ years</option>		
 					</select>
 				</div>	
 				<div class="form-group">
 					<label for="frequency">Investment Frequency:</label>
 					<select id="frequency" required>
 						<option value="">-- Select a Frequency --</option>
+						<option value="Daily">Daily</option>
+ 						<option value="Weekly">Weekly</option>
+ 						<option value="Monthly">Monthly</option>
+ 						<option value="Yearly">Yearly</option>
+ 						<option value="One-time Investment">One-time Investment</option>		
 					</select>
 				</div>	
 				<div class="form-group">
 					<label for="riskTolerance">Risk Tolerance:</label>
 					<select id="riskTolerance" required>
-						<option value="0">-- Select a Risk Level --</option>
+						<option value="">-- Select a Risk Level --</option>
+						<option value="Low">Low</option>
+ 						<option value="Medium">Medium</option>
+						<option value="High">High</option>
 					</select>
 				</div>						
-	
+				<div id="preferenceSuccess">Preferences saved successfully!</div>
+				<div id="preferenceError">Failed to save preferences!</div>
 				<button id="preferenceFormBtn" type="submit" class="crypto-btn">Submit</button>			
 			</form>
 		</div>

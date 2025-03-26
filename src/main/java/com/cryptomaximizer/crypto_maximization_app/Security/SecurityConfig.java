@@ -55,7 +55,7 @@ public class SecurityConfig {
                 })
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/register.html", "/login.html", "/passwordrecovery.html", "usernamerecovery.html", "/css/**", "/js/**", "/images/**").permitAll();
-                    registry.requestMatchers("/api/register", "/login", "/api/user", "/api/expenses", "/api/expenses/add", "/api/expenses/delete/{id}").permitAll();
+                    registry.requestMatchers("/api/register", "/login", "/api/user", "/api/expenses", "/api/expenses/add", "/api/expenses/delete/{id}", "/api/preferences").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .build();

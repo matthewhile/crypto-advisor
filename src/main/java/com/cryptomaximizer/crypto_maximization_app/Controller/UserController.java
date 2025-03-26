@@ -1,11 +1,10 @@
 package com.cryptomaximizer.crypto_maximization_app.Controller;
 
 import com.cryptomaximizer.crypto_maximization_app.Model.UserDTO;
-import com.cryptomaximizer.crypto_maximization_app.Model.UserEntity;
+import com.cryptomaximizer.crypto_maximization_app.Model.User;
 import com.cryptomaximizer.crypto_maximization_app.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,7 +25,7 @@ public class UserController {
 
     // Register new user
     @PostMapping("/register")
-    public UserEntity createUser(@RequestBody UserEntity user) {
+    public User createUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -34,9 +33,9 @@ public class UserController {
     @GetMapping("/user")
     public ResponseEntity<?> getUserDetails(Authentication authentication) {
         String username = authentication.getName();
-        Optional<UserEntity> userEntityOptional = userRepository.findByUsername(username);
+        Optional<User> userEntityOptional = userRepository.findByUsername(username);
 
-        UserEntity user = userEntityOptional.get();
+        User user = userEntityOptional.get();
 
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());

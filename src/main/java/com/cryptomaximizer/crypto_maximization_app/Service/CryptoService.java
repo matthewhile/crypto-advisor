@@ -2,6 +2,8 @@ package com.cryptomaximizer.crypto_maximization_app.Service;
 
 import com.cryptomaximizer.crypto_maximization_app.Model.ChartDataDTO;
 import com.cryptomaximizer.crypto_maximization_app.Model.MarketDataDTO;
+
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +22,7 @@ public class CryptoService {
         this.restTemplate = restTemplate;
     }
 
+    @Cacheable("marketDataDTO")
     public List<MarketDataDTO> getMarketData(String symbol) {
         String url = UriComponentsBuilder.fromUriString("https://api.coingecko.com/api/v3/coins/markets")
                 .queryParam("vs_currency", "usd")
@@ -33,7 +36,7 @@ public class CryptoService {
         MarketDataDTO[] response = restTemplate.getForObject(url, MarketDataDTO[].class);
         return Arrays.asList(response);
     }
-
+    @Cacheable("chartDataDTO")
     public ChartDataDTO getMarketChart(String symbol) {
         String url = UriComponentsBuilder.fromUriString("https://api.coingecko.com/api/v3/coins/" + symbol + "/market_chart")
                 .queryParam("vs_currency", "usd")

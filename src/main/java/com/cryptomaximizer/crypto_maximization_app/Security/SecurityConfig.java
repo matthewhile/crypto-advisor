@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.cryptomaximizer.crypto_maximization_app.Service.UserService;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class SecurityConfig {
@@ -24,6 +25,11 @@ public class SecurityConfig {
         this.userService = userService;
     }
 
+    // Store RestTemplate Bean until another a more appropriate config class can be used
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
     @Bean
     // Allows Spring Security to retrieve user credentials
     public UserDetailsService userDetailsService() {
@@ -55,7 +61,8 @@ public class SecurityConfig {
                 })
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/register.html", "/login.html", "/passwordrecovery.html", "usernamerecovery.html", "/css/**", "/js/**", "/images/**").permitAll();
-                    registry.requestMatchers("/api/register", "/login", "/api/user", "/api/expenses", "/api/expenses/add", "/api/expenses/delete/{id}").permitAll();
+                    registry.requestMatchers("/api/register", "/login", "/api/user", "/api/expenses", "/api/expenses/add", "/api/expenses/delete/{id}", "/api/preferences",
+                            "/api/crypto/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .build();

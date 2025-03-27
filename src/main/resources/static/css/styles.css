@@ -299,7 +299,17 @@ body {
 }
 
 #preferenceFormBtn {
-  margin-left: auto;
+  margin-left: 280px;
+}
+
+#preferenceSuccess {
+  color: green;
+  display: none;
+}
+
+#preferenceError {
+  color: red;
+  display: none;
 }
 
 

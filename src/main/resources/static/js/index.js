@@ -1,5 +1,3 @@
-/* The JavaScript in this file was written with the help of ChatGPT, for the sole purpose of fetching and displaying the crypto data 
-   for demonstration purposes during the frontend presentation. API calls will be handled in the backend going forward. */
 
 // const topCryptos = ["bitcoin", "ethereum", "litecoin", "avalanche", "usdc"];
 const topCryptos = ["bitcoin", "litecoin"];
@@ -8,6 +6,7 @@ const topCryptos = ["bitcoin", "litecoin"];
         const charts = {}; 
 
         async function fetchCryptoHistory(symbol) {
+            debugger;
             try {
                 let response = await fetch(`https://api.coingecko.com/api/v3/coins/${symbol}/market_chart?vs_currency=usd&days=180&interval=daily`);
                 if (!response.ok) return null;

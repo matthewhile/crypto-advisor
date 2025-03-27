@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "expenses")
-public class ExpenseEntity {
+public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -14,7 +14,7 @@ public class ExpenseEntity {
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
     @JsonIgnore
-    private UserEntity user;
+    private User user;
 
     @Column(nullable = false)
     private String category;
@@ -22,9 +22,9 @@ public class ExpenseEntity {
     @Column(nullable = false)
     private BigDecimal amount;
 
-    public ExpenseEntity() { }
+    public Expense() { }
 
-    public ExpenseEntity(UserEntity user, String category, BigDecimal amount) {
+    public Expense(User user, String category, BigDecimal amount) {
         this.user = user;
         this.category = category;
         this.amount = amount;
@@ -33,9 +33,9 @@ public class ExpenseEntity {
 
     public Long getId() { return id; }
 
-    public UserEntity getUser() { return user; }
+    public User getUser() { return user; }
 
-    public void setUser(UserEntity user) { this.user = user; }
+    public void setUser(User user) { this.user = user; }
 
     public String getCategory() { return category; }
 

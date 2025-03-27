@@ -1,12 +1,11 @@
 package com.cryptomaximizer.crypto_maximization_app.Repository;
 
-import java.util.Optional;
+import com.cryptomaximizer.crypto_maximization_app.Model.Preference;
 import com.cryptomaximizer.crypto_maximization_app.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-
-    Optional<User> findByUsername(String username);
+public interface PreferenceRepository extends JpaRepository<Preference, Long> {
+    Preference findByUser(User user);
 }

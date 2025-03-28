@@ -16,14 +16,13 @@ public class CryptoController {
         this.cryptoService = cryptoService;
     }
 
-    @GetMapping("/market/{symbol}")
-    public List<MarketDataDTO> getMarketData(@PathVariable String symbol) {
-        System.out.println("Received symbol: '" + symbol + "'");
-        return cryptoService.getMarketData(symbol);
+    @GetMapping("/market")
+    public List<MarketDataDTO> getMarketData() {
+        return cryptoService.getMarketData();
     }
 
-    @GetMapping("/chart/{symbol}")
-    public ChartDataDTO getMarketChart(@PathVariable String symbol) {
-        return cryptoService.getMarketChart(symbol);
+    @GetMapping("/chart")
+    public Map<String, ChartDataDTO> getMarketChart() {
+        return cryptoService.getMarketChart();
     }
 }

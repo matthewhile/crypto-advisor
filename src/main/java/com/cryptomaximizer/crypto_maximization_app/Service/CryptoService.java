@@ -20,7 +20,7 @@ public class CryptoService {
     @Value("${coingecko.api.key}") // Load API key from application.properties
     private String apiKey;
 
-    @Value("${crypto.default.symbols}")
+    @Value("${crypto.default.symbols}") // Load desired list of crypto symbols from application.properties
     private String defaultSymbols;
 
     public CryptoService(RestTemplate restTemplate) {

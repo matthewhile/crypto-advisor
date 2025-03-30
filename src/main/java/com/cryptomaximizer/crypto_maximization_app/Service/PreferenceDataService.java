@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PreferenceService {
+public class PreferenceDataService {
 
     @Autowired
     private PreferenceRepository preferenceRepository;
@@ -29,4 +29,9 @@ public class PreferenceService {
 
         return preferenceRepository.save(existingPreferences);
     }
+
+    public Preference getPreferencesForUser(User user) {
+        return preferenceRepository.findByUser(user);
+    }
+
 }

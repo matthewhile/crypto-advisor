@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CryptoService {
+public class CryptoDataService {
     private final RestTemplate restTemplate;
 
     @Value("${coingecko.api.key}") // Load API key from application.properties
@@ -23,7 +23,7 @@ public class CryptoService {
     @Value("${crypto.default.symbols}") // Load desired list of crypto symbols from application.properties
     private String defaultSymbols;
 
-    public CryptoService(RestTemplate restTemplate) {
+    public CryptoDataService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PreferenceScoringService {
 
-    public ScoredPreferenceDTO calculateUserScore(Preference preference) {
+    public ScoredPreferenceDTO calculatePreferenceScore(Preference preference) {
         // Weights are likely to change throughout development / testing process
         double riskScore = scoreRiskTolerance(preference.getRiskTolerance());
         System.out.println("User risk score is " + riskScore);
@@ -25,14 +25,14 @@ public class PreferenceScoringService {
     }
 
     private double scoreRiskTolerance(String riskTolerance) {
-        // Lower tolerances are weighted closer to 0, higher tolerances are weighted closer to 1
+        // Lower tolerances are weighted closer to 1, higher tolerances are weighted closer to 0
         switch(riskTolerance.toLowerCase()) {
             case "low":
-                 return 0.2;
+                 return 1.0;
             case "medium":
                  return 0.5;
             case "high":
-                 return 1.0;
+                 return 0.2;
             default:
                 return 0.5;
         }
@@ -44,15 +44,15 @@ public class PreferenceScoringService {
         * aligns with lower risk and less volatile assets. */
         switch(frequency.toLowerCase()) {
             case "daily":
-                return 1.0;
+                return 0.0;
             case "weekly":
-                return 0.8;
-            case "monthly":
-                return 0.6;
-            case "yearly":
-                return 0.3;
-            case "one-time investment":
                 return 0.2;
+            case "monthly":
+                return 0.4;
+            case "yearly":
+                return 0.7;
+            case "one-time investment":
+                return 0.8;
             default:
                 return 0.5;
         }
@@ -66,19 +66,19 @@ public class PreferenceScoringService {
             case "medium-term":
                 return 0.5;
             case "long-term":
-                return 1.0;
+                return 0.8;
             default:
                 return 0.5;
         }
     }
 
     private double scoreInvestmentAmount(double amount) {
-        // Lower amounts are weighted closer to 0, higher amounts are weighted closer to 1
-        if (amount < 500) return 0.2;
-        else if (amount < 2000) return 0.4;
-        else if (amount < 10000) return 0.6;
-        else if (amount < 50000) return 0.8;
-        else return 1.0;
+        // Lower amounts are weighted closer to 1, higher amounts are weighted closer to 0
+        if (amount < 500) return 0.8;
+        else if (amount < 2000) return 0.6;
+        else if (amount < 10000) return 0.4;
+        else if (amount < 50000) return 0.2;
+        else return 0.0;
     }
 
 }

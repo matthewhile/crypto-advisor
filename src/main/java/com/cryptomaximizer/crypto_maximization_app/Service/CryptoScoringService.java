@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class CryptoScoringService {
 
-    public List<ScoredCryptoDTO> calculateTotalScore(List<MarketDataDTO> marketDataList) {
+    public List<ScoredCryptoDTO> calculateCryptoScore(List<MarketDataDTO> marketDataList) {
         List<ScoredCryptoDTO> scoredCryptos = new ArrayList<>();
 
         // The highest market cap in marketDataList
@@ -34,10 +34,11 @@ public class CryptoScoringService {
 //            double historicalPerformanceScore = getHistoricalPerformanceScore(crypto);
 
             // Example formula: total score is weighted sum of all individual scores
-//            double totalScore = marketCapScore * 0.3 + volumeScore * 0.2 +
-//                    volatilityScore * 0.3 + historicalPerformanceScore * 0.2;
-//
-//            scoredCryptos.add(new ScoredCryptoDTO(crypto, totalScore));
+            double totalScore = marketCapScore * 0.3 + volumeScore * 0.3 + volatilityScore * 0.4;
+            System.out.println("Total score for " + crypto.getName() + " = " + totalScore);
+
+
+            scoredCryptos.add(new ScoredCryptoDTO(crypto, totalScore));
         }
 
         return scoredCryptos;
@@ -47,7 +48,7 @@ public class CryptoScoringService {
     private double getMarketCapScore(MarketDataDTO crypto, double maxMarketCap) {
         double marketCap = crypto.getMarketCap();
         double normalizedMarketCap = marketCap / maxMarketCap;
-        System.out.println("normalized market cap for " + crypto.getName() + " is " + normalizedMarketCap);
+        //System.out.println("normalized market cap for " + crypto.getName() + " is " + normalizedMarketCap);
 
         return normalizedMarketCap;
     }
@@ -56,7 +57,7 @@ public class CryptoScoringService {
     private double getVolumeScore(MarketDataDTO crypto, double maxVolume, double minVolume) {
         double volume = crypto.getTotalVolume();
         double normalizedVolume = (volume - minVolume) / (maxVolume - minVolume);
-        System.out.println("normalized volume for " + crypto.getName() + " is " + normalizedVolume);
+        //System.out.println("normalized volume for " + crypto.getName() + " is " + normalizedVolume);
 
         return normalizedVolume;
     }
@@ -65,12 +66,13 @@ public class CryptoScoringService {
     private double getVolatilityScore(MarketDataDTO crypto, double minVolatility, double maxVolatility) {
         double priceChangeVolatility = (crypto.getHigh24h() - crypto.getLow24h());
         double percentChangeVolatility = Math.abs(crypto.getPriceChangePercentage24h());
-        double totalVolatility = 0.5 * priceChangeVolatility + 0.5 * percentChangeVolatility;
+        double totalVolatility = 0.4 * priceChangeVolatility + 0.6 * percentChangeVolatility;
         // Smooth and normalize the volatility score
         double normalizedVolatility = Math.sqrt((totalVolatility - minVolatility) / (maxVolatility - minVolatility));
-        System.out.println("normalized volatility for " + crypto.getName() + " is " + normalizedVolatility);
+        //System.out.println("normalized volatility for " + crypto.getName() + " is " + normalizedVolatility);
 
-        return normalizedVolatility;
+        // Invert the volatility score by subtracting from 1, so that high volatility --> lower score & low volatility --> higher score
+        return 1 - normalizedVolatility;
     }
 
     // TODO: write functions to calculate historical performance scores (maybe).

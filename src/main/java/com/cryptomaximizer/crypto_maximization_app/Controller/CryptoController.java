@@ -22,13 +22,13 @@ public class CryptoController {
     }
 
     @GetMapping("/market")
-    public List<MarketDataDTO> getMarketData() {
+    public List<MarketDataDTO> getCryptoData() {
         return cryptoDataService.getMarketData();
     }
 
     // For testing calculateTotalScore()
-//    @GetMapping("/market")
-//    public List<ScoredCryptoDTO> getMarketData() {
+//    @GetMapping("/score")
+//    public List<ScoredCryptoDTO> getCryptoScores() {
 //        List<MarketDataDTO> marketDataList = cryptoDataService.getMarketData(); // Fetching market data
 //        return cryptoScoringService.calculateCryptoScore(marketDataList); // Calculate scores
 //    }

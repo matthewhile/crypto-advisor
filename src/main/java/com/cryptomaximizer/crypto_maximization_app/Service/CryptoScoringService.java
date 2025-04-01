@@ -48,7 +48,7 @@ public class CryptoScoringService {
     private double getMarketCapScore(MarketDataDTO crypto, double maxMarketCap) {
         double marketCap = crypto.getMarketCap();
         double normalizedMarketCap = marketCap / maxMarketCap;
-        //System.out.println("normalized market cap for " + crypto.getName() + " is " + normalizedMarketCap);
+        System.out.println("normalized market cap for " + crypto.getName() + " is " + normalizedMarketCap);
 
         return normalizedMarketCap;
     }
@@ -57,7 +57,7 @@ public class CryptoScoringService {
     private double getVolumeScore(MarketDataDTO crypto, double maxVolume, double minVolume) {
         double volume = crypto.getTotalVolume();
         double normalizedVolume = (volume - minVolume) / (maxVolume - minVolume);
-        //System.out.println("normalized volume for " + crypto.getName() + " is " + normalizedVolume);
+        System.out.println("normalized volume for " + crypto.getName() + " is " + normalizedVolume);
 
         return normalizedVolume;
     }
@@ -69,7 +69,7 @@ public class CryptoScoringService {
         double totalVolatility = 0.4 * priceChangeVolatility + 0.6 * percentChangeVolatility;
         // Smooth and normalize the volatility score
         double normalizedVolatility = Math.sqrt((totalVolatility - minVolatility) / (maxVolatility - minVolatility));
-        //System.out.println("normalized volatility for " + crypto.getName() + " is " + normalizedVolatility);
+        System.out.println("normalized volatility for " + crypto.getName() + " is " + normalizedVolatility);
 
         // Invert the volatility score by subtracting from 1, so that high volatility --> lower score & low volatility --> higher score
         return 1 - normalizedVolatility;

@@ -33,7 +33,7 @@ public class PreferenceController {
     public ResponseEntity<Preference> setPreferences(@RequestBody Preference newPreference, Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
         Preference savedPreferences = preferenceDataService.saveOrUpdatePreferences(user, newPreference);
-        preferenceScoringService.calculateUserScore(newPreference); // For testing preference scores
+        //preferenceScoringService.calculatePreferenceScore(newPreference); // For testing preference scores
         return ResponseEntity.ok(savedPreferences);
     }
 

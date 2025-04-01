@@ -18,7 +18,7 @@ public class PreferenceScoringService {
         double amountScore = scoreInvestmentAmount(preference.getInvestmentAmount());
         System.out.println("User amount score is " + amountScore);
 
-        double total = riskScore + frequencyScore + timeFrameScore + amountScore;
+        double total = riskScore * 0.4 + frequencyScore * 0.2 + timeFrameScore * 0.2 + amountScore * 0.2;
         System.out.println("User total preference score is " + total);
 
         return new ScoredPreferenceDTO(riskScore, frequencyScore, timeFrameScore, amountScore, total);
@@ -39,7 +39,7 @@ public class PreferenceScoringService {
     }
 
     private double scoreFrequency(String frequency) {
-        /* Weights for frequency are determined based on the assumption that a user investing (daily, weekly)
+        /* Weights for frequency are determined based on the idea that a user investing (daily, weekly)
         * aligns with more liquid or volatile assets while a user investing (monthly, yearly, one-time)
         * aligns with lower risk and less volatile assets. */
         switch(frequency.toLowerCase()) {

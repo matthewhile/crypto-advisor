@@ -36,9 +36,11 @@ public class RecommendationController {
     @GetMapping("/recommendations")
     public ResponseEntity<RecommendationRespDTO> getTopCryptoMatches(Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
-        // Get user preference score
+        // Get user preference score & explanation
         Preference userPreferences = preferenceDataService.getPreferencesForUser(user);
         ScoredPreferenceDTO scoredPreference = preferenceScoringService.calculatePreferenceScore(userPreferences);
+        String explanation = preferenceScoringService.generateExplanation(scoredPreference, userPreferences);
+
         // Get Crypto scores
         List<MarketDataDTO> marketDataList = cryptoDataService.getMarketData();
         List<ScoredCryptoDTO> scoredCryptos = cryptoScoringService.calculateCryptoScore(marketDataList);
@@ -46,7 +48,7 @@ public class RecommendationController {
         // Get top matches
         List<ScoredCryptoDTO> topMatches = recommendationService.getTopMatches(scoredPreference, scoredCryptos);
 
-        RecommendationRespDTO response = new RecommendationRespDTO(userPreferences, topMatches);
+        RecommendationRespDTO response = new RecommendationRespDTO(userPreferences, topMatches, explanation);
 
         return ResponseEntity.ok(response);
     }

@@ -1,5 +1,6 @@
 package com.cryptomaximizer.crypto_maximization_app.Service;
 
+import com.cryptomaximizer.crypto_maximization_app.Exception.DataNotFoundException;
 import com.cryptomaximizer.crypto_maximization_app.Model.Preference;
 import com.cryptomaximizer.crypto_maximization_app.Model.User;
 import com.cryptomaximizer.crypto_maximization_app.Repository.PreferenceRepository;
@@ -31,7 +32,11 @@ public class PreferenceDataService {
     }
 
     public Preference getPreferencesForUser(User user) {
-        return preferenceRepository.findByUser(user);
+        Preference preference = preferenceRepository.findByUser(user);
+        if (preference == null) {
+            throw new DataNotFoundException("No preferences found for user");
+        }
+        return preference;
     }
 
 }

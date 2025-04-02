@@ -1,4 +1,5 @@
 package com.cryptomaximizer.crypto_maximization_app.Service;
+import com.cryptomaximizer.crypto_maximization_app.Exception.DataNotFoundException;
 import org.springframework.security.core.Authentication;
 import com.cryptomaximizer.crypto_maximization_app.Model.User;
 import com.cryptomaximizer.crypto_maximization_app.Repository.UserRepository;
@@ -35,6 +36,6 @@ public class UserService implements UserDetailsService {
     public User getAuthenticatedUser(Authentication authentication) {
         String username = authentication.getName();
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new DataNotFoundException("User not found"));
     }
 }

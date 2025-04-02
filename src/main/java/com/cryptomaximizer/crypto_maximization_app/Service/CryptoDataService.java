@@ -1,5 +1,6 @@
 package com.cryptomaximizer.crypto_maximization_app.Service;
 
+import com.cryptomaximizer.crypto_maximization_app.Exception.DataNotFoundException;
 import com.cryptomaximizer.crypto_maximization_app.Model.ChartDataDTO;
 import com.cryptomaximizer.crypto_maximization_app.Model.MarketDataDTO;
 
@@ -30,6 +31,10 @@ public class CryptoDataService {
     @Cacheable("marketDataDTO")
     public List<MarketDataDTO> getMarketData() {
         List<String> symbols = Arrays.asList(defaultSymbols.split(","));
+        if (symbols == null) {
+            throw new DataNotFoundException("Crypto market data failed to load correctly");
+        }
+
         String symbolList = String.join(",", symbols);
 
         String url = UriComponentsBuilder.fromUriString("https://api.coingecko.com/api/v3/coins/markets")
@@ -49,6 +54,9 @@ public class CryptoDataService {
         Map<String, ChartDataDTO> chartDataMap = new HashMap<>();
 
         List<String> symbols = Arrays.asList(defaultSymbols.split(","));
+        if (symbols == null) {
+            throw new DataNotFoundException("Crypto chart data failed to load correctly");
+        }
 
         for (String symbol : symbols) {
             String url = UriComponentsBuilder.fromUriString("https://api.coingecko.com/api/v3/coins/" + symbol + "/market_chart")

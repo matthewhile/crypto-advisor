@@ -81,5 +81,22 @@ public class PreferenceScoringService {
         else return 0.0;
     }
 
+    public String generateExplanation(ScoredPreferenceDTO scoredPreference, Preference preference) {
+        double total = scoredPreference.getTotalScore();
+        String disclaimer = " This is not financial advice and it's important to do your own research before investing in cryptocurrency.";
+        String preferenceDetails = "These cryptocurrencies are recommended because of your " + preference.getRiskTolerance().toLowerCase() + " risk tolerance, " +
+                preference.getTimeFrame().toLowerCase() + " investment goals, and desired investment amount of $" + preference.getInvestmentAmount().floatValue() + " on a " +
+                preference.getFrequency().toLowerCase() + " basis.";
+        String explanation = "";
+
+        if (0.75 < total) {
+            explanation = preferenceDetails + " We’ve matched you with cryptocurrencies known for stability and strong market caps." + disclaimer;
+        } else if (0.45 <= total && total <= 0.75) {
+            explanation = preferenceDetails + " These recommendations are tailored to offer a mix of volatility and potential performance." + disclaimer;
+        } else {
+            explanation = preferenceDetails + " These cryptocurrencies offer higher volatility and the potential for rapid movement." + disclaimer;
+        }
+        return explanation;
+    }
 }
 

@@ -7,13 +7,19 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
         credentials: "include"
     })
     .then(response => {
+        if (!response.ok) {
+            return response.text().then(errorMessage => { throw new Error(errorMessage); });
+        }
         this.style.display = "none";
         return response.json();
     })
     .then(data => {
+        // Clear error if request succeeds
+        document.getElementById("errorMessage").textContent = "";
         const cryptoContainer = document.getElementById("cryptoContainer");
         const topMatches = data.topMatches;
         const prefs = data.userPreferences;
+        const explanation = data.explanation
 
         topMatches.forEach(item => {
             const crypto = item.crypto;
@@ -48,7 +54,7 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
                         Investment Frequency - ${prefs.frequency}<br>
                         Investment Amount - $${prefs.investmentAmount.toLocaleString()}<br><br>
 
-                        Explanation depending on user input
+                        ${explanation}
                     </div>
                 </div>
             </div> `
@@ -56,6 +62,8 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
     })
     .catch(error => {
         console.error("Error:", error);
+        const errorDiv = document.getElementById("errorMessage");
+        errorDiv.textContent = "Error: " + error.message;
     });
 });
 

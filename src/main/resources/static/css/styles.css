@@ -339,6 +339,10 @@ body {
   text-decoration: none;
 }
 
+#recommendationBtn {
+  display: block
+}
+
 /* ============================= */
 /*           Profile             */
 /* ============================= */

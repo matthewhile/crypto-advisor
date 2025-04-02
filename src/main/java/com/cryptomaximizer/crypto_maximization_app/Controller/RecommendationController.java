@@ -5,7 +5,7 @@ import com.cryptomaximizer.crypto_maximization_app.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,8 +33,8 @@ public class RecommendationController {
         this.cryptoScoringService = cryptoScoringService;
     }
 
-    @PostMapping("/recommendations")
-    public ResponseEntity<List<ScoredCryptoDTO>> getTopCryptoMatches(Authentication authentication) {
+    @GetMapping("/recommendations")
+    public ResponseEntity<RecommendationRespDTO> getTopCryptoMatches(Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
         // Get user preference score
         Preference userPreferences = preferenceDataService.getPreferencesForUser(user);
@@ -46,7 +46,9 @@ public class RecommendationController {
         // Get top matches
         List<ScoredCryptoDTO> topMatches = recommendationService.getTopMatches(scoredPreference, scoredCryptos);
 
-        return ResponseEntity.ok(topMatches);
+        RecommendationRespDTO response = new RecommendationRespDTO(userPreferences, topMatches);
+
+        return ResponseEntity.ok(response);
     }
 
 }

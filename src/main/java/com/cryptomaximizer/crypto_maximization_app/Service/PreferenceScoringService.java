@@ -83,9 +83,11 @@ public class PreferenceScoringService {
 
     public String generateExplanation(ScoredPreferenceDTO scoredPreference, Preference preference) {
         double total = scoredPreference.getTotalScore();
+        double amount = preference.getInvestmentAmount();
+        int roundedAmount = (int) Math.round(amount);
         String disclaimer = " This is not financial advice and it's important to do your own research before investing in cryptocurrency.";
         String preferenceDetails = "These cryptocurrencies are recommended because of your " + preference.getRiskTolerance().toLowerCase() + " risk tolerance, " +
-                preference.getTimeFrame().toLowerCase() + " investment goals, and desired investment amount of $" + preference.getInvestmentAmount().floatValue() + " on a " +
+                preference.getTimeFrame().toLowerCase() + " investment goals, and desired investment amount of $" + roundedAmount + " on a " +
                 preference.getFrequency().toLowerCase() + " basis.";
         String explanation = "";
 

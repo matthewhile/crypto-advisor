@@ -8,12 +8,13 @@ function loadExpenses() {
         .then(response => response.json())
         .then(data => {
             const tableBody = document.getElementById("expenseTableBody");
-            tableBody.innerHTML = ""; // Clear existing rows before reloading
+            tableBody.innerHTML = "";
 
             data.forEach(expense => {
                 addExpenseRow(expense, tableBody, false);
             });
-
+            
+            updateTotalExpense();
             attachEventListeners();
         })
         .catch(error => console.error("Error fetching expenses:", error));
@@ -37,6 +38,7 @@ document.getElementById('addExpenseForm').addEventListener('submit', function(ev
     .then(expense => {
         const tableBody = document.getElementById("expenseTableBody");
         addExpenseRow(expense, tableBody, true); 
+        updateTotalExpense();
         document.getElementById('addExpenseForm').reset(); 
         attachEventListeners(); 
     })
@@ -88,6 +90,7 @@ function deleteExpense() {
     .then(response => {
         if (response.ok) {
             this.closest('tr').remove();
+            updateTotalExpense();
         } 
     })
     .catch(error => {
@@ -133,6 +136,7 @@ document.getElementById('editExpenseForm').addEventListener('submit', function(e
         if (row) {
             row.children[0].textContent = updatedExpense.category; 
             row.children[1].textContent = `$${parseFloat(updatedExpense.amount).toFixed(2)}`; 
+            updateTotalExpense();
         }
 
         // Close the modal
@@ -141,6 +145,16 @@ document.getElementById('editExpenseForm').addEventListener('submit', function(e
     })
     .catch(error => console.error('Error updating expense:', error));
 });
+
+function updateTotalExpense() {
+    let total = 0;
+    document.querySelectorAll('.expense-amount').forEach(cell => {
+        const amount = parseFloat(cell.textContent.replace('$', ''));
+        if (!isNaN(amount)) total += amount;
+    });
+    document.getElementById('totalExpense').textContent = `$${total.toFixed(2)}`;
+}
+
 
 
 // Submit net income form

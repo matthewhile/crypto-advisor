@@ -74,11 +74,6 @@ public class CryptoScoringService {
         return 1 - normalizedVolatility;
     }
 
-    // TODO: write functions to calculate historical performance scores (maybe).
-//    private double getHistoricalPerformanceScore(MarketDataDTO crypto) {
-//        // Calculate and return historical performance score
-//    }
-
     private double getMaxMarketCap (List<MarketDataDTO> marketDataList) {
         double maxMarketCap = marketDataList.stream()
                 .mapToDouble(MarketDataDTO::getMarketCap)

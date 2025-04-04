@@ -8,6 +8,7 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
     })
     .then(response => {
         if (!response.ok) {
+            document.getElementById("alertBox").classList.remove("hidden");
             return response.text().then(errorMessage => { throw new Error(errorMessage); });
         }
         this.style.display = "none";

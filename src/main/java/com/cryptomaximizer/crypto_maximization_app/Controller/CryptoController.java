@@ -26,13 +26,6 @@ public class CryptoController {
         return cryptoDataService.getMarketData();
     }
 
-    // For testing calculateTotalScore()
-//    @GetMapping("/score")
-//    public List<ScoredCryptoDTO> getCryptoScores() {
-//        List<MarketDataDTO> marketDataList = cryptoDataService.getMarketData(); // Fetching market data
-//        return cryptoScoringService.calculateCryptoScore(marketDataList); // Calculate scores
-//    }
-
     @GetMapping("/chart")
     public Map<String, ChartDataDTO> getMarketChart() {
         return cryptoDataService.getMarketChart();

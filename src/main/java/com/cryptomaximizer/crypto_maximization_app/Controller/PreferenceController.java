@@ -29,14 +29,15 @@ public class PreferenceController {
         this.userService = userService;
     }
 
+    // Store user preferences in database, update existing preferences if they already exist
     @PostMapping
     public ResponseEntity<Preference> setPreferences(@RequestBody Preference newPreference, Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
         Preference savedPreferences = preferenceDataService.saveOrUpdatePreferences(user, newPreference);
-        //preferenceScoringService.calculatePreferenceScore(newPreference); // For testing preference scores
         return ResponseEntity.ok(savedPreferences);
     }
 
+    // Get all user preferences
     @GetMapping
     public ResponseEntity<Preference> getPreferences(Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);

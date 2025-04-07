@@ -27,6 +27,7 @@ public class ExpenseController {
         this.userService = userService;
     }
 
+    // Load all expenses
     @GetMapping
     public ResponseEntity<List<Expense>> loadExpenses(Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
@@ -34,6 +35,7 @@ public class ExpenseController {
         return ResponseEntity.ok(expenses);
     }
 
+    // Add a new expense
     @PostMapping("/add")
     public ResponseEntity<Expense> addExpense(@RequestBody Expense expense, Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
@@ -42,6 +44,7 @@ public class ExpenseController {
         return ResponseEntity.ok(savedExpense);
     }
 
+    // Update selected expense
     @PutMapping("/update/{id}")
     public ResponseEntity<Expense> updateExpense(@PathVariable Long id, @RequestBody Expense updatedExpense) {
         Optional<Expense> optionalExpense = expenseRepository.findById(id);
@@ -58,7 +61,7 @@ public class ExpenseController {
         return ResponseEntity.ok(savedExpense);
     }
 
-
+    // Delete selected expense
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteExpense(@PathVariable Long id) {
         Optional<Expense> optionalExpense = expenseRepository.findById(id);

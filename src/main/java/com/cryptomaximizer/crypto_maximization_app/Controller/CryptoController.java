@@ -21,11 +21,13 @@ public class CryptoController {
         this.cryptoScoringService = cryptoScoringService;
     }
 
+    // Fetch market data
     @GetMapping("/market")
     public List<MarketDataDTO> getCryptoData() {
         return cryptoDataService.getMarketData();
     }
 
+    // Fetch chart data
     @GetMapping("/chart")
     public Map<String, ChartDataDTO> getMarketChart() {
         return cryptoDataService.getMarketChart();

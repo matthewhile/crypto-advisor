@@ -237,22 +237,22 @@ function loadStatesDropdown() {
 
 // Load filing status dropdown 
 
-function loadFilingStatusDropdown() {
+// function loadFilingStatusDropdown() {
 
-    const statuses = [
-        {value: 1, name: "Single"}, 
-        {value: 2, name: "Married Filing Jointly"}, 
-        {value: 3, name: "Married Filing Separately"}, 
-        {value: 4, name: "Head of Household"}, 
-        {value: 5, name: "Qualifying Widow(er)"}, 
-    ];
+//     const statuses = [
+//         {value: 1, name: "Single"}, 
+//         {value: 2, name: "Married Filing Jointly"}, 
+//         {value: 3, name: "Married Filing Separately"}, 
+//         {value: 4, name: "Head of Household"}, 
+//         {value: 5, name: "Qualifying Widow(er)"}, 
+//     ];
 
-    const statusDropdown = document.getElementById("filingStatus");
+//     const statusDropdown = document.getElementById("filingStatus");
 
-    statuses.forEach(status => {
-        let option = document.createElement("option");
-        option.value = status.value;
-        option.textContent = status.name;
-        statusDropdown.appendChild(option);
-    });
-};
+//     statuses.forEach(status => {
+//         let option = document.createElement("option");
+//         option.value = status.value;
+//         option.textContent = status.name;
+//         statusDropdown.appendChild(option);
+//     });
+//};

@@ -28,6 +28,9 @@
                             <label for="expenseAmount">Expense Amount:</label>
                             <input id="expenseAmount" type="number" class="form-control" placeholder="Enter Amount" required>
                         </div>
+                        <div id="expenseSuccess" class="success-alert hidden">
+                            <div class="">Expense category added successfully!</div>
+                        </div>		
                         <button id="addExpenseBtn" type="submit" class="crypto-btn">Add</button>
                     </form>
                     <table id="expenseTable" class="table table-bordered">
@@ -57,15 +60,18 @@
                             </select>
                         </div>
                         <div class="form-group">
+                          <label for="filing-status">Filing Status:</label>
+                          <select id="filingStatus" required>
+                              <option value="">-- Select a Status --</option>
+                          </select>
+                      </div> 
+                        <div class="form-group">
                             <label for="grossIncome">Annual Income:</label>
                             <input type="number" class="form-control" id="grossIncome" placeholder="Enter Income" required>
-                        </div>  
-                        <!-- <div class="form-group">
-                            <label for="filing-status">Filing Status:</label>
-                            <select id="filingStatus" required>
-                                <option value="">-- Select a Status --</option>
-                            </select>
-                        </div>  -->
+                        </div>
+                        <div id="incomeSuccess" class="success-alert hidden">
+                            <div class="">Income info saved successfully!</div>
+                        </div>		
                         <button id="netIncomeBtn" type="submit" class="crypto-btn">Submit</button>
                     </form>
                     <div>

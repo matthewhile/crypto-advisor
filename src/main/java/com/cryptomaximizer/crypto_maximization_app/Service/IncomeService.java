@@ -17,6 +17,7 @@ public class IncomeService {
 
         if (existingIncome != null) {
             existingIncome.setState(newIncome.getState());
+            existingIncome.setFilingStatus(newIncome.getFilingStatus());
             existingIncome.setGrossIncome(newIncome.getGrossIncome());
         } else {
             existingIncome = newIncome;

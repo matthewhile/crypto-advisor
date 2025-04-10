@@ -288,6 +288,11 @@ body {
   margin-left: auto;
 }
 
+#expenseSuccess {
+  font-weight: bold;
+  display: none;
+}
+
 /* ============================= */
 /*      PREFERENCES STYLES       */
 /* ============================= */

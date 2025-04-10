@@ -20,6 +20,9 @@ document.getElementById('preferencesForm').addEventListener('submit', function(e
         console.log("Success:", data);
         document.getElementById('preferencesForm').reset(); 
         success.style.display = 'block';
+        setTimeout(() => {
+            success.style.display = 'none';
+        }, 10000);
     })
     .catch(error => {
         console.error("Error:", error);

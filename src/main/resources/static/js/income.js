@@ -158,10 +158,34 @@ function updateTotalExpense() {
 
 
 // Submit net income form
-document.getElementById('netIncomeForm').addEventListener('submit', function() {
+document.getElementById('netIncomeForm').addEventListener('submit', function(event) {
+    event.preventDefault();
     const grossIncome = document.getElementById('grossIncome').value;
     const state = document.getElementById('state').value;
     const filingStatus = document.getElementById('filingStatus').value;
+    const data = {grossIncome, state, filingStatus};
+    const success = document.getElementById('incomeSuccess');
+
+    fetch('/api/income', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Success:", data);
+        document.getElementById('netIncomeForm').reset(); 
+        success.style.display = 'block';
+        setTimeout(() => {
+            success.style.display = 'none';
+        }, 10000);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        error.style.display = 'block';
+    });
+
+
 })
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -237,22 +261,22 @@ function loadStatesDropdown() {
 
 // Load filing status dropdown 
 
-// function loadFilingStatusDropdown() {
+function loadFilingStatusDropdown() {
 
-//     const statuses = [
-//         {value: 1, name: "Single"}, 
-//         {value: 2, name: "Married Filing Jointly"}, 
-//         {value: 3, name: "Married Filing Separately"}, 
-//         {value: 4, name: "Head of Household"}, 
-//         {value: 5, name: "Qualifying Widow(er)"}, 
-//     ];
+    const statuses = [
+        {value: "Single", name: "Single"}, 
+        {value: "Married Filing Jointly", name: "Married Filing Jointly"}, 
+        //{value: "Married Filing Separately", name: "Married Filing Separately"}, 
+        {value: "Head of Household", name: "Head of Household"}, 
+        //{value: "Qualifying Widow(er)", name: "Qualifying Widow(er)"}, 
+    ];
 
-//     const statusDropdown = document.getElementById("filingStatus");
+    const statusDropdown = document.getElementById("filingStatus");
 
-//     statuses.forEach(status => {
-//         let option = document.createElement("option");
-//         option.value = status.value;
-//         option.textContent = status.name;
-//         statusDropdown.appendChild(option);
-//     });
-//};
+    statuses.forEach(status => {
+        let option = document.createElement("option");
+        option.value = status.value;
+        option.textContent = status.name;
+        statusDropdown.appendChild(option);
+    });
+};

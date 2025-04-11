@@ -241,6 +241,7 @@ body {
 
 #saveEditExpenseBtn {
   margin-left: auto;
+  font-weight: bold;
 }
 
 /* ============================= */
@@ -398,6 +399,10 @@ body {
 
 #profileContainer .crypto-btn {
   margin-right: auto;
+}
+
+.profile-edit-btn {
+  margin-left: 690px;
 }
 
 /* ============================= */

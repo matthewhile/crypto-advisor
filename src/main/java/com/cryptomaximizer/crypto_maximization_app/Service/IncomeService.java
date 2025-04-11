@@ -1,6 +1,8 @@
 package com.cryptomaximizer.crypto_maximization_app.Service;
 
+import com.cryptomaximizer.crypto_maximization_app.Exception.DataNotFoundException;
 import com.cryptomaximizer.crypto_maximization_app.Model.Income;
+import com.cryptomaximizer.crypto_maximization_app.Model.Preference;
 import com.cryptomaximizer.crypto_maximization_app.Model.User;
 import com.cryptomaximizer.crypto_maximization_app.Repository.IncomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +26,13 @@ public class IncomeService {
             existingIncome.setUser(user);
         }
         return incomeRepository.save(existingIncome);
+    }
+
+    public Income getTaxInfoForUser(User user) {
+        Income income = incomeRepository.findByUser(user);
+        if (income == null) {
+            throw new DataNotFoundException("No income tax info found for user");
+        }
+        return income;
     }
 }

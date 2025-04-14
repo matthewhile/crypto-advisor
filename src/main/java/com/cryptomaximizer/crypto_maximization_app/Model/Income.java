@@ -27,7 +27,8 @@ public class Income {
     @Column(name = "gross_income", nullable = false)
     private BigDecimal grossIncome;
 
-    public Income() { }
+    public Income() {
+    }
 
     public Income(User user, String state, String filingStatus, BigDecimal grossIncome) {
         this.user = user;
@@ -35,21 +36,39 @@ public class Income {
         this.grossIncome = grossIncome;
     }
 
+    public Long getId() {
+        return id;
+    }
 
-    public Long getId() { return id; }
+    public User getUser() {
+        return user;
+    }
 
-    public User getUser() { return user; }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public void setUser(User user) { this.user = user; }
+    public String getState() {
+        return state;
+    }
 
-    public String getState() { return state; }
+    public void setState(String state) {
+        this.state = state;
+    }
 
-    public void setState(String state) { this.state = state; }
-    public String getFilingStatus() { return filingStatus; }
+    public String getFilingStatus() {
+        return filingStatus;
+    }
 
-    public void setFilingStatus(String filingStatus) { this.filingStatus = filingStatus; }
+    public void setFilingStatus(String filingStatus) {
+        this.filingStatus = filingStatus;
+    }
 
-    public BigDecimal getGrossIncome() { return grossIncome; }
+    public BigDecimal getGrossIncome() {
+        return grossIncome;
+    }
 
-    public void setGrossIncome(BigDecimal grossIncome) { this.grossIncome = grossIncome; }
+    public void setGrossIncome(BigDecimal grossIncome) {
+        this.grossIncome = grossIncome;
+    }
 }

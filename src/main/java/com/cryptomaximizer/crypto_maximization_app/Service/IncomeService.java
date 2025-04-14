@@ -32,7 +32,6 @@ public class IncomeService {
 
     public IncomeCalculationDTO fetchIncomeTaxCalculation(Income income) {
 
-
         String filing_status = income.getFilingStatus();
         switch (filing_status) {
             case ("Single"):
@@ -47,10 +46,6 @@ public class IncomeService {
             default:
                 filing_status = "single";
         }
-
-        System.out.println("DEBUG - Filing Status: " + filing_status);
-        System.out.println("DEBUG - State: " + income.getState());
-        System.out.println("DEBUG - Gross Income: " + income.getGrossIncome());
 
         String url = UriComponentsBuilder
                 .fromUriString("https://api.api-ninjas.com/v1/incometaxcalculator")
@@ -71,6 +66,44 @@ public class IncomeService {
             return response.getBody();
         } catch (Exception e) {
             throw new RuntimeException("Error calling income tax API: " + e.getMessage(), e);
+        }
+    }
+
+    public double getEstimatedStateTax(String state, double income) {
+        // We calculate state income tax only for states with a fixed tax rate for proof of concept.
+        // States that use a graduated tax rate are excluded because I don't want to spend $20 on the API for this project.
+        switch (state.toUpperCase()) {
+            case "AZ":
+                return income * 0.025; // Arizona
+            case "CO":
+                return income * 0.0455; // Colorado
+            case "GA":
+                return income * 0.0575; // Georgia
+            case "ID":
+                return income * 0.058; // Idaho
+            case "IL":
+                return income * 0.0495; // Illinois
+            case "IN":
+                return income * 0.0323; // Indiana
+            case "IA":
+                return income * 0.06; // Iowa
+            case "KY":
+                return income * 0.05; // Kentucky
+            case "MI":
+                return income * 0.0425; // Michigan
+            case "MS":
+                return income * 0.05; // Mississippi
+            case "NC":
+                return income * 0.0475; // North Carolina
+            case "PA":
+                return income * 0.0307; // Pennsylvania
+            case "UT":
+                return income * 0.0485; // Utah
+            case "MA":
+                return income * 0.05; // Massachusetts
+
+            default:
+                return 0.0; // For non-income-tax states like FL, TX, NV, etc.
         }
     }
 

@@ -6,105 +6,103 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class IncomeCalculationDTO {
 
-    private String state;
+    private String country;
+    private String region;
+    private double income;
 
-    @JsonProperty("filing_status")
-    private String filingStatus;
+    @JsonProperty("taxable_income")
+    private double taxableIncome;
 
-    private int income;
+    @JsonProperty("federal_effective_rate")
+    private double federalEffectiveRate;
 
-    @JsonProperty("federal_tax")
-    private double federalTax;
+    @JsonProperty("federal_taxes_owed")
+    private double federalTaxesOwed;
 
-    @JsonProperty("state_tax")
-    private double stateTax;
+    @JsonProperty("fica_social_security")
+    private double ficaSocialSecurity;
 
-    @JsonProperty("social_security_tax")
-    private double socialSecurityTax;
+    @JsonProperty("fica_medicare")
+    private double ficaMedicare;
 
-    @JsonProperty("medicare_tax")
-    private double medicareTax;
-
-    @JsonProperty("total_taxes")
-    private double totalTaxes;
-
-    @JsonProperty("after_tax_income")
-    private double afterTaxIncome;
+    @JsonProperty("fica_total")
+    private double ficaTotal;
 
     public IncomeCalculationDTO() {
     }
 
-    // ✅ All getters and setters use camelCase method names
+    // === Getters and setters ===
 
-    public String getState() {
-        return state;
+    public String getCountry() {
+        return country;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public String getFilingStatus() {
-        return filingStatus;
+    public String getRegion() {
+        return region;
     }
 
-    public void setFilingStatus(String filingStatus) {
-        this.filingStatus = filingStatus;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
-    public int getIncome() {
+    public double getIncome() {
         return income;
     }
 
-    public void setIncome(int income) {
+    public void setIncome(double income) {
         this.income = income;
     }
 
-    public double getFederalTax() {
-        return federalTax;
+    public double getTaxableIncome() {
+        return taxableIncome;
     }
 
-    public void setFederalTax(double federalTax) {
-        this.federalTax = federalTax;
+    public void setTaxableIncome(double taxableIncome) {
+        this.taxableIncome = taxableIncome;
     }
 
-    public double getStateTax() {
-        return stateTax;
+    public double getFederalEffectiveRate() {
+        return federalEffectiveRate;
     }
 
-    public void setStateTax(double stateTax) {
-        this.stateTax = stateTax;
+    public void setFederalEffectiveRate(double federalEffectiveRate) {
+        this.federalEffectiveRate = federalEffectiveRate;
     }
 
-    public double getSocialSecurityTax() {
-        return socialSecurityTax;
+    public double getFederalTaxesOwed() {
+        return federalTaxesOwed;
     }
 
-    public void setSocialSecurityTax(double socialSecurityTax) {
-        this.socialSecurityTax = socialSecurityTax;
+    public void setFederalTaxesOwed(double federalTaxesOwed) {
+        this.federalTaxesOwed = federalTaxesOwed;
     }
 
-    public double getMedicareTax() {
-        return medicareTax;
+    public double getFicaSocialSecurity() {
+        return ficaSocialSecurity;
     }
 
-    public void setMedicareTax(double medicareTax) {
-        this.medicareTax = medicareTax;
+    public void setFicaSocialSecurity(double ficaSocialSecurity) {
+        this.ficaSocialSecurity = ficaSocialSecurity;
     }
 
-    public double getTotalTaxes() {
-        return totalTaxes;
+    public double getFicaMedicare() {
+        return ficaMedicare;
     }
 
-    public void setTotalTaxes(double totalTaxes) {
-        this.totalTaxes = totalTaxes;
+    public void setFicaMedicare(double ficaMedicare) {
+        this.ficaMedicare = ficaMedicare;
     }
 
-    public double getAfterTaxIncome() {
-        return afterTaxIncome;
+    public double getFicaTotal() {
+        return ficaTotal;
     }
 
-    public void setAfterTaxIncome(double afterTaxIncome) {
-        this.afterTaxIncome = afterTaxIncome;
+    public void setFicaTotal(double ficaTotal) {
+        this.ficaTotal = ficaTotal;
     }
+
 }

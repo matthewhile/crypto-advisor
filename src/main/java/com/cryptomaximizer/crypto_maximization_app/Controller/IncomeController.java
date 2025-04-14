@@ -1,6 +1,7 @@
 package com.cryptomaximizer.crypto_maximization_app.Controller;
 
 import com.cryptomaximizer.crypto_maximization_app.Model.Income;
+import com.cryptomaximizer.crypto_maximization_app.Model.IncomeCalculationDTO;
 import com.cryptomaximizer.crypto_maximization_app.Model.Preference;
 import com.cryptomaximizer.crypto_maximization_app.Model.User;
 import com.cryptomaximizer.crypto_maximization_app.Repository.IncomeRepository;
@@ -39,5 +40,14 @@ public class IncomeController {
         Income income = incomeService.getTaxInfoForUser(user);
         return ResponseEntity.ok(income);
     }
+
+    @GetMapping("/taxes")
+    public ResponseEntity<IncomeCalculationDTO> getIncomeTaxes(Authentication authentication) {
+        User user = userService.getAuthenticatedUser(authentication);
+        Income income = incomeService.getTaxInfoForUser(user);
+        IncomeCalculationDTO taxData = incomeService.fetchIncomeTaxCalculation(income);
+        return ResponseEntity.ok(taxData);
+    }
+
 
 }

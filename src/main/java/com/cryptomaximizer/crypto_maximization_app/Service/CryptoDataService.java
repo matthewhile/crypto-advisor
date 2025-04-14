@@ -3,7 +3,6 @@ package com.cryptomaximizer.crypto_maximization_app.Service;
 import com.cryptomaximizer.crypto_maximization_app.Exception.DataNotFoundException;
 import com.cryptomaximizer.crypto_maximization_app.Model.ChartDataDTO;
 import com.cryptomaximizer.crypto_maximization_app.Model.MarketDataDTO;
-
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

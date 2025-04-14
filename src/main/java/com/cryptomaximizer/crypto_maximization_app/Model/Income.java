@@ -1,6 +1,7 @@
 package com.cryptomaximizer.crypto_maximization_app.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

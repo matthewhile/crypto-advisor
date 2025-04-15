@@ -32,6 +32,8 @@ public class IncomeService {
 
     public IncomeCalculationDTO fetchIncomeTaxCalculation(Income income) {
 
+        double grossIncome = income.getGrossIncome().doubleValue();
+        String state = income.getState();
         String filing_status = income.getFilingStatus();
         switch (filing_status) {
             case ("Single"):
@@ -50,8 +52,8 @@ public class IncomeService {
         String url = UriComponentsBuilder
                 .fromUriString("https://api.api-ninjas.com/v1/incometaxcalculator")
                 .queryParam("country", "US")
-                .queryParam("income", income.getGrossIncome().intValue())
-                .queryParam("region", income.getState())
+                .queryParam("income", grossIncome)
+                .queryParam("region", state)
                 .queryParam("filing_status", filing_status)
                 .toUriString();
         System.out.println("➡️ Final API URL: " + url);
@@ -60,13 +62,29 @@ public class IncomeService {
         headers.set("X-Api-Key", apiKey);
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        try {
-            ResponseEntity<IncomeCalculationDTO> response = restTemplate.exchange(
-                    url, HttpMethod.GET, requestEntity, IncomeCalculationDTO.class);
-            return response.getBody();
-        } catch (Exception e) {
-            throw new RuntimeException("Error calling income tax API: " + e.getMessage(), e);
+        ResponseEntity<IncomeCalculationDTO> response = restTemplate.exchange(
+                url, HttpMethod.GET, requestEntity, IncomeCalculationDTO.class
+        );
+        IncomeCalculationDTO dto = response.getBody();
+
+        if (dto != null) {
+
+            // Get estimated state taxes
+            double stateTax = getEstimatedStateTax(state, grossIncome);
+            dto.setEstimatedStateTax(stateTax);
+
+            // Calculate total taxes owed
+            double federalTax = dto.getFederalTaxesOwed();
+            double ficaTax = dto.getFicaTotal();
+            double totalTax = stateTax + federalTax + ficaTax;
+            dto.setTotalTaxes(totalTax);
+
+            // Calculate net income
+            double netIncome = grossIncome - totalTax;
+            dto.setCalculatedNetIncome(netIncome);
         }
+
+        return dto;
     }
 
     public double getEstimatedStateTax(String state, double income) {
@@ -107,7 +125,7 @@ public class IncomeService {
         }
     }
 
-    public Income saveOrUpdateIncome(User user, Income newIncome) {
+    public Income saveOrUpdateTaxInfo(User user, Income newIncome) {
         Income existingIncome = incomeRepository.findByUser(user);
 
         if (existingIncome != null) {

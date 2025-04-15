@@ -30,7 +30,7 @@ public class IncomeController {
     @PostMapping
     public ResponseEntity<Income> setIncome(@RequestBody Income newIncome, Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
-        Income savedIncome = incomeService.saveOrUpdateIncome(user, newIncome);
+        Income savedIncome = incomeService.saveOrUpdateTaxInfo(user, newIncome);
         return ResponseEntity.ok(savedIncome);
     }
 

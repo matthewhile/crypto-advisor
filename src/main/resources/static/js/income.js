@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     loadExpenses();
+    loadStatesDropdown();
+    loadFilingStatusDropdown();
 });
 
 // Load user's expenses
@@ -14,11 +16,71 @@ function loadExpenses() {
                 addExpenseRow(expense, tableBody, false);
             });
             
-            updateTotalExpense();
+            const totalExpenses = updateTotalExpense();
+            document.getElementById('totalExpense').textContent = `$${totalExpenses}`;;
             attachEventListeners();
         })
         .catch(error => console.error("Error fetching expenses:", error));
 }
+
+// Submit net income form
+document.getElementById('netIncomeForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const grossIncome = document.getElementById('grossIncome').value;
+    const state = document.getElementById('state').value;
+    const filingStatus = document.getElementById('filingStatus').value;
+    const data = {grossIncome, state, filingStatus};
+    const success = document.getElementById('incomeSuccess');
+
+    fetch('/api/income', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Success:", data);
+        document.getElementById('netIncomeForm').reset(); 
+        success.style.display = 'block';
+        setTimeout(() => {
+            success.style.display = 'none';
+        }, 10000);
+        // Calculate net income after form is submitted
+        calculateNetIncome()
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        error.style.display = 'block';
+    });
+})
+
+function calculateNetIncome() {
+    fetch("http://localhost:8080/api/income/taxes", {
+        method: "GET",
+        credentials: "include"
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        debugger;
+        const federalTaxes = data.federal_taxes_owed;
+        const ficaTaxes = data.fica_total;
+        const stateTaxes = data.estimatedStateTax;
+        const grossIncome = data.income;
+        const netIncome = data.calculatedNetIncome;
+        const monthlyExpenses = updateTotalExpense(); 
+        const disposableIncome = netIncome - (monthlyExpenses * 12);
+        document.getElementById("calculatedNetIncome").textContent =
+            `Net Income: $${netIncome.toLocaleString()}`;
+        document.getElementById("incomeAfterExpenses").textContent =
+            `Estimated Disposable Income: $${disposableIncome.toLocaleString()}`;
+        
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+};
 
 // Add new expense
 document.getElementById('addExpenseForm').addEventListener('submit', function(event) {
@@ -146,6 +208,7 @@ document.getElementById('editExpenseForm').addEventListener('submit', function(e
     .catch(error => console.error('Error updating expense:', error));
 });
 
+// Calculate total expenses
 function updateTotalExpense() {
     let total = 0;
     document.querySelectorAll('.expense-amount').forEach(cell => {
@@ -153,45 +216,8 @@ function updateTotalExpense() {
         if (!isNaN(amount)) total += amount;
     });
     document.getElementById('totalExpense').textContent = `$${total.toFixed(2)}`;
+    return total.toFixed(2);
 }
-
-
-
-// Submit net income form
-document.getElementById('netIncomeForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const grossIncome = document.getElementById('grossIncome').value;
-    const state = document.getElementById('state').value;
-    const filingStatus = document.getElementById('filingStatus').value;
-    const data = {grossIncome, state, filingStatus};
-    const success = document.getElementById('incomeSuccess');
-
-    fetch('/api/income', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Success:", data);
-        document.getElementById('netIncomeForm').reset(); 
-        success.style.display = 'block';
-        setTimeout(() => {
-            success.style.display = 'none';
-        }, 10000);
-    })
-    .catch(error => {
-        console.error("Error:", error);
-        error.style.display = 'block';
-    });
-
-
-})
-
-document.addEventListener("DOMContentLoaded", function() {
-    loadStatesDropdown();
-    loadFilingStatusDropdown();
-});
 
 // States dropdown list code
 
@@ -266,9 +292,7 @@ function loadFilingStatusDropdown() {
     const statuses = [
         {value: "Single", name: "Single"}, 
         {value: "Married Filing Jointly", name: "Married Filing Jointly"}, 
-        //{value: "Married Filing Separately", name: "Married Filing Separately"}, 
         {value: "Head of Household", name: "Head of Household"}, 
-        //{value: "Qualifying Widow(er)", name: "Qualifying Widow(er)"}, 
     ];
 
     const statusDropdown = document.getElementById("filingStatus");

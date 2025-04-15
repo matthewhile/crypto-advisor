@@ -34,7 +34,7 @@
                         <button id="addExpenseBtn" type="submit" class="crypto-btn">Add</button>
                     </form>
                     <table id="expenseTable" class="table table-bordered">
-                        <div class="h5">Total: <span id="totalExpense">$0.00</span></div>
+                        <div class="h5">Total Monthly: <span id="totalExpense">$0.00</span></div>
                         <thead class="table-light">
                             <tr>
                                 <th>Expense Category</th>
@@ -75,7 +75,9 @@
                         <button id="netIncomeBtn" type="submit" class="crypto-btn">Submit</button>
                     </form>
                     <div>
-                        <p class="h5 mt-5">Estimated Net Income: </p>
+                        <!-- <button id="netIncomeBtn" class="crypto-btn">Calculate Net Income</button> -->
+                        <p id="calculatedNetIncome" class="h5 mt-5"></p>
+                        <p id="incomeAfterExpenses" class="h5 mt-5"></p>
                     </div>
                 </div>
             </div>

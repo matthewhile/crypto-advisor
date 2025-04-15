@@ -10,11 +10,14 @@ public class IncomeCalculationDTO {
     private String region;
     private double income;
 
+    private double calculatedNetIncome;
+
+    private double estimatedStateTax;
+
+    private double totalTaxes;
+
     @JsonProperty("taxable_income")
     private double taxableIncome;
-
-    @JsonProperty("federal_effective_rate")
-    private double federalEffectiveRate;
 
     @JsonProperty("federal_taxes_owed")
     private double federalTaxesOwed;
@@ -65,14 +68,6 @@ public class IncomeCalculationDTO {
         this.taxableIncome = taxableIncome;
     }
 
-    public double getFederalEffectiveRate() {
-        return federalEffectiveRate;
-    }
-
-    public void setFederalEffectiveRate(double federalEffectiveRate) {
-        this.federalEffectiveRate = federalEffectiveRate;
-    }
-
     public double getFederalTaxesOwed() {
         return federalTaxesOwed;
     }
@@ -81,21 +76,13 @@ public class IncomeCalculationDTO {
         this.federalTaxesOwed = federalTaxesOwed;
     }
 
-    public double getFicaSocialSecurity() {
-        return ficaSocialSecurity;
-    }
+    public double getFicaSocialSecurity() { return ficaSocialSecurity; }
 
-    public void setFicaSocialSecurity(double ficaSocialSecurity) {
-        this.ficaSocialSecurity = ficaSocialSecurity;
-    }
+    public void setFicaSocialSecurity(double ficaSocialSecurity) { this.ficaSocialSecurity = ficaSocialSecurity; }
 
-    public double getFicaMedicare() {
-        return ficaMedicare;
-    }
+    public double getFicaMedicare() { return ficaMedicare; }
 
-    public void setFicaMedicare(double ficaMedicare) {
-        this.ficaMedicare = ficaMedicare;
-    }
+    public void setFicaMedicare(double ficaMedicare) { this.ficaMedicare = ficaMedicare; }
 
     public double getFicaTotal() {
         return ficaTotal;
@@ -104,5 +91,18 @@ public class IncomeCalculationDTO {
     public void setFicaTotal(double ficaTotal) {
         this.ficaTotal = ficaTotal;
     }
+
+    public double getEstimatedStateTax() { return estimatedStateTax; }
+    public void setEstimatedStateTax(double estimatedStateTax) { this.estimatedStateTax = estimatedStateTax; }
+
+    public double getTotalTaxes() { return totalTaxes; }
+
+    public void setTotalTaxes(double totalTaxes) {
+        this.totalTaxes = totalTaxes;
+    }
+
+    public double getCalculatedNetIncome() { return calculatedNetIncome; }
+
+    public void setCalculatedNetIncome(double calculatedNetIncome) { this.calculatedNetIncome = calculatedNetIncome; }
 
 }

@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.math.BigDecimal;
+
 @Service
 public class IncomeService {
 
@@ -82,6 +84,10 @@ public class IncomeService {
             // Calculate net income
             double netIncome = grossIncome - totalTax;
             dto.setCalculatedNetIncome(netIncome);
+
+            // Add or update net income in the Income db table
+            income.setNetIncome(BigDecimal.valueOf(netIncome));
+            incomeRepository.save(income); // update the row with new net income
         }
 
         return dto;

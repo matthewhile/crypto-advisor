@@ -294,6 +294,10 @@ body {
   display: none;
 }
 
+.alert-button-row {
+  display: flex;
+}
+
 /* ============================= */
 /*      PREFERENCES STYLES       */
 /* ============================= */

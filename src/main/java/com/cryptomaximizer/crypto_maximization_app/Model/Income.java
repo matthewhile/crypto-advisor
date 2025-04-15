@@ -27,6 +27,9 @@ public class Income {
     @Column(name = "gross_income", nullable = false)
     private BigDecimal grossIncome;
 
+    @Column(name = "net_income")
+    private BigDecimal netIncome;
+
     public Income() {
     }
 
@@ -71,4 +74,7 @@ public class Income {
     public void setGrossIncome(BigDecimal grossIncome) {
         this.grossIncome = grossIncome;
     }
+    public BigDecimal getNetIncome() { return netIncome; }
+
+    public void setNetIncome(BigDecimal netIncome) { this.netIncome = netIncome; }
 }

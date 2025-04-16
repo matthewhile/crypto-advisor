@@ -37,19 +37,27 @@ public class IncomeService {
         double grossIncome = income.getGrossIncome().doubleValue();
         String state = income.getState();
         String filing_status = income.getFilingStatus();
+        double standardDeduction = 0;
+
         switch (filing_status) {
             case ("Single"):
                 filing_status = "single";
+                standardDeduction = 14600;
                 break;
             case ("Married Filing Jointly"):
                 filing_status = "married";
+                standardDeduction = 29200;
                 break;
             case ("Head of Household"):
                 filing_status = "head_of_household";
+                standardDeduction = 21900;
                 break;
             default:
                 filing_status = "single";
+                standardDeduction = 14600;
         }
+
+        double taxableIncome = Math.max(0, grossIncome - standardDeduction);
 
         String url = UriComponentsBuilder
                 .fromUriString("https://api.api-ninjas.com/v1/incometaxcalculator")
@@ -58,7 +66,6 @@ public class IncomeService {
                 .queryParam("region", state)
                 .queryParam("filing_status", filing_status)
                 .toUriString();
-        System.out.println("➡️ Final API URL: " + url);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Api-Key", apiKey);

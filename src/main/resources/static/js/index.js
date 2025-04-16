@@ -1,3 +1,19 @@
+function fetchChartData() {
+    fetch("http://localhost:8080/api/crypto/chart", {
+        method: "GET",
+        credentials: "include"
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });
+};
+
 
 // const topCryptos = ["bitcoin", "ethereum", "litecoin", "avalanche", "usdc"];
 const topCryptos = ["bitcoin", "litecoin"];

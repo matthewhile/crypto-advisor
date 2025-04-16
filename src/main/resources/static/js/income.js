@@ -26,6 +26,7 @@ function loadExpenses() {
 // Submit net income form
 document.getElementById('netIncomeForm').addEventListener('submit', function(event) {
     event.preventDefault();
+    debugger;
     const grossIncome = document.getElementById('grossIncome').value;
     const state = document.getElementById('state').value;
     const filingStatus = document.getElementById('filingStatus').value;
@@ -40,7 +41,7 @@ document.getElementById('netIncomeForm').addEventListener('submit', function(eve
     .then(response => response.json())
     .then(data => {
         console.log("Success:", data);
-        document.getElementById('netIncomeForm').reset(); 
+        //document.getElementById('netIncomeForm').reset(); 
         success.style.display = 'block';
         setTimeout(() => {
             success.style.display = 'none';
@@ -65,12 +66,26 @@ function calculateNetIncome() {
     .then(data => {
         debugger;
         const federalTaxes = data.federal_taxes_owed;
-        const ficaTaxes = data.fica_total;
+        const socialSecurityTax = data.fica_social_security;
+        const medicareTax = data.fica_medicare;
         const stateTaxes = data.estimatedStateTax;
-        const grossIncome = data.income;
+        const totalTaxes = data.totalTaxes;
+        const taxableIncome = data.taxable_income;
         const netIncome = data.calculatedNetIncome;
         const monthlyExpenses = updateTotalExpense(); 
         const disposableIncome = netIncome - (monthlyExpenses * 12);
+        document.getElementById("medicareTax").textContent =
+        `Medicare Tax: $${medicareTax.toLocaleString()}`;
+        document.getElementById("socialSecurityTax").textContent =
+            `Social Security Tax: $${socialSecurityTax.toLocaleString()}`;
+        document.getElementById("federalTaxes").textContent =
+            `Federal Tax: $${federalTaxes.toLocaleString()}`;
+        document.getElementById("stateTaxes").textContent =
+            `State Tax: $${stateTaxes.toLocaleString()}`;
+        document.getElementById("totalTaxes").textContent =
+            `Total Taxes: $${totalTaxes.toLocaleString()}`;
+        document.getElementById("taxableIncome").textContent =
+            `Gross Income: $${taxableIncome.toLocaleString()}`;
         document.getElementById("calculatedNetIncome").textContent =
             `Net Income: $${netIncome.toLocaleString()}`;
         document.getElementById("incomeAfterExpenses").textContent =

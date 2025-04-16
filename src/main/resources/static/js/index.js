@@ -1,18 +1,36 @@
+document.addEventListener("DOMContentLoaded", function () {
+    fetchChartData();
+});
+
 function fetchChartData() {
+    debugger;
     fetch("http://localhost:8080/api/crypto/chart", {
         method: "GET",
         credentials: "include"
     })
-    .then(response => {
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        
+        console.log("Chart Data:", data);
+
+        // Example: Loop through each coin
+        for (const symbol in data) {
+            const chart = data[symbol];
+
+            // Access prices, market caps, volumes
+            const prices = chart.prices;
+
+
+            console.log(`Symbol: ${symbol}`);
+            console.log("First Price Point:", prices[0]);
+
+            // You can now use this data to populate a chart
+        }
     })
     .catch(error => {
         console.error("Error:", error);
     });
-};
+}
+
 
 
 // const topCryptos = ["bitcoin", "ethereum", "litecoin", "avalanche", "usdc"];
@@ -22,7 +40,6 @@ const topCryptos = ["bitcoin", "litecoin"];
         const charts = {}; 
 
         async function fetchCryptoHistory(symbol) {
-            debugger;
             try {
                 let response = await fetch(`https://api.coingecko.com/api/v3/coins/${symbol}/market_chart?vs_currency=usd&days=180&interval=daily`);
                 if (!response.ok) return null;

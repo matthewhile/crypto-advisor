@@ -4,11 +4,13 @@ import com.cryptomaximizer.crypto_maximization_app.Model.*;
 import com.cryptomaximizer.crypto_maximization_app.Repository.RecommendationRepository;
 import com.cryptomaximizer.crypto_maximization_app.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/recommendations")
@@ -57,6 +59,13 @@ public class RecommendationController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/load")
+    public ResponseEntity<List<Recommendation>> loadRecommendations(Authentication authentication) {
+        User user = userService.getAuthenticatedUser(authentication);
+        List<Recommendation> recommendations = recommendationRepository.getSavedRecommendationsByUserId(user.getId());
+        return ResponseEntity.ok(recommendations);
+    }
+
     @PostMapping("/save")
     public ResponseEntity<Recommendation> saveRecommendation(@RequestBody Recommendation recommendation, Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
@@ -64,5 +73,17 @@ public class RecommendationController {
         Recommendation savedRecommendation = recommendationRepository.save(recommendation);
         return ResponseEntity.ok(savedRecommendation);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteRecommendation(@PathVariable Long id) {
+        Optional<Recommendation> recommendationOptional = recommendationRepository.findById(id);
+
+        if (recommendationOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Recommendation not found");
+        }
+
+        recommendationRepository.delete(recommendationOptional.get());
+        return ResponseEntity.ok("Recommendation deleted successfully");
+     }
 
 }

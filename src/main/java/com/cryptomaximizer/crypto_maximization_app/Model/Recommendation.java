@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "recommendations")
@@ -27,12 +27,12 @@ public class Recommendation {
     private String symbolName;
 
     @Column(name = "date_saved", nullable = false)
-    private LocalDateTime dateSaved;
+    private LocalDate dateSaved;
 
     // Auto-populate dateSaved
     @PrePersist
     protected void onCreate() {
-        this.dateSaved = LocalDateTime.now();
+        this.dateSaved = LocalDate.now();
     }
 
     // Getters and Setters
@@ -69,11 +69,11 @@ public class Recommendation {
         this.symbolName = symbolName;
     }
 
-    public LocalDateTime getDateSaved() {
+    public LocalDate getDateSaved() {
         return dateSaved;
     }
 
-    public void setDateSaved(LocalDateTime dateSaved) {
+    public void setDateSaved(LocalDate dateSaved) {
         this.dateSaved = dateSaved;
     }
 

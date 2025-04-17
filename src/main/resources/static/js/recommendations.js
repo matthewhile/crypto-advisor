@@ -1,6 +1,28 @@
 const recommendedCryptos = ["bitcoin", "ethereum"];
 const charts = {};
 
+document.addEventListener("DOMContentLoaded", function () {
+    loadSavedRecommendations();
+});
+
+// Load user's saved recommendations
+function loadSavedRecommendations() {
+    fetch("http://localhost:8080/api/recommendations/load")
+        .then(response => response.json())
+        .then(data => {
+            debugger;
+            const tableBody = document.getElementById("savedRecommendationTableBody");
+            //tableBody.innerHTML = "";
+
+            data.forEach(recommendation => {
+                addRecommendationRow(recommendation, tableBody, false);
+            });
+            
+            attachEventListener();
+        })
+        .catch(error => console.error("Error fetching saved recommendations:", error));
+}
+
 document.getElementById('recommendationsBtn').addEventListener('click', function() {
     fetch("/api/recommendations", {
         method: "GET",
@@ -39,7 +61,7 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
                             <p class="card-text">Volume: $${crypto.total_volume.toLocaleString()}</p>
                         </div>
                         <div>
-                            <button class="save-crypto-btn" type="button" data-id="${crypto.id}" data-name="${crypto.name}">Save</button>
+                            <button class="save-crypto-btn" type="button" data-id="${crypto.symbol}" data-name="${crypto.name}">Save</button>
                         </div>
                     </div>
                 </div>
@@ -62,8 +84,11 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
                     body: JSON.stringify(data)
                 })
                 .then(response => response.json())
-                .then(data => {
+                .then(recommendation => {
+                    const tableBody = document.getElementById("savedRecommendationTableBody");
+                    addRecommendationRow(recommendation, tableBody); 
                     console.log("Saved Recommendation!");
+                    attachEventListener();
                 })
                 .catch(error => {
                     console.error("Save failed:", error);
@@ -95,6 +120,48 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
         errorDiv.textContent = "Error: " + error.message;
     });
 });
+
+// Add a new expense row to the table
+function addRecommendationRow(recommendation, tableBody) {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${recommendation.symbolId.toUpperCase()}</td>
+        <td>${recommendation.symbolName}</td>
+        <td>${recommendation.dateSaved}</td>
+        <td class="delete-recommendation">
+            <button class="btn delete-btn" data-id="${recommendation.id}">
+                <i class="fa-regular fa-trash-can"></i>
+            </button>
+        </td>   
+    `;
+    tableBody.appendChild(row);
+}
+
+// Delete button click event listener
+function attachEventListener() {
+    document.querySelectorAll(".delete-btn").forEach(button => {
+        button.addEventListener("click", deleteRecommendation);
+    });
+}
+
+// Delete a saved recommendation 
+function deleteRecommendation() {
+    const recommendationId = this.getAttribute("data-id");  
+
+    fetch(`/api/recommendations/delete/${recommendationId}`, {
+        method: 'DELETE',
+    })
+    .then(response => {
+        if (response.ok) {
+            this.closest('tr').remove();
+        } 
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("There was an error deleting the recommendation");
+    });
+};
+
 
 
 

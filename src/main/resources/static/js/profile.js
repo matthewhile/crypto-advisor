@@ -30,7 +30,7 @@ function loadUserPreferences() {
         return response.json();
     })
     .then(data => {
-        document.getElementById("investmentAmount").textContent = data.investmentAmount;
+        document.getElementById("investmentAmount").textContent = data.investmentAmount.toLocaleString();
         document.getElementById("timeFrame").textContent = data.timeFrame;
         document.getElementById("frequency").textContent = data.frequency;
         document.getElementById("riskTolerance").textContent = data.riskTolerance;
@@ -51,7 +51,8 @@ function loadIncomeInfo() {
     .then(data => {
         document.getElementById("state").textContent = data.state;
         document.getElementById("filingStatus").textContent = data.filingStatus;
-        document.getElementById("grossIncome").textContent = data.grossIncome;
+        document.getElementById("grossIncome").textContent = data.grossIncome.toLocaleString();
+        document.getElementById("netIncome").textContent = data.netIncome.toLocaleString();
     })
     .catch(error => {
         console.error("Error:", error);

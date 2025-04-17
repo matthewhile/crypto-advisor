@@ -55,6 +55,7 @@ document.getElementById('netIncomeForm').addEventListener('submit', function(eve
     });
 })
 
+// Load and display calculated net income & tax 
 function calculateNetIncome() {
     fetch("http://localhost:8080/api/income/taxes", {
         method: "GET",

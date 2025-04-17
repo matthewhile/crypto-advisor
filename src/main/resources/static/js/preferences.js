@@ -18,7 +18,7 @@ document.getElementById('preferencesForm').addEventListener('submit', function(e
     .then(response => response.json())
     .then(data => {
         console.log("Success:", data);
-        document.getElementById('preferencesForm').reset(); 
+        //document.getElementById('preferencesForm').reset(); 
         success.style.display = 'block';
         setTimeout(() => {
             success.style.display = 'none';

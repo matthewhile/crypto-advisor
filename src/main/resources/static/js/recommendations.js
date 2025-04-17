@@ -38,10 +38,38 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
                             <p class="card-text">Market Cap: $${crypto.market_cap.toLocaleString()}</p>
                             <p class="card-text">Volume: $${crypto.total_volume.toLocaleString()}</p>
                         </div>
+                        <div>
+                            <button class="save-crypto-btn" type="button" data-id="${crypto.id}" data-name="${crypto.name}">Save</button>
+                        </div>
                     </div>
                 </div>
             `;
             cryptoContainer.appendChild(cryptoCard);
+        });
+         // Save individual recommendation when save button is clicked
+         document.querySelectorAll(".save-crypto-btn").forEach(button => {
+            button.addEventListener("click", function(event) {
+                event.preventDefault();
+        
+                const symbolId = event.target.getAttribute("data-id");
+                const symbolName = event.target.getAttribute("data-name");
+        
+                const data = {symbolId, symbolName};
+        
+                fetch("api/recommendations/save", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Saved Recommendation!");
+                })
+                .catch(error => {
+                    console.error("Save failed:", error);
+                });
+        
+            });
         });
         const cryptoExplanation = document.getElementById("cryptoExplanation")
         let explainationCard = document.createElement("div");
@@ -67,6 +95,8 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
         errorDiv.textContent = "Error: " + error.message;
     });
 });
+
+
 
 // async function renderRecommendedCrypto() {
 //     let container = document.getElementById("cryptoContainer");

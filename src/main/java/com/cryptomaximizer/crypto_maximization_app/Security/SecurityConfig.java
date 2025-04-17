@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/register.html", "/login.html", "/passwordrecovery.html", "usernamerecovery.html", "/css/**", "/js/**", "/images/**").permitAll();
                     registry.requestMatchers("/api/register", "/login", "/api/user", "/api/expenses", "/api/expenses/add", "/api/expenses/delete/{id}", "/api/preferences",
-                            "/api/crypto/**", "/api/recommendations", "api/income/**").permitAll();
+                            "/api/crypto/**", "/api/recommendations/**", "api/income/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .build();

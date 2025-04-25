@@ -57,12 +57,12 @@ public class IncomeService {
                 standardDeduction = 14600;
         }
 
-        double taxableIncome = Math.max(0, grossIncome - standardDeduction);
+        double taxableIncome = grossIncome - standardDeduction;
 
         String url = UriComponentsBuilder
                 .fromUriString("https://api.api-ninjas.com/v1/incometaxcalculator")
                 .queryParam("country", "US")
-                .queryParam("income", grossIncome)
+                .queryParam("income", taxableIncome)
                 .queryParam("region", state)
                 .queryParam("filing_status", filing_status)
                 .toUriString();
@@ -77,6 +77,8 @@ public class IncomeService {
         IncomeCalculationDTO dto = response.getBody();
 
         if (dto != null) {
+            // Set gross income
+            dto.setSetGrossIncome(grossIncome);
 
             // Get estimated state taxes
             double stateTax = getEstimatedStateTax(state, grossIncome);

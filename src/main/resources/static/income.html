@@ -28,13 +28,15 @@
                             <label for="expenseAmount">Expense Amount:</label>
                             <input id="expenseAmount" type="number" class="form-control" placeholder="Enter Amount" required>
                         </div>
+                        <div class="form-group">
+                            <div class="h5">Total Monthly: <span id="totalExpense">$0.00</span></div>
+                        </div>
                         <div id="expenseSuccess" class="success-alert hidden">
                             <div class="">Expense category added successfully!</div>
                         </div>		
                         <button id="addExpenseBtn" type="submit" class="crypto-btn">Add</button>
                     </form>
                     <table id="expenseTable" class="table table-bordered">
-                        <div class="h5">Total Monthly: <span id="totalExpense">$0.00</span></div>
                         <thead class="table-light">
                             <tr>
                                 <th>Expense Category</th>
@@ -74,20 +76,61 @@
                                 <div class="">Income info saved successfully!</div>
                             </div>		
                             <button id="netIncomeBtn" type="submit" class="crypto-btn">Submit</button>
-                        </div>
-                        <div>
-                            <!-- <button id="netIncomeBtn" class="crypto-btn">Calculate Net Income</button> -->
-                            <p id="medicareTax" class="h6 mt-5"></p>
-                            <p id="socialSecurityTax" class="h6 mt-2"></p>
-                            <p id="federalTaxes" class="h6 mt-2"></p>
-                            <p id="stateTaxes" class="h6 mt-2"></p>
-                            <p id="totalTaxes" class="h6 mt-2"></p>
-                            <p id="taxableIncome" class="h6 mt-5"></p>
-                            <p id="calculatedNetIncome" class="h6 mt-2"></p>
-                            <p id="incomeAfterExpenses" class="h6 mt-4"></p>
-                        </div>
+                        </div>                    
                     </form>
-                    
+                    <div id="taxAndIncomeData" class="card mt-5 p-4 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">Tax Summary</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Medicare Tax:</span>
+                                    <strong id="medicareTax"></strong>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Social Security Tax:</span>
+                                    <strong id="socialSecurityTax"></strong>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Federal Tax:</span>
+                                    <strong id="federalTaxes"></strong>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>State Tax:</span>
+                                    <strong id="stateTaxes"></strong>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Total Taxes:</span>
+                                    <strong id="totalTaxes"></strong>
+                                </li>
+                            </ul>
+                            <h5 class="card-title mt-4 mb-3">Income Overview</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Taxable Income:</span>
+                                    <strong id="taxableIncome"></strong>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Net Income:</span>
+                                    <strong id="calculatedNetIncome"></strong>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Disposable Income:</span>
+                                    <strong id="incomeAfterExpenses"></strong>
+                                </li>
+                            </ul>
+                            <h5 class="card-title mt-4 mb-3">Recommended Amount To Invest</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Anually:</span>
+                                    <strong id="recommendedAmount"></strong>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Monthly:</span>
+                                    <strong id="recommendedMonthlyAmount"></strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>                   
                 </div>
             </div>
         </div>

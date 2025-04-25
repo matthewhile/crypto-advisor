@@ -298,6 +298,10 @@ body {
   display: flex;
 }
 
+#taxAndIncomeData {
+  display: none;
+}
+
 /* ============================= */
 /*      PREFERENCES STYLES       */
 /* ============================= */
@@ -353,6 +357,10 @@ body {
   color: red;
   display: none;
 }
+
+/* #preferences{
+  background-color: black;
+} */
 
 
 /* ============================= */

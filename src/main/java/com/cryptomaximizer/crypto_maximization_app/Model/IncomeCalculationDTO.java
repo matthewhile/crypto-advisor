@@ -16,6 +16,8 @@ public class IncomeCalculationDTO {
 
     private double totalTaxes;
 
+    private double grossIncome;
+
     @JsonProperty("taxable_income")
     private double taxableIncome;
 
@@ -57,6 +59,14 @@ public class IncomeCalculationDTO {
     }
 
     public void setIncome(double income) {
+        this.income = income;
+    }
+
+    public double getGrossIncome() {
+        return income;
+    }
+
+    public void setSetGrossIncome(double income) {
         this.income = income;
     }
 

@@ -57,6 +57,7 @@ document.getElementById('netIncomeForm').addEventListener('submit', function(eve
 
 // Load and display calculated net income & tax 
 function calculateNetIncome() {
+    const displayTaxData = document.getElementById('taxAndIncomeData');
     fetch("http://localhost:8080/api/income/taxes", {
         method: "GET",
         credentials: "include"
@@ -65,7 +66,7 @@ function calculateNetIncome() {
         return response.json();
     })
     .then(data => {
-        debugger;
+        displayTaxData.style.display = 'block';
         const federalTaxes = data.federal_taxes_owed;
         const socialSecurityTax = data.fica_social_security;
         const medicareTax = data.fica_medicare;
@@ -75,22 +76,19 @@ function calculateNetIncome() {
         const netIncome = data.calculatedNetIncome;
         const monthlyExpenses = updateTotalExpense(); 
         const disposableIncome = netIncome - (monthlyExpenses * 12);
-        document.getElementById("medicareTax").textContent =
-        `Medicare Tax: $${medicareTax.toLocaleString()}`;
-        document.getElementById("socialSecurityTax").textContent =
-            `Social Security Tax: $${socialSecurityTax.toLocaleString()}`;
-        document.getElementById("federalTaxes").textContent =
-            `Federal Tax: $${federalTaxes.toLocaleString()}`;
-        document.getElementById("stateTaxes").textContent =
-            `State Tax: $${stateTaxes.toLocaleString()}`;
-        document.getElementById("totalTaxes").textContent =
-            `Total Taxes: $${totalTaxes.toLocaleString()}`;
-        document.getElementById("taxableIncome").textContent =
-            `Gross Income: $${taxableIncome.toLocaleString()}`;
-        document.getElementById("calculatedNetIncome").textContent =
-            `Net Income: $${netIncome.toLocaleString()}`;
-        document.getElementById("incomeAfterExpenses").textContent =
-            `Estimated Disposable Income: $${disposableIncome.toLocaleString()}`;
+        const recommendedAmount = disposableIncome * 0.05;
+        const recommendedMonthlyAmount = recommendedAmount / 12;
+        document.getElementById("medicareTax").textContent = `$${medicareTax.toLocaleString()}`;
+        document.getElementById("socialSecurityTax").textContent = `$${socialSecurityTax.toLocaleString()}`;
+        document.getElementById("federalTaxes").textContent = `$${federalTaxes.toLocaleString()}`;
+        document.getElementById("stateTaxes").textContent = `$${stateTaxes.toLocaleString()}`;
+        document.getElementById("totalTaxes").textContent = `$${totalTaxes.toLocaleString()}`;
+        document.getElementById("taxableIncome").textContent = `$${taxableIncome.toLocaleString()}`;
+        document.getElementById("calculatedNetIncome").textContent = `$${netIncome.toLocaleString()}`;
+        document.getElementById("incomeAfterExpenses").textContent = `$${disposableIncome.toLocaleString()}`;
+        document.getElementById("recommendedAmount").textContent = `$${recommendedAmount.toLocaleString()}`;
+        document.getElementById("recommendedMonthlyAmount").textContent = `$${recommendedMonthlyAmount.toLocaleString()}`;
+
         
     })
     .catch(error => {

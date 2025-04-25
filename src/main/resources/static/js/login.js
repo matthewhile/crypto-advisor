@@ -8,7 +8,6 @@
             const password = document.getElementById("password").value;
             const loginError = document.getElementById("loginError");
 
-            //loginError.style.display = "none";
             console.log(loginError); // Should log the <p> element
 
             fetch("/login", {  

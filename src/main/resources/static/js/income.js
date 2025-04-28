@@ -63,6 +63,11 @@ function calculateNetIncome() {
         credentials: "include"
     })
     .then(response => {
+        if (!response.ok) {
+            document.getElementById("taxAlertBox").classList.remove("hidden");
+            return response.text().then(errorMessage => { throw new Error(errorMessage); });
+        }
+        //this.style.display = "none";
         return response.json();
     })
     .then(data => {
@@ -93,6 +98,8 @@ function calculateNetIncome() {
     })
     .catch(error => {
         console.error("Error:", error);
+        const errorDiv = document.getElementById("taxErrorMessage");
+        errorDiv.textContent = "Error: " + error.message;
     });
 };
 

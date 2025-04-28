@@ -1,6 +1,7 @@
 package com.cryptomaximizer.crypto_maximization_app.Service;
 
 import com.cryptomaximizer.crypto_maximization_app.Exception.DataNotFoundException;
+import com.cryptomaximizer.crypto_maximization_app.Exception.NoTaxDataAvailableException;
 import com.cryptomaximizer.crypto_maximization_app.Model.Income;
 import com.cryptomaximizer.crypto_maximization_app.Model.IncomeCalculationDTO;
 import com.cryptomaximizer.crypto_maximization_app.Model.User;
@@ -71,32 +72,38 @@ public class IncomeService {
         headers.set("X-Api-Key", apiKey);
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        ResponseEntity<IncomeCalculationDTO> response = restTemplate.exchange(
-                url, HttpMethod.GET, requestEntity, IncomeCalculationDTO.class
-        );
-        IncomeCalculationDTO dto = response.getBody();
+        IncomeCalculationDTO dto;
 
-        if (dto != null) {
-            // Set gross income
-            dto.setSetGrossIncome(grossIncome);
+        try {
+            ResponseEntity<IncomeCalculationDTO> response = restTemplate.exchange(
+                    url, HttpMethod.GET, requestEntity, IncomeCalculationDTO.class
+            );
+            dto = response.getBody();
 
-            // Get estimated state taxes
-            double stateTax = getEstimatedStateTax(state, grossIncome);
-            dto.setEstimatedStateTax(stateTax);
+            if (dto != null) {
+                // Set gross income
+                dto.setSetGrossIncome(grossIncome);
 
-            // Calculate total taxes owed
-            double federalTax = dto.getFederalTaxesOwed();
-            double ficaTax = dto.getFicaTotal();
-            double totalTax = stateTax + federalTax + ficaTax;
-            dto.setTotalTaxes(totalTax);
+                // Get estimated state taxes
+                double stateTax = getEstimatedStateTax(state, grossIncome);
+                dto.setEstimatedStateTax(stateTax);
 
-            // Calculate net income
-            double netIncome = grossIncome - totalTax;
-            dto.setCalculatedNetIncome(netIncome);
+                // Calculate total taxes owed
+                double federalTax = dto.getFederalTaxesOwed();
+                double ficaTax = dto.getFicaTotal();
+                double totalTax = stateTax + federalTax + ficaTax;
+                dto.setTotalTaxes(totalTax);
 
-            // Add or update net income in the Income db table
-            income.setNetIncome(BigDecimal.valueOf(netIncome));
-            incomeRepository.save(income); // update the row with new net income
+                // Calculate net income
+                double netIncome = grossIncome - totalTax;
+                dto.setCalculatedNetIncome(netIncome);
+
+                // Add or update net income in the Income db table
+                income.setNetIncome(BigDecimal.valueOf(netIncome));
+                incomeRepository.save(income); // update the row with new net income
+            }
+        } catch (Exception e) {
+            throw new NoTaxDataAvailableException("An error occurred while calling the tax calculator API.");
         }
 
         return dto;

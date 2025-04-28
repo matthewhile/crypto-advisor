@@ -95,6 +95,7 @@ body {
   border-radius: 5px;
   font-size: 14px;
   width:70%;
+  font-weight: bold;
 }
 
 .success-alert {
@@ -106,6 +107,7 @@ body {
   border-radius: 5px;
   font-size: 14px;
   width:70%;
+  font-weight: bold;
 }
 
 #errorMessage {

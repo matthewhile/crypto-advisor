@@ -12,4 +12,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleDataNotFound(DataNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
- }
+
+    @ExceptionHandler(NoCryptoDataAvailableException.class)
+    public ResponseEntity<String> handleNoCryptoData(NoCryptoDataAvailableException ex) {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(NoTaxDataAvailableException.class)
+    public ResponseEntity<String> handleNoTaxData(NoTaxDataAvailableException ex) {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(ex.getMessage());
+    }
+
+}

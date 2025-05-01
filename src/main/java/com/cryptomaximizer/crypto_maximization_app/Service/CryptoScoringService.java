@@ -1,43 +1,60 @@
 package com.cryptomaximizer.crypto_maximization_app.Service;
 
+import com.cryptomaximizer.crypto_maximization_app.Model.CryptoDailyPrice;
 import com.cryptomaximizer.crypto_maximization_app.Model.MarketDataDTO;
 import com.cryptomaximizer.crypto_maximization_app.Model.ScoredCryptoDTO;
+import com.cryptomaximizer.crypto_maximization_app.Repository.CryptoDailyPriceRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class CryptoScoringService {
 
+    private final CryptoDailyPriceRepository cryptoDailyPriceRepository;
+
+    public CryptoScoringService(CryptoDailyPriceRepository cryptoDailyPriceRepository) {
+        this.cryptoDailyPriceRepository = cryptoDailyPriceRepository;
+    }
+
     public List<ScoredCryptoDTO> calculateCryptoScore(List<MarketDataDTO> marketDataList) {
         List<ScoredCryptoDTO> scoredCryptos = new ArrayList<>();
+        Map<String, Double> volatilityMap = getVolatilityScore(marketDataList);
+        // Store the min and max prices for
+        double[] minMax = findMinMaxVolatility(volatilityMap.values());
+        double minVolatility = minMax[0];
+        double maxVolatility = minMax[1];
 
-        // The highest market cap in marketDataList
         double maxMarketCap = getMaxMarketCap(marketDataList);
-
-        // The lowest volume in marketDataList
         double minVolume = getMinVolume(marketDataList);
-
-        // The highest volume in marketDataList
         double maxVolume = getMaxVolume(marketDataList);
-
-        // The highest and lowest volatility values in marketDataList
-        double[] volatilityRange = getVolatilityRange(marketDataList);
-        double minVolatility = volatilityRange[0];
-        double maxVolatility = volatilityRange[1];
 
         for (MarketDataDTO crypto : marketDataList) {
             double marketCapScore = getMarketCapScore(crypto, maxMarketCap);
             double volumeScore = getVolumeScore(crypto, maxVolume, minVolume);
-            double volatilityScore = getVolatilityScore(crypto, minVolatility, maxVolatility);
 
-            // Example formula: total score is weighted sum of all individual scores
-            double totalScore = marketCapScore * 0.3 + volumeScore * 0.3 + volatilityScore * 0.4;
-            System.out.println("Total score for " + crypto.getName() + " = " + totalScore);
+            double rawVolatility = volatilityMap.get(crypto.getSymbol());
+            double normalizedVolatility;
+            if (maxVolatility != minVolatility) {
+                double volatilityRange = maxVolatility - minVolatility;
+                double relativeVolatility = (rawVolatility - minVolatility) / volatilityRange;
+                normalizedVolatility = Math.sqrt(relativeVolatility);
+            } else {
+                normalizedVolatility = 0.5; // fallback value
+            }
 
+            // Invert normalizedVolatility, so it can be associated with user preference scores
+            double volatilityScore = 1 - normalizedVolatility;
+            System.out.println("normalized volatility for " + crypto.getName() + " is " + volatilityScore);
 
+            // Sum scores for market cap, volume, and volatility + apply weights to calculate a final crypto score
+            double totalScore = 0.4 * marketCapScore + 0.3 * volumeScore + 0.3 * volatilityScore;
+            System.out.println("---------------------------------------------------------");
+            System.out.println("total score for " + crypto.getName() + " is " + totalScore);
+            System.out.println("---------------------------------------------------------");
             scoredCryptos.add(new ScoredCryptoDTO(crypto, totalScore));
+
         }
 
         return scoredCryptos;
@@ -47,7 +64,7 @@ public class CryptoScoringService {
     private double getMarketCapScore(MarketDataDTO crypto, double maxMarketCap) {
         double marketCap = crypto.getMarketCap();
         double normalizedMarketCap = marketCap / maxMarketCap;
-        //System.out.println("normalized market cap for " + crypto.getName() + " is " + normalizedMarketCap);
+        System.out.println("normalized market cap for " + crypto.getName() + " is " + normalizedMarketCap);
 
         return normalizedMarketCap;
     }
@@ -56,22 +73,56 @@ public class CryptoScoringService {
     private double getVolumeScore(MarketDataDTO crypto, double maxVolume, double minVolume) {
         double volume = crypto.getTotalVolume();
         double normalizedVolume = (volume - minVolume) / (maxVolume - minVolume);
-        //System.out.println("normalized volume for " + crypto.getName() + " is " + normalizedVolume);
+        System.out.println("normalized volume for " + crypto.getName() + " is " + normalizedVolume);
 
         return normalizedVolume;
     }
 
-    // Calculate and return normalized volatility score for each crypto
-    private double getVolatilityScore(MarketDataDTO crypto, double minVolatility, double maxVolatility) {
-        double priceChangeVolatility = (crypto.getHigh24h() - crypto.getLow24h());
-        double percentChangeVolatility = Math.abs(crypto.getPriceChangePercentage24h());
-        double totalVolatility = 0.4 * priceChangeVolatility + 0.6 * percentChangeVolatility;
-        // Smooth and normalize the volatility score
-        double normalizedVolatility = Math.sqrt((totalVolatility - minVolatility) / (maxVolatility - minVolatility));
-        //System.out.println("normalized volatility for " + crypto.getName() + " is " + normalizedVolatility);
+    // Map each crypto’s symbol to its raw volatility score.
+    private Map<String, Double> getVolatilityScore(List<MarketDataDTO> list) {
+        Map<String, Double> volatilityMap = new HashMap<>();
 
-        // Invert the volatility score by subtracting from 1, so that high volatility --> lower score & low volatility --> higher score
-        return 1 - normalizedVolatility;
+        for (MarketDataDTO crypto : list) {
+            double totalVolatility = computeTotalVolatility(crypto);
+            //System.out.println("Total volatility for " + crypto.getName() + " is " + totalVolatility);
+            volatilityMap.put(crypto.getSymbol(), totalVolatility);
+        }
+
+        return volatilityMap;
+    }
+
+    // Computes the average daily historical volatility combined with today's high/low range and percent change.
+    private double computeTotalVolatility(MarketDataDTO crypto) {
+        int numberOfDays = 7; // Number of days to use
+        LocalDate endDate = LocalDate.now();
+        LocalDate startDate = endDate.minusDays(numberOfDays);
+
+        List<CryptoDailyPrice> historicalPrices = cryptoDailyPriceRepository.findBySymbolAndDateBetween(
+                crypto.getSymbol(), startDate, endDate);
+
+        double historicalVolatilitySum = 0.0;
+        for (CryptoDailyPrice price : historicalPrices) {
+            historicalVolatilitySum += (price.getHigh24h() - price.getLow24h());
+        }
+        double historicalAverageVolatility = historicalPrices.isEmpty() ? 0.0 : historicalVolatilitySum / historicalPrices.size();
+        //System.out.println("Historical average volatility for " + crypto.getName() + " is " + historicalAverageVolatility);
+
+        double priceChangeVolatilityToday = crypto.getHigh24h() - crypto.getLow24h();
+        double percentChangeVolatilityToday = Math.abs(crypto.getPriceChangePercentage24h());
+
+        return 0.7 * historicalAverageVolatility + 0.2 * priceChangeVolatilityToday + 0.1 * percentChangeVolatilityToday;
+    }
+
+    private double[] findMinMaxVolatility(Collection<Double> values) {
+        double min = Double.MAX_VALUE;
+        double max = Double.MIN_VALUE;
+
+        for (double value : values) {
+            if (value < min) min = value;
+            if (value > max) max = value;
+        }
+
+        return new double[]{min, max};
     }
 
     private double getMaxMarketCap (List<MarketDataDTO> marketDataList) {
@@ -98,24 +149,5 @@ public class CryptoScoringService {
         return maxVolume;
     }
 
-    public double[] getVolatilityRange(List<MarketDataDTO> cryptos) {
-        double minVolatility = Double.MAX_VALUE;
-        double maxVolatility = Double.MIN_VALUE;
-
-        for (MarketDataDTO crypto : cryptos) {
-            double priceChangeVolatility = (crypto.getHigh24h() - crypto.getLow24h());
-            double percentChangeVolatility = Math.abs(crypto.getPriceChangePercentage24h());
-            double totalVolatility = 0.5 * priceChangeVolatility + 0.5 * percentChangeVolatility;
-
-            if (totalVolatility < minVolatility) {
-                minVolatility = totalVolatility;
-            }
-            if (totalVolatility > maxVolatility) {
-                maxVolatility = totalVolatility;
-            }
-        }
-
-        return new double[]{minVolatility, maxVolatility};
-    }
 }
 

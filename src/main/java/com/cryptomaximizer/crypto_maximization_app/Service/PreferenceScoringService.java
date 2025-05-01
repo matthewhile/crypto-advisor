@@ -18,27 +18,31 @@ public class PreferenceScoringService {
         double amountScore = scoreInvestmentAmount(preference.getInvestmentAmount());
         System.out.println("User amount score is " + amountScore);
 
-        double total = riskScore * 0.4 + frequencyScore * 0.2 + timeFrameScore * 0.2 + amountScore * 0.2;
+        double total = riskScore * 0.4 + frequencyScore * 0.2 + timeFrameScore * 0.3 + amountScore * 0.1;
         System.out.println("User total preference score is " + total);
 
         return new ScoredPreferenceDTO(riskScore, frequencyScore, timeFrameScore, amountScore, total);
     }
 
-    private double scoreRiskTolerance(String riskTolerance) {
-        // Lower tolerances are weighted closer to 1, higher tolerances are weighted closer to 0
-        switch(riskTolerance.toLowerCase()) {
+    public double scoreRiskTolerance(String riskTolerance) {
+        if (riskTolerance == null) {
+            throw new IllegalArgumentException("Risk tolerance cannot be null.");
+        }
+
+        switch (riskTolerance.toLowerCase()) {
             case "low":
-                 return 1.0;
+                return 0.9;
             case "medium":
-                 return 0.5;
-            case "high":
-                 return 0.2;
-            default:
                 return 0.5;
+            case "high":
+                return 0.2;
+            default:
+                throw new IllegalArgumentException("Invalid risk tolerance value: " + riskTolerance);
         }
     }
 
-    private double scoreFrequency(String frequency) {
+
+    public double scoreFrequency(String frequency) {
         /* Weights for frequency are determined based on the idea that a user investing (daily, weekly)
         * aligns with more liquid or volatile assets while a user investing (monthly, yearly, one-time)
         * aligns with lower risk and less volatile assets. */
@@ -58,7 +62,7 @@ public class PreferenceScoringService {
         }
     }
 
-    private double scoreTimeFrame(String timeFrame) {
+    public double scoreTimeFrame(String timeFrame) {
         // Shorter terms are weighted closer to 0, longer terms are weighted closer to 1
         switch(timeFrame.toLowerCase()) {
             case "short-term":

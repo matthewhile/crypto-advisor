@@ -16,6 +16,10 @@ public class PreferenceDataService {
     public Preference saveOrUpdatePreferences(User user, Preference newPreference) {
         Preference existingPreferences = preferenceRepository.findByUser(user);
 
+        if (newPreference.getInvestmentAmount() < 1) {
+            throw new IllegalArgumentException("Investment amount must be a positive number.");
+        }
+
         if (existingPreferences != null) {
             // Update existing preference
             existingPreferences.setInvestmentAmount(newPreference.getInvestmentAmount());

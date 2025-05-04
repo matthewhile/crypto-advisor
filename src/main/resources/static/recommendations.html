@@ -17,8 +17,8 @@
     </div>
     <div class="container mt-5">
         <div><button id="recommendationsBtn" class="crypto-btn">Generate Recommendations</button></div>
-        <div id="alertBox" class="error-alert hidden">
-            <div id="errorMessage"></div>
+        <div id="recAlertBox" class="error-alert hidden">
+            <div id="recErrorMessage"></div>
         </div>
 
         <!-- <h1 class="text-center mt-7 mb-5 pt-5">Crypto Recommendations</h1> -->
@@ -30,10 +30,13 @@
         <table id="savedRecommendationTable" class="table table-bordered">
             <thead class="table-light">
                 <tr>
+                    <th id="savedRecTitle" colspan="4">Saved Recommendations</th>
+                </tr>
+                <tr>
                     <th>Symbol</th>
                     <th>Name</th>
                     <th>Date Saved</th>
-                    <th>Actions</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody id="savedRecommendationTableBody"></tbody>

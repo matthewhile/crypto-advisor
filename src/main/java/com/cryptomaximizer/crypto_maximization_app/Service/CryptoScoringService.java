@@ -1,5 +1,7 @@
 package com.cryptomaximizer.crypto_maximization_app.Service;
 
+import com.cryptomaximizer.crypto_maximization_app.Exception.CryptoCalculationException;
+import com.cryptomaximizer.crypto_maximization_app.Exception.NoCryptoDataAvailableException;
 import com.cryptomaximizer.crypto_maximization_app.Model.CryptoDailyPrice;
 import com.cryptomaximizer.crypto_maximization_app.Model.MarketDataDTO;
 import com.cryptomaximizer.crypto_maximization_app.Model.ScoredCryptoDTO;
@@ -19,6 +21,10 @@ public class CryptoScoringService {
     }
 
     public List<ScoredCryptoDTO> calculateCryptoScore(List<MarketDataDTO> marketDataList) {
+        if (marketDataList == null) {
+            throw new NoCryptoDataAvailableException("An error occurred fetching (market) data from CoinGecko API");
+        }
+
         List<ScoredCryptoDTO> scoredCryptos = new ArrayList<>();
         Map<String, Double> volatilityMap = getVolatilityScore(marketDataList);
         // Store the min and max prices for
@@ -53,6 +59,10 @@ public class CryptoScoringService {
             System.out.println("---------------------------------------------------------");
             System.out.println("total score for " + crypto.getName() + " is " + totalScore);
             System.out.println("---------------------------------------------------------");
+
+            if (totalScore < 0) {
+                throw new CryptoCalculationException("An error occurred calculating crypto scores");
+            }
             scoredCryptos.add(new ScoredCryptoDTO(crypto, totalScore));
 
         }
@@ -92,7 +102,10 @@ public class CryptoScoringService {
     }
 
     // Computes the average daily historical volatility combined with today's high/low range and percent change.
-    private double computeTotalVolatility(MarketDataDTO crypto) {
+    public double computeTotalVolatility(MarketDataDTO crypto) {
+        if (crypto == null) {
+            throw new CryptoCalculationException("Error occurred calculating volatility score");
+        }
         int numberOfDays = 7; // Number of days to use
         LocalDate endDate = LocalDate.now();
         LocalDate startDate = endDate.minusDays(numberOfDays);

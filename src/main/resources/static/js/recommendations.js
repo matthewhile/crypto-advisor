@@ -30,15 +30,15 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
     })
     .then(response => {
         if (!response.ok) {
-            document.getElementById("alertBox").classList.remove("hidden");
-            return response.text().then(errorMessage => { throw new Error(errorMessage); });
+            return response.text().then(errorMessage => { 
+                throw new Error(errorMessage); 
+            });
         }
-        this.style.display = "none";
         return response.json();
     })
     .then(data => {
         // Clear error if request succeeds
-        document.getElementById("errorMessage").textContent = "";
+        document.getElementById("recErrorMessage").textContent = "";
         const cryptoContainer = document.getElementById("cryptoContainer");
         const topMatches = data.topMatches;
         const prefs = data.userPreferences;
@@ -102,12 +102,12 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
             <div class="card">
                 <div class="card-body">
                     <p class="explanation-title">Why are these cryptocurrencies recommended?</p>
-                    <div>Your Preferences:<br>
-                        Risk Tolerance - ${prefs.riskTolerance} <br>
+                    <div style="font-weight: bold">Risk Tolerance - ${prefs.riskTolerance} <br>
                         Time Frame - ${prefs.timeFrame} <br>
                         Investment Frequency - ${prefs.frequency}<br>
                         Investment Amount - $${prefs.investmentAmount.toLocaleString()}<br><br>
-
+                    </div>
+                    <div>
                         ${explanation}
                     </div>
                 </div>
@@ -116,7 +116,9 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
     })
     .catch(error => {
         console.error("Error:", error);
-        const errorDiv = document.getElementById("errorMessage");
+        const alertBox = document.getElementById("recAlertBox");
+        const errorDiv = document.getElementById("recErrorMessage");
+        alertBox.classList.remove("hidden");
         errorDiv.textContent = "Error: " + error.message;
     });
 });

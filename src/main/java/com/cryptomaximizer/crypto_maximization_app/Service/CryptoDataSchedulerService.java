@@ -43,5 +43,6 @@ public class CryptoDataSchedulerService {
                 cryptoDailyPriceRepository.save(dailyPrice);
             }
         }
+        System.out.println("Crypto price data for " + today + " saved successfully!");
     }
 }

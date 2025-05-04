@@ -40,73 +40,78 @@ public class IncomeService {
         String filing_status = income.getFilingStatus();
         double standardDeduction = 0;
 
-        switch (filing_status) {
-            case ("Single"):
-                filing_status = "single";
-                standardDeduction = 14600;
-                break;
-            case ("Married Filing Jointly"):
-                filing_status = "married";
-                standardDeduction = 29200;
-                break;
-            case ("Head of Household"):
-                filing_status = "head_of_household";
-                standardDeduction = 21900;
-                break;
-            default:
-                filing_status = "single";
-                standardDeduction = 14600;
-        }
-
-        double taxableIncome = grossIncome - standardDeduction;
-
-        String url = UriComponentsBuilder
-                .fromUriString("https://api.api-ninjas.com/v1/incometaxcalculator")
-                .queryParam("country", "US")
-                .queryParam("income", taxableIncome)
-                .queryParam("region", state)
-                .queryParam("filing_status", filing_status)
-                .toUriString();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("X-Api-Key", apiKey);
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-
-        IncomeCalculationDTO dto;
-
         try {
-            ResponseEntity<IncomeCalculationDTO> response = restTemplate.exchange(
-                    url, HttpMethod.GET, requestEntity, IncomeCalculationDTO.class
-            );
-            dto = response.getBody();
-
-            if (dto != null) {
-                // Set gross income
-                dto.setSetGrossIncome(grossIncome);
-
-                // Get estimated state taxes
-                double stateTax = getEstimatedStateTax(state, grossIncome);
-                dto.setEstimatedStateTax(stateTax);
-
-                // Calculate total taxes owed
-                double federalTax = dto.getFederalTaxesOwed();
-                double ficaTax = dto.getFicaTotal();
-                double totalTax = stateTax + federalTax + ficaTax;
-                dto.setTotalTaxes(totalTax);
-
-                // Calculate net income
-                double netIncome = grossIncome - totalTax;
-                dto.setCalculatedNetIncome(netIncome);
-
-                // Add or update net income in the Income db table
-                income.setNetIncome(BigDecimal.valueOf(netIncome));
-                incomeRepository.save(income); // update the row with new net income
+            switch (filing_status) {
+                case ("Single"):
+                    filing_status = "single";
+                    standardDeduction = 14600;
+                    break;
+                case ("Married Filing Jointly"):
+                    filing_status = "married";
+                    standardDeduction = 29200;
+                    break;
+                case ("Head of Household"):
+                    filing_status = "head_of_household";
+                    standardDeduction = 21900;
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid filing status value: " + filing_status);
             }
+
+            double taxableIncome = grossIncome - standardDeduction;
+
+            String url = UriComponentsBuilder
+                    .fromUriString("https://api.api-ninjas.com/v1/incometaxcalculator")
+                    .queryParam("country", "US")
+                    .queryParam("income", taxableIncome)
+                    .queryParam("region", state)
+                    .queryParam("filing_status", filing_status)
+                    .toUriString();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("X-Api-Key", apiKey);
+            HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+            IncomeCalculationDTO dto;
+
+            try {
+                ResponseEntity<IncomeCalculationDTO> response = restTemplate.exchange(
+                        url, HttpMethod.GET, requestEntity, IncomeCalculationDTO.class
+                );
+                dto = response.getBody();
+
+                if (dto != null) {
+                    // Set gross income
+                    dto.setSetGrossIncome(grossIncome);
+
+                    // Get estimated state taxes
+                    double stateTax = getEstimatedStateTax(state, grossIncome);
+                    dto.setEstimatedStateTax(stateTax);
+
+                    // Calculate total taxes owed
+                    double federalTax = dto.getFederalTaxesOwed();
+                    double ficaTax = dto.getFicaTotal();
+                    double totalTax = stateTax + federalTax + ficaTax;
+                    dto.setTotalTaxes(totalTax);
+
+                    // Calculate net income
+                    double netIncome = grossIncome - totalTax;
+                    dto.setCalculatedNetIncome(netIncome);
+
+                    // Add or update net income in the Income db table
+                    income.setNetIncome(BigDecimal.valueOf(netIncome));
+                    incomeRepository.save(income); // update the row with new net income
+                }
+            } catch (Exception e) {
+                throw new NoTaxDataAvailableException("An error occurred while calling the tax calculator API.");
+            }
+
+            return dto;
         } catch (Exception e) {
-            throw new NoTaxDataAvailableException("An error occurred while calling the tax calculator API.");
+            throw new NoTaxDataAvailableException("An error occured while attempting to calculate tax data");
         }
 
-        return dto;
+
     }
 
     public double getEstimatedStateTax(String state, double income) {

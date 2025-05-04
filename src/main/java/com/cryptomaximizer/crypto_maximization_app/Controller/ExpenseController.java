@@ -1,5 +1,6 @@
 package com.cryptomaximizer.crypto_maximization_app.Controller;
 
+import com.cryptomaximizer.crypto_maximization_app.Exception.SaveDataException;
 import com.cryptomaximizer.crypto_maximization_app.Model.Expense;
 import com.cryptomaximizer.crypto_maximization_app.Model.User;
 
@@ -40,8 +41,12 @@ public class ExpenseController {
     public ResponseEntity<Expense> addExpense(@RequestBody Expense expense, Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
         expense.setUser(user); // Associate expense with logged-in user
-        Expense savedExpense = expenseRepository.save(expense);
-        return ResponseEntity.ok(savedExpense);
+        try {
+            Expense savedExpense = expenseRepository.save(expense);
+            return ResponseEntity.ok(savedExpense);
+        } catch (Exception e) {
+            throw new SaveDataException("Failed to save expense!");
+        }
     }
 
     // Update selected expense

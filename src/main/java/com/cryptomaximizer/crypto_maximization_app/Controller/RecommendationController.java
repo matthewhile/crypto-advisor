@@ -1,5 +1,6 @@
 package com.cryptomaximizer.crypto_maximization_app.Controller;
 
+import com.cryptomaximizer.crypto_maximization_app.Exception.SaveDataException;
 import com.cryptomaximizer.crypto_maximization_app.Model.*;
 import com.cryptomaximizer.crypto_maximization_app.Repository.RecommendationRepository;
 import com.cryptomaximizer.crypto_maximization_app.Service.*;
@@ -70,8 +71,13 @@ public class RecommendationController {
     public ResponseEntity<Recommendation> saveRecommendation(@RequestBody Recommendation recommendation, Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
         recommendation.setUser(user); // Associate recommendation with logged-in user
-        Recommendation savedRecommendation = recommendationRepository.save(recommendation);
-        return ResponseEntity.ok(savedRecommendation);
+        try {
+            Recommendation savedRecommendation = recommendationRepository.save(recommendation);
+            return ResponseEntity.ok(savedRecommendation);
+        } catch (Exception e) {
+            throw new SaveDataException("Failed to save Recommendation");
+        }
+
     }
 
     @DeleteMapping("/delete/{id}")

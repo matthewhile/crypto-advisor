@@ -1,6 +1,7 @@
 package com.cryptomaximizer.crypto_maximization_app.Service;
 
 import com.cryptomaximizer.crypto_maximization_app.Exception.DataNotFoundException;
+import com.cryptomaximizer.crypto_maximization_app.Exception.NoCryptoDataAvailableException;
 import com.cryptomaximizer.crypto_maximization_app.Model.ChartDataDTO;
 import com.cryptomaximizer.crypto_maximization_app.Model.MarketDataDTO;
 import org.springframework.cache.annotation.Cacheable;
@@ -31,7 +32,7 @@ public class CryptoDataService {
     public List<MarketDataDTO> getMarketData() {
         List<String> symbols = Arrays.asList(defaultSymbols.split(","));
         if (symbols == null) {
-            throw new DataNotFoundException("Crypto market data failed to load correctly");
+            throw new DataNotFoundException("No crypto symbols found to pass to CoinGecko API");
         }
 
         String symbolList = String.join(",", symbols);
@@ -45,8 +46,19 @@ public class CryptoDataService {
                 .queryParam("x_cg_demo_api_key", apiKey)
                 .toUriString();
 
-        MarketDataDTO[] response = restTemplate.getForObject(url, MarketDataDTO[].class);
-        return Arrays.asList(response);
+        try {
+            MarketDataDTO[] response = restTemplate.getForObject(url, MarketDataDTO[].class);
+
+            if (response == null || response.length == 0) {
+                throw new NoCryptoDataAvailableException("No (market) data returned from CoinGecko API");
+            }
+
+            return Arrays.asList(response);
+
+        } catch (Exception e) {
+            //throw new NoCryptoDataAvailableException("Error fetching (market) data from CoinGecko API: " + e.getMessage());
+            throw new NoCryptoDataAvailableException("An error occurred fetching (market) data from CoinGecko API");
+        }
     }
     @Cacheable("chartDataDTO")
     public Map<String, ChartDataDTO> getMarketChart() {
@@ -54,7 +66,7 @@ public class CryptoDataService {
 
         List<String> symbols = Arrays.asList(defaultSymbols.split(","));
         if (symbols == null) {
-            throw new DataNotFoundException("Crypto chart data failed to load correctly");
+            throw new DataNotFoundException("No crypto symbols found to pass to CoinGecko API");
         }
 
         for (String symbol : symbols) {
@@ -65,10 +77,22 @@ public class CryptoDataService {
                     .queryParam("x_cg_demo_api_key", apiKey)
                     .toUriString();
 
-            ChartDataDTO chartData = restTemplate.getForObject(url, ChartDataDTO.class);
-            chartDataMap.put(symbol, chartData);
-        }
+//            ChartDataDTO chartData = restTemplate.getForObject(url, ChartDataDTO.class);
+//            chartDataMap.put(symbol, chartData);
 
+            try {
+                ChartDataDTO chartData = restTemplate.getForObject(url, ChartDataDTO.class);
+                chartDataMap.put(symbol, chartData);
+
+                if (chartData == null) {
+                    throw new NoCryptoDataAvailableException("No (chart) data returned from CoinGecko API");
+                }
+
+            } catch (Exception e) {
+                //throw new NoCryptoDataAvailableException("Error fetching (chart) data from CoinGecko API: " + e.getMessage());
+                throw new NoCryptoDataAvailableException("An error occurred fetching (chart) data from CoinGecko API");
+            }
+        }
         return chartDataMap;
     }
 }

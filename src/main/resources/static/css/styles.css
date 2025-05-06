@@ -95,6 +95,7 @@ body {
   border-radius: 5px;
   font-size: 14px;
   width:70%;
+  font-weight: bold;
 }
 
 .success-alert {
@@ -106,6 +107,7 @@ body {
   border-radius: 5px;
   font-size: 14px;
   width:70%;
+  font-weight: bold;
 }
 
 #errorMessage {
@@ -141,6 +143,7 @@ body {
   margin-top: 10px;
   margin-bottom: 100px;
   padding: 5%;
+  padding-bottom: 32px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -169,7 +172,7 @@ body {
 
 #expenseTable {
   width: 100%;
-  margin-top: 15px;
+  margin-top: 9%;
   border-collapse: collapse;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
@@ -214,7 +217,8 @@ body {
 }
 
 #addExpenseBtn {
-  margin-left: auto
+  margin-left: auto;
+  margin-top: 8%;
 }
 
 #expenseTable .edit-btn, .delete-btn {
@@ -310,6 +314,8 @@ body {
 
 #taxAndIncomeData {
   display: none;
+  margin-bottom: 5%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* ============================= */
@@ -460,6 +466,25 @@ body {
   font-size: 1.2rem; 
   margin-right: 5px;
   color: red; 
+}
+
+#savedRecTitle {
+  font-size: large;
+}
+
+.save-crypto-btn {
+  color: white;
+  background-color: rgb(25, 164, 25);
+  border: none;
+  /* padding: 8px 14px; */
+  margin-top: 7px;
+  border-radius: 5px;
+  cursor: pointer;
+  /* font-size: 20px; */
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  margin-left: 93%;
 }
 
 

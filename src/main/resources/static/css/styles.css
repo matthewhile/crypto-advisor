@@ -247,6 +247,16 @@ body {
 /* ============================= */
 /*      NET INCOME FORM          */
 /* ============================= */
+#netIncomePage{
+  background-image: url("../images/needles.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: black;
+  height: 100vh;
+  width: 100%;
+}
 
 #netIncome {
   margin-left: 40px;
@@ -305,6 +315,25 @@ body {
 /* ============================= */
 /*      PREFERENCES STYLES       */
 /* ============================= */
+
+#preferences {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  /* height: 70vh; */
+  background-color: black;
+  background-image: url("../images/cryptocurrency.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100%;
+}
 
 .preference-form-container {
   /* display: flex;
@@ -437,6 +466,17 @@ body {
 /* ============================= */
 /*           Profile             */
 /* ============================= */
+
+#profile{
+  background-color: black;
+  background-image: url("../images/space.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100%;
+}
 
 #profileContainer .card {
   width: 50rem;
@@ -685,6 +725,22 @@ body {
 /* ================================ */
 /*       CryptoRecommendation Styles  */
 /* ================================ */
+#recommend{
+  background-image: url("../images/void.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: black;
+  height: 100vh;
+  width: 100%;
+}
+
+#recommendationsBtn{
+  display: block;
+  margin: 0 auto;
+  background-color: black;
+}
 
 .crypto-card {
     margin-bottom: 20px;
@@ -699,6 +755,17 @@ h1.text-center {
 /* ============================= */
 /*       Index Styles            */
 /* ============================= */
+
+#index{
+  background-color: black;
+  background-image: url("../images/blocks.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100%;
+}
 
 .dashboard-title {
   text-align-last: center;

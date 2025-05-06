@@ -13,9 +13,9 @@ public interface CryptoDailyPriceRepository extends JpaRepository<CryptoDailyPri
     // Check if a price entry already exists for a given crypto symbol and date
     boolean existsBySymbolAndDate(String symbol, LocalDate date);
 
-    // Optional: fetch all daily prices for a crypto between two dates (for historical volatility calculation)
+    // Fetch all daily prices for a crypto between two dates (for historical volatility calculation)
     List<CryptoDailyPrice> findBySymbolAndDateBetween(String symbol, LocalDate startDate, LocalDate endDate);
 
-    // Optional: fetch all daily prices for a date range across all symbols
+    // Fetch all daily prices for a date range across all symbols
     List<CryptoDailyPrice> findByDateBetween(LocalDate startDate, LocalDate endDate);
 }

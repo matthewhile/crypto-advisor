@@ -127,8 +127,8 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
 function addRecommendationRow(recommendation, tableBody) {
     const row = document.createElement("tr");
     row.innerHTML = `
-        <td>${recommendation.symbolId.toUpperCase()}</td>
         <td>${recommendation.symbolName}</td>
+        <td>${recommendation.symbolId.toUpperCase()}</td>
         <td>${recommendation.dateSaved}</td>
         <td class="delete-recommendation">
             <button class="btn delete-btn" data-id="${recommendation.id}">

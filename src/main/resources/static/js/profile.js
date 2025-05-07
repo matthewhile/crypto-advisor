@@ -52,7 +52,7 @@ function loadIncomeInfo() {
         document.getElementById("state").textContent = data.state;
         document.getElementById("filingStatus").textContent = data.filingStatus;
         document.getElementById("grossIncome").textContent = data.grossIncome.toLocaleString();
-        document.getElementById("netIncome").textContent = data.netIncome.toLocaleString();
+        document.getElementById("profileNetIncome").textContent = data.netIncome.toLocaleString();
     })
     .catch(error => {
         console.error("Error:", error);

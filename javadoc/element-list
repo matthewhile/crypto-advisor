@@ -1,0 +1,7 @@
+com.cryptomaximizer.crypto_maximization_app
+com.cryptomaximizer.crypto_maximization_app.Controller
+com.cryptomaximizer.crypto_maximization_app.Exception
+com.cryptomaximizer.crypto_maximization_app.Model
+com.cryptomaximizer.crypto_maximization_app.Repository
+com.cryptomaximizer.crypto_maximization_app.Security
+com.cryptomaximizer.crypto_maximization_app.Service

@@ -412,7 +412,7 @@ body {
 /* ============================= */
 
 #cryptoContainer .card {
-  width: 50rem;
+  width: 45rem;
   margin-right: auto;
 }
 
@@ -496,7 +496,7 @@ body {
   text-decoration: none;
   text-align: center;
   display: inline-block;
-  margin-left: 93%;
+  /* margin-left: 93%; */
 }
 
 

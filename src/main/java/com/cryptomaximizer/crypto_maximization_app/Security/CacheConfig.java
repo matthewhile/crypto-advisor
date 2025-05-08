@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.concurrent.TimeUnit;
 
+// Cache crypto data for a set amount of time to limit API calls
 @Configuration
 @EnableCaching
 public class CacheConfig {
@@ -18,7 +19,7 @@ public class CacheConfig {
     public CacheManager cacheManager() {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager("marketDataDTO", "chartDataDTO");
         cacheManager.setCaffeine(Caffeine.newBuilder()
-                .expireAfterWrite(2, TimeUnit.HOURS)
+                .expireAfterWrite(1, TimeUnit.HOURS)
                 .maximumSize(100)); // Limit to 100 entries
         return cacheManager;
     }

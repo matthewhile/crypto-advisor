@@ -25,7 +25,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    // Allows Spring Security to retrieve user credentials
+    // Retrieve user credentials
     public UserDetailsService userDetailsService() {
         return userService;
     }

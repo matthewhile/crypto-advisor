@@ -29,8 +29,7 @@ public class RecommendationService {
         // Convert the set of map entries into a list to sort
         List<Map.Entry<ScoredCryptoDTO, Double>> sortedEntries = new ArrayList<>(scoreDifferences.entrySet());
 
-        // Sort the list in ascending order of score difference (closest matches at the
-        // beginning)
+        // Sort the list in ascending order of score difference (closest matches at the beginning)
         sortedEntries.sort(Map.Entry.comparingByValue());
 
         List<ScoredCryptoDTO> topMatches = new ArrayList<>();

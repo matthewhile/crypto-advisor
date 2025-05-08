@@ -17,6 +17,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    // Load the user by username
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -32,7 +33,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    // Retrieve the currently authenticated user
+    // Retrieve the current authenticated user
     public User getAuthenticatedUser(Authentication authentication) {
         String username = authentication.getName();
         return userRepository.findByUsername(username)

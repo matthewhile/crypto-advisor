@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+// Test exceptions for core functions
 @Profile("exception-test")
 @Component
 public class CoreFunctionExceptionRunner implements CommandLineRunner {
@@ -38,6 +39,7 @@ public class CoreFunctionExceptionRunner implements CommandLineRunner {
     @Autowired
     private CryptoScoringService cryptoScoringService;
 
+    // Intentionally trigger exceptions to test core functions
     @Override
     public void run(String... args) {
         try {

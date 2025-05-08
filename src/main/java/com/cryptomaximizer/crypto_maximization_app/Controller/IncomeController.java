@@ -34,6 +34,7 @@ public class IncomeController {
         return ResponseEntity.ok(savedIncome);
     }
 
+    // Retrieve stored user income
     @GetMapping
     public ResponseEntity<Income> getIncome(Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
@@ -41,6 +42,7 @@ public class IncomeController {
         return ResponseEntity.ok(income);
     }
 
+    // Get user tax data from the tax API call
     @GetMapping("/taxes")
     public ResponseEntity<IncomeCalculationDTO> getIncomeTaxes(Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);

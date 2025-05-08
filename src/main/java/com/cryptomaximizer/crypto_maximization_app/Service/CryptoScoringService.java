@@ -118,7 +118,6 @@ public class CryptoScoringService {
             historicalVolatilitySum += (price.getHigh24h() - price.getLow24h());
         }
         double historicalAverageVolatility = historicalPrices.isEmpty() ? 0.0 : historicalVolatilitySum / historicalPrices.size();
-        //System.out.println("Historical average volatility for " + crypto.getName() + " is " + historicalAverageVolatility);
 
         double priceChangeVolatilityToday = crypto.getHigh24h() - crypto.getLow24h();
         double percentChangeVolatilityToday = Math.abs(crypto.getPriceChangePercentage24h());

@@ -13,6 +13,7 @@ public class PreferenceDataService {
     @Autowired
     private PreferenceRepository preferenceRepository;
 
+    // Save new preference or update existing saved preference for the user
     public Preference saveOrUpdatePreferences(User user, Preference newPreference) {
         Preference existingPreferences = preferenceRepository.findByUser(user);
 
@@ -35,6 +36,7 @@ public class PreferenceDataService {
         return preferenceRepository.save(existingPreferences);
     }
 
+    // Get the saved preferences for the user
     public Preference getPreferencesForUser(User user) {
         Preference preference = preferenceRepository.findByUser(user);
         if (preference == null) {

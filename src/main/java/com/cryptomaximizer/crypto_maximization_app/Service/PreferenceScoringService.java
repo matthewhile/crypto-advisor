@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PreferenceScoringService {
 
+    // Calculate total user preference score
     public ScoredPreferenceDTO calculatePreferenceScore(Preference preference) {
         // Weights are likely to change throughout development / testing process
         double riskScore = scoreRiskTolerance(preference.getRiskTolerance());
@@ -24,6 +25,7 @@ public class PreferenceScoringService {
         return new ScoredPreferenceDTO(riskScore, frequencyScore, timeFrameScore, amountScore, total);
     }
 
+    // Score risk tolerance
     public double scoreRiskTolerance(String riskTolerance) {
         if (riskTolerance == null) {
             throw new IllegalArgumentException("Risk tolerance cannot be null.");
@@ -41,7 +43,7 @@ public class PreferenceScoringService {
         }
     }
 
-
+    // Score investment frequency
     public double scoreFrequency(String frequency) {
         /* Weights for frequency are determined based on the idea that a user investing (daily, weekly)
         * aligns with more liquid or volatile assets while a user investing (monthly, yearly, one-time)
@@ -65,6 +67,7 @@ public class PreferenceScoringService {
         }
     }
 
+    // Score time frame
     public double scoreTimeFrame(String timeFrame) {
         // Shorter terms are weighted closer to 0, longer terms are weighted closer to 1
         if (timeFrame == null) {
@@ -82,6 +85,7 @@ public class PreferenceScoringService {
         }
     }
 
+    // Score investment amount
     public double scoreInvestmentAmount(double amount) {
         // Lower amounts are weighted closer to 1, higher amounts are weighted closer to 0
         if (amount < 1) {
@@ -94,6 +98,7 @@ public class PreferenceScoringService {
         else return 0.0;
     }
 
+    // Dynamically generate an explanation for the recommendation based on user's preference score
     public String generateExplanation(ScoredPreferenceDTO scoredPreference, Preference preference) {
         double total = scoredPreference.getTotalScore();
         double amount = preference.getInvestmentAmount();

@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 @EnableScheduling
 public class CryptoApplication {
-
 	public static void main(String[] args) {
 
 		SpringApplication.run(CryptoApplication.class, args);

@@ -30,6 +30,7 @@ public class UserController {
         return userRepository.save(user);
     }
 
+    // Get the user data
     @GetMapping("/user")
     public ResponseEntity<?> getUserDetails(Authentication authentication) {
         String username = authentication.getName();

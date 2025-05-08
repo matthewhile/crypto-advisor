@@ -40,6 +40,7 @@ public class RecommendationController {
         this.cryptoScoringService = cryptoScoringService;
     }
 
+    // Get the calculated crypto recommendations for the given user
     @GetMapping
     public ResponseEntity<RecommendationRespDTO> getTopCryptoMatches(Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
@@ -60,6 +61,7 @@ public class RecommendationController {
         return ResponseEntity.ok(response);
     }
 
+    // Load saved crypto recommendations
     @GetMapping("/load")
     public ResponseEntity<List<Recommendation>> loadRecommendations(Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);
@@ -67,6 +69,7 @@ public class RecommendationController {
         return ResponseEntity.ok(recommendations);
     }
 
+    // Save a crypto recommendation
     @PostMapping("/save")
     public ResponseEntity<Recommendation> saveRecommendation(@RequestBody Recommendation recommendation, Authentication authentication) {
         User user = userService.getAuthenticatedUser(authentication);

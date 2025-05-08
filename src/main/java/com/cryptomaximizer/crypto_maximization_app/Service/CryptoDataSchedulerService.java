@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+// Scheduled task to save 24 hour crypto price data on a daily basis
 @Service
 public class CryptoDataSchedulerService {
 

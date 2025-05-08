@@ -39,7 +39,7 @@ public class IncomeService {
         String state = income.getState();
         String filing_status = income.getFilingStatus();
         double standardDeduction = 0;
-
+        // Determine the filing status and standard deduction for the user's taxes
         try {
             switch (filing_status) {
                 case ("Single"):
@@ -60,6 +60,7 @@ public class IncomeService {
 
             double taxableIncome = grossIncome - standardDeduction;
 
+            // Call the tax API with the user income inputs
             String url = UriComponentsBuilder
                     .fromUriString("https://api.api-ninjas.com/v1/incometaxcalculator")
                     .queryParam("country", "US")
@@ -105,8 +106,8 @@ public class IncomeService {
             } catch (Exception e) {
                 throw new NoTaxDataAvailableException("An error occurred while calling the tax calculator API.");
             }
-
             return dto;
+
         } catch (Exception e) {
             throw new NoTaxDataAvailableException("An error occured while attempting to calculate tax data");
         }
@@ -152,6 +153,7 @@ public class IncomeService {
         }
     }
 
+    // Save new tax info or update existing saved tax info
     public Income saveOrUpdateTaxInfo(User user, Income newIncome) {
         Income existingIncome = incomeRepository.findByUser(user);
 
@@ -166,6 +168,7 @@ public class IncomeService {
         return incomeRepository.save(existingIncome);
     }
 
+    // Retrieve the tax/income data for the given user
     public Income getTaxInfoForUser(User user) {
         Income income = incomeRepository.findByUser(user);
         if (income == null) {

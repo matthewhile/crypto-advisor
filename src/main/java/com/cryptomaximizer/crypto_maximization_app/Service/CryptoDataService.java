@@ -28,6 +28,7 @@ public class CryptoDataService {
         this.restTemplate = restTemplate;
     }
 
+    // Retrieve the market data for each crypto passed into CoinGecko API
     @Cacheable("marketDataDTO")
     public List<MarketDataDTO> getMarketData() {
         List<String> symbols = Arrays.asList(defaultSymbols.split(","));
@@ -56,10 +57,11 @@ public class CryptoDataService {
             return Arrays.asList(response);
 
         } catch (Exception e) {
-            //throw new NoCryptoDataAvailableException("Error fetching (market) data from CoinGecko API: " + e.getMessage());
             throw new NoCryptoDataAvailableException("An error occurred fetching (market) data from CoinGecko API");
         }
     }
+
+    // Retrieve the chart data for each crypto passed into CoinGecko API
     @Cacheable("chartDataDTO")
     public Map<String, ChartDataDTO> getMarketChart() {
         Map<String, ChartDataDTO> chartDataMap = new HashMap<>();
@@ -76,9 +78,6 @@ public class CryptoDataService {
                     .queryParam("interval", "daily")
                     .queryParam("x_cg_demo_api_key", apiKey)
                     .toUriString();
-
-//            ChartDataDTO chartData = restTemplate.getForObject(url, ChartDataDTO.class);
-//            chartDataMap.put(symbol, chartData);
 
             try {
                 ChartDataDTO chartData = restTemplate.getForObject(url, ChartDataDTO.class);

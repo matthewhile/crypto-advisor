@@ -48,12 +48,14 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
             const crypto = item.crypto;
             const score = item.score;
 
+			const canvasId = `chart-${crypto.symbol}`;
+			
             let cryptoCard = document.createElement("div");
             cryptoCard.className = "card crypto-card";
             cryptoCard.innerHTML = `
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <h5 class="card-title"> <img src="${crypto.image}" alt="${crypto.name}" style="width:30px; height:30px;">
                             ${crypto.name} (${crypto.symbol.toUpperCase()})</h5>
                             <p class="card-text">Price: $${crypto.current_price.toLocaleString()}</p>
@@ -63,10 +65,53 @@ document.getElementById('recommendationsBtn').addEventListener('click', function
                         <div>
                             <button class="save-crypto-btn" type="button" data-id="${crypto.symbol}" data-name="${crypto.name}">Save</button>
                         </div>
+						<div class="col-md-8">
+						<canvas id="${canvasId}" height="150"></canvas>
+						</div>
                     </div>
                 </div>
             `;
             cryptoContainer.appendChild(cryptoCard);
+			
+			// Fetch and render chart
+						fetch(`https://api.coingecko.com/api/v3/coins/${crypto.id}/market_chart?vs_currency=usd&days=30&interval=daily`)
+			                .then(resp => resp.json())
+			                .then(chartData => {
+			                    const labels = chartData.prices.map(p => new Date(p[0]).toLocaleDateString());
+			                    const prices = chartData.prices.map(p => p[1]);
+
+			                    new Chart(document.getElementById(canvasId).getContext("2d"), {
+			                        type: 'line',
+			                        data: {
+			                            labels: labels,
+			                            datasets: [{
+			                                label: `${crypto.name} (Last 30 Days)`,
+			                                data: prices,
+			                                borderColor: 'blue',
+			                                borderWidth: 2,
+			                                tension: 0.3,
+			                                pointRadius: 2,
+			                                fill: false
+			                            }]
+			                        },
+			                        options: {
+			                            responsive: true,
+			                            maintainAspectRatio: true,
+			                            scales: {
+			                                x: {
+			                                    title: { display: true, text: 'Date' },
+			                                    ticks: { maxTicksLimit: 10 }
+			                                },
+			                                y: {
+			                                    title: { display: true, text: 'Price (USD)' }
+			                                }
+			                            }
+			                        }
+			                    });
+			                })
+			                .catch(error => {
+			                    console.error(`Error rendering chart for ${crypto.id}:`, error);
+			                });
         });
          // Save individual recommendation when save button is clicked
          document.querySelectorAll(".save-crypto-btn").forEach(button => {
